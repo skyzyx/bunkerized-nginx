@@ -163,15 +163,15 @@ En spécifiant l'URI de base de données appropriée dans la configuration, vous
 
 ### Matrice de compatibilité des bases de données
 
-| Integration       | PostgreSQL                       | MariaDB                   | MySQL                     | SQLite           |
-| :---------------- | :------------------------------- | :------------------------ | :------------------------ | :--------------- |
-| **Docker**        | ✅ `v17` et antérieures (❌ `v18`) | ✅ `v11` et antérieures    | ✅ `v9` et antérieures     | ✅ Pris en charge |
-| **Kubernetes**    | ✅ `v17` et antérieures (❌ `v18`) | ✅ `v11` et antérieures    | ✅ `v9` et antérieures     | ✅ Pris en charge |
-| **Autoconf**      | ✅ `v17` et antérieures (❌ `v18`) | ✅ `v11` et antérieures    | ✅ `v9` et antérieures     | ✅ Pris en charge |
-| **Paquets Linux** | Voir les notes ci-dessous        | Voir les notes ci-dessous | Voir les notes ci-dessous | ✅ Pris en charge |
+| Integration       | PostgreSQL            | MariaDB                   | MySQL                     | SQLite           |
+| :---------------- | :-------------------- | :------------------------ | :------------------------ | :--------------- |
+| **Docker**        | ✅ `v18` et antérieures | ✅ `v11` et antérieures    | ✅ `v9` et antérieures     | ✅ Pris en charge |
+| **Kubernetes**    | ✅ `v18` et antérieures | ✅ `v11` et antérieures    | ✅ `v9` et antérieures     | ✅ Pris en charge |
+| **Autoconf**      | ✅ `v18` et antérieures | ✅ `v11` et antérieures    | ✅ `v9` et antérieures     | ✅ Pris en charge |
+| **Paquets Linux** | Voir les notes ci-dessous | Voir les notes ci-dessous | Voir les notes ci-dessous | ✅ Pris en charge |
 
 !!! info "Remarques"
-    - **PostgreSQL** : `v18` n'est pas pris en charge car les images de base Alpine que nous livrons n'incluent que les paquets clients `v17`.
+    - **PostgreSQL** : les paquets basés sur Alpine incluent désormais le client `v18`, donc `v18` et les versions antérieures sont pris en charge par défaut.
     - **Linux** : La prise en charge dépend des paquets de votre distribution. Si nécessaire, vous pouvez installer les clients de base de données manuellement à partir des dépôts des fournisseurs (cela est généralement nécessaire pour RHEL).
     - **SQLite** : Est livré avec les paquets et est prêt à l'emploi.
 

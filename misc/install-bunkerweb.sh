@@ -570,7 +570,7 @@ check_supported_os() {
                     fi
                 fi
             fi
-            NGINX_VERSION="1.28.0"
+            NGINX_VERSION="1.28.1"
             ;;
         "rhel"|"rocky"|"almalinux")
             major_version=$(echo "$DISTRO_VERSION" | cut -d. -f1)

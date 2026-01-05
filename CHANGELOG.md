@@ -1,6 +1,11 @@
 # Changelog
 
-## v1.6.7~rc1 - ????/??/??
+## v1.6.7~rc2 - 2026/01/??
+
+- [BUGFIX] Fix wrong certificate name checks in Let's Encrypt
+- [LINUX] Updated NGINX version to v1.28.1 for Fedora
+
+## v1.6.7~rc1 - 2025/12/17
 
 - [FEATURE] Refactor logging setup across multiple modules to be able to send logs to a syslog server and have multiple handlers at the same time
 - [FEATURE] Allow configuration of whether Base64 decoding should be applied to DNS credentials via the new `LETS_ENCRYPT_DNS_CREDENTIAL_DECODE_BASE64` setting in the `Let's Encrypt` plugin (default is `yes`)

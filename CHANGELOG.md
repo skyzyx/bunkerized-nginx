@@ -4,6 +4,7 @@
 
 - [BUGFIX] Fix wrong certificate name checks in Let's Encrypt
 - [LINUX] Updated NGINX version to v1.28.1 for Fedora
+- [DEPS] Updated luajit2 version to v2.1-20251229
 
 ## v1.6.7~rc1 - 2025/12/17
 

@@ -534,6 +534,7 @@ show_rhel_database_warning() {
         read -p "Press Enter to continue..." -r
     fi
 }
+
 check_supported_os() {
     case "$DISTRO_ID" in
         "debian")
@@ -546,7 +547,7 @@ check_supported_os() {
                     fi
                 fi
             fi
-            NGINX_VERSION="1.28.0-1~$DISTRO_CODENAME"
+            NGINX_VERSION="1.28.1-1~$DISTRO_CODENAME"
             ;;
         "ubuntu")
             if [[ "$DISTRO_VERSION" != "22.04" && "$DISTRO_VERSION" != "24.04" ]]; then
@@ -558,7 +559,7 @@ check_supported_os() {
                     fi
                 fi
             fi
-            NGINX_VERSION="1.28.0-1~$DISTRO_CODENAME"
+            NGINX_VERSION="1.28.1-1~$DISTRO_CODENAME"
             ;;
         "fedora")
             if [[ "$DISTRO_VERSION" != "41" && "$DISTRO_VERSION" != "42" && "$DISTRO_VERSION" != "43" ]]; then
@@ -570,13 +571,7 @@ check_supported_os() {
                     fi
                 fi
             fi
-            # Note: Fedora 42 and 43 have removed NGINX 1.28.0 from their mirrors,
-            # so NGINX 1.28.1 is required for these versions. Fedora 41 still has 1.28.0.
-            if [ "$DISTRO_VERSION" != "41" ]; then
-                NGINX_VERSION="1.28.1"
-            else
-                NGINX_VERSION="1.28.0"
-            fi
+            NGINX_VERSION="1.28.1"
             ;;
         "rhel"|"rocky"|"almalinux")
             major_version=$(echo "$DISTRO_VERSION" | cut -d. -f1)
@@ -589,7 +584,7 @@ check_supported_os() {
                     fi
                 fi
             fi
-            NGINX_VERSION="1.28.0"
+            NGINX_VERSION="1.28.1"
             ;;
         *)
             print_error "Unsupported operating system: $DISTRO_ID"

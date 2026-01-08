@@ -1773,51 +1773,51 @@ The scheduler is the control-plane worker that reads settings, renders configs, 
 
 ##### Runtime & safety
 
-| Setting                         | Description                                                                           | Accepted values      | Default |
-| ------------------------------- | ------------------------------------------------------------------------------------- | -------------------- | ------- |
-| `HEALTHCHECK_INTERVAL`          | Seconds between scheduler health checks                                               | Integer seconds                        | `30`    |
-| `RELOAD_MIN_TIMEOUT`            | Minimum seconds between successive reloads                                            | Integer seconds                        | `5`     |
-| `DISABLE_CONFIGURATION_TESTING` | Skip config tests before applying                                                     | `yes` or `no`                          | `no`    |
-| `IGNORE_FAIL_SENDING_CONFIG`    | Proceed even if some instances fail to receive a config                              | `yes` or `no`                          | `no`    |
-| `IGNORE_REGEX_CHECK`            | Skip regex validation for settings (shared with autoconf)                             | `yes` or `no`                          | `no`    |
-| `TZ`                            | Time zone for scheduler logs, cron-like jobs, backups, and timestamps                 | TZ database name (e.g., `UTC`, `Europe/Paris`) | unset (container default, usually UTC) |
+| Setting                         | Description                                                           | Accepted values                                | Default                                |
+| ------------------------------- | --------------------------------------------------------------------- | ---------------------------------------------- | -------------------------------------- |
+| `HEALTHCHECK_INTERVAL`          | Seconds between scheduler health checks                               | Integer seconds                                | `30`                                   |
+| `RELOAD_MIN_TIMEOUT`            | Minimum seconds between successive reloads                            | Integer seconds                                | `5`                                    |
+| `DISABLE_CONFIGURATION_TESTING` | Skip config tests before applying                                     | `yes` or `no`                                  | `no`                                   |
+| `IGNORE_FAIL_SENDING_CONFIG`    | Proceed even if some instances fail to receive a config               | `yes` or `no`                                  | `no`                                   |
+| `IGNORE_REGEX_CHECK`            | Skip regex validation for settings (shared with autoconf)             | `yes` or `no`                                  | `no`                                   |
+| `TZ`                            | Time zone for scheduler logs, cron-like jobs, backups, and timestamps | TZ database name (e.g., `UTC`, `Europe/Paris`) | unset (container default, usually UTC) |
 
 ##### Database
 
-| Setting                 | Description                                                                       | Accepted values         | Default                                   |
-| ----------------------- | --------------------------------------------------------------------------------- | ----------------------- | ----------------------------------------- |
-| `DATABASE_URI`          | Primary database DSN (shared with autoconf and instances)                         | SQLAlchemy DSN          | `sqlite:////var/lib/bunkerweb/db.sqlite3` |
+| Setting                 | Description                                                                         | Accepted values         | Default                                   |
+| ----------------------- | ----------------------------------------------------------------------------------- | ----------------------- | ----------------------------------------- |
+| `DATABASE_URI`          | Primary database DSN (shared with autoconf and instances)                           | SQLAlchemy DSN          | `sqlite:////var/lib/bunkerweb/db.sqlite3` |
 | `DATABASE_URI_READONLY` | Optional read-only DSN; scheduler drops to read-only mode if this is all that works | SQLAlchemy DSN or empty | unset                                     |
 
 ##### Logging
 
-| Setting                  | Description                                              | Accepted values                                  | Default                                |
-| ------------------------ | -------------------------------------------------------- | ------------------------------------------------ | -------------------------------------- |
-| `LOG_LEVEL`, `CUSTOM_LOG_LEVEL` | Base/override log level                           | `debug`, `info`, `warning`, `error`, `critical`  | `info`                                 |
-| `LOG_TYPES`              | Destinations                                             | Space-separated `stderr`/`file`/`syslog`         | `stderr`                               |
-| `SCHEDULER_LOG_TO_FILE`  | Enable file logging and default path                     | `yes` or `no`                                    | `no`                                   |
-| `LOG_FILE_PATH`          | Custom log file path (used when `LOG_TYPES` includes file) | File path                                        | `/var/log/bunkerweb/scheduler.log` when `SCHEDULER_LOG_TO_FILE=yes`, else unset |
-| `LOG_SYSLOG_ADDRESS`     | Syslog target (`udp://host:514`, `tcp://host:514`, or socket path) | Host:port, proto-prefixed host, or socket path | unset                                  |
-| `LOG_SYSLOG_TAG`         | Syslog ident/tag                                         | String                                           | `bw-scheduler`                         |
+| Setting                         | Description                                                        | Accepted values                                 | Default                                                                         |
+| ------------------------------- | ------------------------------------------------------------------ | ----------------------------------------------- | ------------------------------------------------------------------------------- |
+| `LOG_LEVEL`, `CUSTOM_LOG_LEVEL` | Base/override log level                                            | `debug`, `info`, `warning`, `error`, `critical` | `info`                                                                          |
+| `LOG_TYPES`                     | Destinations                                                       | Space-separated `stderr`/`file`/`syslog`        | `stderr`                                                                        |
+| `SCHEDULER_LOG_TO_FILE`         | Enable file logging and default path                               | `yes` or `no`                                   | `no`                                                                            |
+| `LOG_FILE_PATH`                 | Custom log file path (used when `LOG_TYPES` includes file)         | File path                                       | `/var/log/bunkerweb/scheduler.log` when `SCHEDULER_LOG_TO_FILE=yes`, else unset |
+| `LOG_SYSLOG_ADDRESS`            | Syslog target (`udp://host:514`, `tcp://host:514`, or socket path) | Host:port, proto-prefixed host, or socket path  | unset                                                                           |
+| `LOG_SYSLOG_TAG`                | Syslog ident/tag                                                   | String                                          | `bw-scheduler`                                                                  |
 
 ### UI container settings
 
 The UI container also honors `TZ` to localize logs and scheduled maintenance tasks (such as cleanup jobs initiated by the UI).
 
-| Setting | Description                                 | Accepted values                                | Default                                  |
-| ------- | ------------------------------------------- | ---------------------------------------------- | ---------------------------------------- |
-| `TZ`    | Time zone for UI logs and scheduled actions | TZ database name (e.g., `UTC`, `Europe/Paris`) | unset (container default, usually UTC)   |
+| Setting | Description                                 | Accepted values                                | Default                                |
+| ------- | ------------------------------------------- | ---------------------------------------------- | -------------------------------------- |
+| `TZ`    | Time zone for UI logs and scheduled actions | TZ database name (e.g., `UTC`, `Europe/Paris`) | unset (container default, usually UTC) |
 
 #### Logging
 
-| Setting                         | Description                                                | Accepted values                          | Default                                    |
-| ------------------------------- | ---------------------------------------------------------- | ---------------------------------------- | ------------------------------------------ |
-| `LOG_LEVEL`, `CUSTOM_LOG_LEVEL` | Base log level / override                                  | `debug`, `info`, `warning`, `error`, `critical` | `info`                                     |
-| `LOG_TYPES`                     | Destinations                                               | Space-separated `stderr`/`file`/`syslog` | `stderr`                                   |
-| `LOG_FILE_PATH`                 | Path for file logging (used when `LOG_TYPES` includes file or `CAPTURE_OUTPUT=yes`) | File path                                | `/var/log/bunkerweb/ui.log` when file/capture enabled, else unset |
-| `LOG_SYSLOG_ADDRESS`            | Syslog target (`udp://host:514`, `tcp://host:514`, socket) | Host:port, proto-prefixed host, or path  | unset                                      |
-| `LOG_SYSLOG_TAG`                | Syslog ident/tag                                           | String                                   | `bw-ui`                                    |
-| `CAPTURE_OUTPUT`                | Send Gunicorn stdout/stderr to the configured log outputs  | `yes` or `no`                            | `no`                                       |
+| Setting                         | Description                                                                         | Accepted values                                 | Default                                                           |
+| ------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------- | ----------------------------------------------------------------- |
+| `LOG_LEVEL`, `CUSTOM_LOG_LEVEL` | Base log level / override                                                           | `debug`, `info`, `warning`, `error`, `critical` | `info`                                                            |
+| `LOG_TYPES`                     | Destinations                                                                        | Space-separated `stderr`/`file`/`syslog`        | `stderr`                                                          |
+| `LOG_FILE_PATH`                 | Path for file logging (used when `LOG_TYPES` includes file or `CAPTURE_OUTPUT=yes`) | File path                                       | `/var/log/bunkerweb/ui.log` when file/capture enabled, else unset |
+| `LOG_SYSLOG_ADDRESS`            | Syslog target (`udp://host:514`, `tcp://host:514`, socket)                          | Host:port, proto-prefixed host, or path         | unset                                                             |
+| `LOG_SYSLOG_TAG`                | Syslog ident/tag                                                                    | String                                          | `bw-ui`                                                           |
+| `CAPTURE_OUTPUT`                | Send Gunicorn stdout/stderr to the configured log outputs                           | `yes` or `no`                                   | `no`                                                              |
 
 ### Networks
 
@@ -2225,7 +2225,7 @@ Depending on your installation type:
 
 ### Installation using package manager
 
-Please ensure that you have **NGINX 1.28.0 installed before installing BunkerWeb**. For all distributions, except Fedora, it is mandatory to use prebuilt packages from the [official NGINX repository](https://nginx.org/en/linux_packages.html). Compiling NGINX from source or using packages from different repositories will not work with the official prebuilt packages of BunkerWeb. However, you have the option to build BunkerWeb from source.
+Please ensure that you have **NGINX 1.28.1 installed before installing BunkerWeb**. For all distributions, except Fedora, it is mandatory to use prebuilt packages from the [official NGINX repository](https://nginx.org/en/linux_packages.html). Compiling NGINX from source or using packages from different repositories will not work with the official prebuilt packages of BunkerWeb. However, you have the option to build BunkerWeb from source.
 
 === "Debian Bookworm/Trixie"
 
@@ -2240,11 +2240,11 @@ Please ensure that you have **NGINX 1.28.0 installed before installing BunkerWeb
     | sudo tee /etc/apt/sources.list.d/nginx.list
     ```
 
-    You should now be able to install NGINX 1.28.0:
+    You should now be able to install NGINX 1.28.1:
 
     ```shell
     sudo apt update && \
-    sudo apt install -y --allow-downgrades nginx=1.28.0-1~$(lsb_release -cs)
+    sudo apt install -y --allow-downgrades nginx=1.28.1-1~$(lsb_release -cs)
     ```
 
     !!! warning "Testing/dev version"
@@ -2288,11 +2288,11 @@ Please ensure that you have **NGINX 1.28.0 installed before installing BunkerWeb
     | sudo tee /etc/apt/sources.list.d/nginx.list
     ```
 
-    You should now be able to install NGINX 1.28.0:
+    You should now be able to install NGINX 1.28.1:
 
     ```shell
     sudo apt update && \
-    sudo apt install -y --allow-downgrades nginx=1.28.0-1~$(lsb_release -cs)
+    sudo apt install -y --allow-downgrades nginx=1.28.1-1~$(lsb_release -cs)
     ```
 
     !!! warning "Testing/dev version"
@@ -2332,22 +2332,11 @@ Please ensure that you have **NGINX 1.28.0 installed before installing BunkerWeb
         sudo dnf config-manager setopt updates-testing.enabled=1
         ```
 
-    Fedora already provides NGINX that we support. Choose your Fedora version below to install the correct NGINX package:
+    Fedora already provides NGINX 1.28.1 that we support
 
-    === "Fedora 41"
-
-        ```shell
-        sudo dnf install -y --allowerasing nginx-1.28.0
-        ```
-
-    === "Fedora 42 / 43"
-
-        !!! warning "NGINX 1.28.0 no longer available"
-            Fedora 42 and 43 have removed NGINX 1.28.0 from their mirrors. You must install NGINX 1.28.1 instead.
-
-        ```shell
-        sudo dnf install -y --allowerasing nginx-1.28.1
-        ```
+    ```shell
+    sudo dnf install -y --allowerasing nginx-1.28.1
+    ```
 
     !!! example "Disable the setup wizard"
         If you don't want to use the setup wizard of the web UI when BunkerWeb is installed, export the following variable:
@@ -2393,10 +2382,10 @@ Please ensure that you have **NGINX 1.28.0 installed before installing BunkerWeb
     module_hotfixes=true
     ```
 
-    You should now be able to install NGINX 1.28.0:
+    You should now be able to install NGINX 1.28.1:
 
     ```shell
-    sudo dnf install --allowerasing nginx-1.28.0
+    sudo dnf install --allowerasing nginx-1.28.1
     ```
 
     !!! example "Disable the setup wizard"
@@ -2627,33 +2616,33 @@ The `bw-autoconf` controller watches your orchestrator and writes changes to the
 
 ##### Mode & runtime
 
-| Setting               | Description                                       | Accepted values                     | Default                       |
-| --------------------- | ------------------------------------------------- | ----------------------------------- | ----------------------------- |
-| `AUTOCONF_MODE`       | Enable the autoconf controller                    | `yes` or `no`                       | `no`                          |
-| `SWARM_MODE`          | Watch Swarm services instead of Docker containers | `yes` or `no`                       | `no`                          |
-| `KUBERNETES_MODE`     | Watch Kubernetes ingresses/pods instead of Docker | `yes` or `no`                       | `no`                          |
-| `DOCKER_HOST`         | Docker socket / remote API URL                    | e.g., `unix:///var/run/docker.sock` | `unix:///var/run/docker.sock` |
-| `WAIT_RETRY_INTERVAL` | Seconds between readiness checks for instances    | Integer seconds                     | `5`                           |
-| `LOG_SYSLOG_TAG`      | Syslog tag for autoconf logs                      | String                              | `bw-autoconf`                 |
+| Setting               | Description                                       | Accepted values                         | Default                                |
+| --------------------- | ------------------------------------------------- | --------------------------------------- | -------------------------------------- |
+| `AUTOCONF_MODE`       | Enable the autoconf controller                    | `yes` or `no`                           | `no`                                   |
+| `SWARM_MODE`          | Watch Swarm services instead of Docker containers | `yes` or `no`                           | `no`                                   |
+| `KUBERNETES_MODE`     | Watch Kubernetes ingresses/pods instead of Docker | `yes` or `no`                           | `no`                                   |
+| `DOCKER_HOST`         | Docker socket / remote API URL                    | e.g., `unix:///var/run/docker.sock`     | `unix:///var/run/docker.sock`          |
+| `WAIT_RETRY_INTERVAL` | Seconds between readiness checks for instances    | Integer seconds                         | `5`                                    |
+| `LOG_SYSLOG_TAG`      | Syslog tag for autoconf logs                      | String                                  | `bw-autoconf`                          |
 | `TZ`                  | Time zone used for autoconf logs and timestamps   | TZ database name (e.g., `Europe/Paris`) | unset (container default, usually UTC) |
 
 ##### Database & validation
 
-| Setting                 | Description                                                                        | Accepted values                | Default                                   |
-| ----------------------- | ---------------------------------------------------------------------------------- | ------------------------------ | ----------------------------------------- |
-| `DATABASE_URI`          | Primary database DSN (must match the scheduler DB)                                 | SQLAlchemy DSN                 | `sqlite:////var/lib/bunkerweb/db.sqlite3` |
-| `DATABASE_URI_READONLY` | Optional read-only DSN; autoconf falls back to read-only if this is all that works | SQLAlchemy DSN or empty        | unset                                     |
-| `IGNORE_REGEX_CHECK`    | Skip regex validation for settings coming from labels/annotations                  | `yes` or `no`                  | `no`                                      |
+| Setting                 | Description                                                                        | Accepted values         | Default                                   |
+| ----------------------- | ---------------------------------------------------------------------------------- | ----------------------- | ----------------------------------------- |
+| `DATABASE_URI`          | Primary database DSN (must match the scheduler DB)                                 | SQLAlchemy DSN          | `sqlite:////var/lib/bunkerweb/db.sqlite3` |
+| `DATABASE_URI_READONLY` | Optional read-only DSN; autoconf falls back to read-only if this is all that works | SQLAlchemy DSN or empty | unset                                     |
+| `IGNORE_REGEX_CHECK`    | Skip regex validation for settings coming from labels/annotations                  | `yes` or `no`           | `no`                                      |
 
 ##### Logging
 
-| Setting                         | Description                                                | Accepted values                          | Default                                      |
-| ------------------------------- | ---------------------------------------------------------- | ---------------------------------------- | -------------------------------------------- |
-| `LOG_LEVEL`, `CUSTOM_LOG_LEVEL` | Base log level / override                                  | `debug`, `info`, `warning`, `error`, `critical` | `info`                                       |
-| `LOG_TYPES`                     | Destinations                                               | Space-separated `stderr`/`file`/`syslog` | `stderr`                                     |
-| `LOG_FILE_PATH`                 | Path for file logging (set when `LOG_TYPES` includes file) | File path                                | unset (set your own when enabling `file`)    |
-| `LOG_SYSLOG_ADDRESS`            | Syslog target (`udp://host:514`, `tcp://host:514`, socket) | Host:port, proto-prefixed host, or path  | unset                                        |
-| `LOG_SYSLOG_TAG`                | Syslog ident/tag                                           | String                                   | `bw-autoconf`                                |
+| Setting                         | Description                                                | Accepted values                                 | Default                                   |
+| ------------------------------- | ---------------------------------------------------------- | ----------------------------------------------- | ----------------------------------------- |
+| `LOG_LEVEL`, `CUSTOM_LOG_LEVEL` | Base log level / override                                  | `debug`, `info`, `warning`, `error`, `critical` | `info`                                    |
+| `LOG_TYPES`                     | Destinations                                               | Space-separated `stderr`/`file`/`syslog`        | `stderr`                                  |
+| `LOG_FILE_PATH`                 | Path for file logging (set when `LOG_TYPES` includes file) | File path                                       | unset (set your own when enabling `file`) |
+| `LOG_SYSLOG_ADDRESS`            | Syslog target (`udp://host:514`, `tcp://host:514`, socket) | Host:port, proto-prefixed host, or path         | unset                                     |
+| `LOG_SYSLOG_TAG`                | Syslog ident/tag                                           | String                                          | `bw-autoconf`                             |
 
 ##### Scope & discovery filters
 
@@ -2666,17 +2655,17 @@ The `bw-autoconf` controller watches your orchestrator and writes changes to the
 
 ##### Kubernetes-only
 
-| Setting                                 | Description                                                                                       | Accepted values                | Default             |
-| --------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------ | ------------------- |
-| `KUBERNETES_VERIFY_SSL`                 | Verify Kubernetes API TLS                                                                         | `yes` or `no`                 | `yes`               |
-| `KUBERNETES_SSL_CA_CERT`                | Path to a custom CA bundle for the Kubernetes API                                                 | File path                      | unset               |
-| `USE_KUBERNETES_FQDN`                   | Use `<pod>.<ns>.pod.<domain>` instead of Pod IP as instance hostname                              | `yes` or `no`                 | `yes`               |
-| `KUBERNETES_INGRESS_CLASS`              | Only process ingresses with this class                                                            | String                         | unset (all classes) |
-| `KUBERNETES_DOMAIN_NAME`                | Cluster domain suffix used when building upstream hosts                                           | String                         | `cluster.local`     |
-| `KUBERNETES_SERVICE_PROTOCOL`           | Scheme used for generated reverse proxy hosts                                                     | `http` or `https`              | `http`              |
-| `BUNKERWEB_SERVICE_NAME`                | Service name to read when patching Ingress status with the load balancer address                  | String                         | `bunkerweb`         |
-| `BUNKERWEB_NAMESPACE`                   | Namespace of that Service                                                                         | String                         | `bunkerweb`         |
-| `KUBERNETES_REVERSE_PROXY_SUFFIX_START` | Starting index for generated `REVERSE_PROXY_HOST_n`/`REVERSE_PROXY_URL_n` on multi-path ingresses | Integer (>=0)                  | `1`                 |
+| Setting                                 | Description                                                                                       | Accepted values   | Default             |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------- | ----------------- | ------------------- |
+| `KUBERNETES_VERIFY_SSL`                 | Verify Kubernetes API TLS                                                                         | `yes` or `no`     | `yes`               |
+| `KUBERNETES_SSL_CA_CERT`                | Path to a custom CA bundle for the Kubernetes API                                                 | File path         | unset               |
+| `USE_KUBERNETES_FQDN`                   | Use `<pod>.<ns>.pod.<domain>` instead of Pod IP as instance hostname                              | `yes` or `no`     | `yes`               |
+| `KUBERNETES_INGRESS_CLASS`              | Only process ingresses with this class                                                            | String            | unset (all classes) |
+| `KUBERNETES_DOMAIN_NAME`                | Cluster domain suffix used when building upstream hosts                                           | String            | `cluster.local`     |
+| `KUBERNETES_SERVICE_PROTOCOL`           | Scheme used for generated reverse proxy hosts                                                     | `http` or `https` | `http`              |
+| `BUNKERWEB_SERVICE_NAME`                | Service name to read when patching Ingress status with the load balancer address                  | String            | `bunkerweb`         |
+| `BUNKERWEB_NAMESPACE`                   | Namespace of that Service                                                                         | String            | `bunkerweb`         |
+| `KUBERNETES_REVERSE_PROXY_SUFFIX_START` | Starting index for generated `REVERSE_PROXY_HOST_n`/`REVERSE_PROXY_URL_n` on multi-path ingresses | Integer (>=0)     | `1`                 |
 
 ### Autoconf services
 

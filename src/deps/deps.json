@@ -248,17 +248,10 @@
     },
     {
       "id": "nginx",
-      "name": "Nginx v1.28.0",
-      "url": "https://github.com/nginx/nginx.git",
-      "commit": "481d28cb4e04c8096b9b6134856891dc52ecc68f",
-      "post_install": "rm -r src/deps/src/nginx/docs"
-    },
-    {
-      "id": "nginx-1.28.1",
       "name": "Nginx v1.28.1",
       "url": "https://github.com/nginx/nginx.git",
       "commit": "95078974cfe998ec4095ac2c504c5c92bbc9a326",
-      "post_install": "rm -r src/deps/src/nginx-1.28.1/docs"
+      "post_install": "rm -r src/deps/src/nginx/docs"
     },
     {
       "id": "nginx_cookie_flag_module",

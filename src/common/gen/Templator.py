@@ -34,13 +34,8 @@ def _supports_tls_group(name: str) -> bool:
     try:
         ctx = SSLContext(PROTOCOL_TLS_SERVER)
         ctx.set_ecdh_curve(name)
-        logger.debug(f"SSL ECDH curve supported: {name}")
         return True
-    except ValueError:
-        logger.debug(f"SSL ECDH curve not supported: {name}")
-        return False
-    except Exception as exc:
-        logger.debug(f"SSL ECDH curve check failed for {name}: {exc}")
+    except BaseException:
         return False
 
 
@@ -60,24 +55,19 @@ def _best_ssl_ecdh_curve() -> Optional[str]:
                 break
 
     if not selected:
-        logger.debug("No supported SSL ECDH curves found for auto-selection")
         return None
 
-    logger.debug(f"SSL ECDH curve auto-selection candidates: {':'.join(selected)}")
     return ":".join(selected)
 
 
 def resolve_ssl_ecdh_curve(value: str, fallback: str = "X25519:prime256v1:secp384r1") -> str:
     if value and value != "auto":
-        logger.debug(f"SSL ECDH curve explicitly set to {value}")
         return value
 
     best_curve = _best_ssl_ecdh_curve()
     if best_curve:
-        logger.debug(f"SSL ECDH curve auto-selected: {best_curve}")
         return best_curve
 
-    logger.debug(f"SSL ECDH curve auto-selection unavailable, falling back to {fallback}")
     return fallback
 
 

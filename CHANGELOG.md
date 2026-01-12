@@ -1,6 +1,10 @@
 # Changelog
 
-## v1.6.7 - 2026/01/??
+## v1.6.8~rc1 - 2026/01/??
+
+- [BUGFIX] Fix Redis database selection in web UI and bwcli by renaming `REDIS_DB` to `REDIS_DATABASE` when fetching the settings
+
+## v1.6.7 - 2026/01/09
 
 - [BUGFIX] Fix wrong modsecurity reason data under heavy load
 - [FEATURE] Enhance SSL/TLS negotiation by implementing dynamic ECDH curve resolution, enabling more flexible and secure key exchange configurations in preparation for post-quantum cryptography (X25519MLKEM768) with OpenSSL 3.5+

@@ -379,10 +379,9 @@ class Database:
         with LOCK:
             session = None
             try:
-                with self.sql_engine.connect() as conn:
-                    session_factory = sessionmaker(bind=conn, autoflush=True, expire_on_commit=False)
-                    session = scoped_session(session_factory)
-                    yield session
+                session_factory = sessionmaker(bind=self.sql_engine, autoflush=True, expire_on_commit=False)
+                session = scoped_session(session_factory)
+                yield session
             except BaseException as e:
                 if session:
                     session.rollback()
@@ -1578,15 +1577,22 @@ class Database:
                     service_configs = defaultdict(dict)
                     global_config = {}
 
+                    services_set = set(services)
+
                     for key, value in config.items():
                         matched = False
-                        for service in services:
-                            prefix = f"{service}_"
-                            if key.startswith(prefix):
-                                stripped_key = key[len(prefix) :]  # noqa: E203
-                                service_configs[service][stripped_key] = value
+                        underscore_pos = 0
+                        while True:
+                            underscore_pos = key.find("_", underscore_pos)
+                            if underscore_pos == -1:
+                                break
+                            potential_service = key[:underscore_pos]
+                            if potential_service in services_set:
+                                stripped_key = key[underscore_pos + 1 :]  # noqa: E203
+                                service_configs[potential_service][stripped_key] = value
                                 matched = True
                                 break
+                            underscore_pos += 1
                         if not matched:
                             global_config[key] = value
 

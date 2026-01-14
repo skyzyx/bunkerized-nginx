@@ -6,6 +6,7 @@
 - [DEPS] Update coreruleset-v3 version to v3.3.8
 - [DEPS] Update coreruleset-v4 version to v4.22.0
 - [DEPS] Updated luajit2 version to v2.1-20260114
+- [DEPS] Update lua-resty-openssl version to v1.7.1
 
 ## v1.6.7 - 2026/01/09
 

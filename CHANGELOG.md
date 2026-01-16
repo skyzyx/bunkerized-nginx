@@ -2,6 +2,7 @@
 
 ## v1.6.8~rc1 - 2026/01/??
 
+- [FEATURE] Refactor Templator engine to use Jinja2 for improved templating capabilities and maintainability
 - [BUGFIX] Fix Redis database selection in web UI and bwcli by renaming `REDIS_DB` to `REDIS_DATABASE` when fetching the settings
 - [LINUX] Check the installation type in the easy-install script to avoid issues when upgrading from an older version and the installation type is not `all-in-one` or `manager`
 - [UI] Enhance page titles to dynamically reflect current context and navigation state for improved user experience

@@ -3,8 +3,12 @@
 from json import dumps, loads
 from typing import Any, Optional
 from sqlalchemy import Boolean, Column, DateTime, Enum, ForeignKey, Identity, Integer, LargeBinary, String, Text, TypeDecorator, UnicodeText
+from sqlalchemy.dialects.mysql import MEDIUMTEXT
 from sqlalchemy.orm import declarative_base, relationship
 from sqlalchemy.schema import UniqueConstraint
+
+# Large text type that maps to MEDIUMTEXT on MySQL/MariaDB, TEXT elsewhere
+LargeText = Text().with_variant(MEDIUMTEXT, "mysql").with_variant(MEDIUMTEXT, "mariadb")
 
 CONTEXTS_ENUM = Enum("global", "multisite", name="contexts_enum")
 SETTINGS_TYPES_ENUM = Enum("password", "text", "number", "check", "select", "multiselect", "multivalue", name="settings_types_enum")
@@ -51,7 +55,7 @@ class Plugins(Base):
     stream = Column(STREAM_TYPES_ENUM, default="no", nullable=False)
     type = Column(PLUGIN_TYPES_ENUM, default="core", nullable=False)
     method = Column(METHODS_ENUM, default="manual", nullable=False)
-    data = Column(LargeBinary(length=(2**32) - 1), default=None, nullable=True)
+    data = Column(LargeBinary, default=None, nullable=True)
     checksum = Column(String(128), default=None, nullable=True)
     config_changed = Column(Boolean, default=False, nullable=True)
     last_config_change = Column(DateTime(timezone=True), nullable=True)
@@ -125,7 +129,7 @@ class Global_values(Base):
 
     id = Column(Integer, Identity(start=1, increment=1), primary_key=True)
     setting_id = Column(String(256), ForeignKey("bw_settings.id", onupdate="cascade", ondelete="cascade"), nullable=False)
-    value = Column(Text(length=(2**24) - 1), nullable=True, default="")
+    value = Column(LargeText, nullable=True, default="")
     suffix = Column(Integer, nullable=True, default=0)
     method = Column(METHODS_ENUM, nullable=False)
 
@@ -153,7 +157,7 @@ class Services_settings(Base):
     id = Column(Integer, Identity(start=1, increment=1), primary_key=True)
     service_id = Column(String(256), ForeignKey("bw_services.id", onupdate="cascade", ondelete="cascade"), nullable=False)
     setting_id = Column(String(256), ForeignKey("bw_settings.id", onupdate="cascade", ondelete="cascade"), nullable=False)
-    value = Column(Text(length=(2**24) - 1), nullable=True, default="")
+    value = Column(LargeText, nullable=True, default="")
     suffix = Column(Integer, nullable=True, default=0)
     method = Column(METHODS_ENUM, nullable=False)
 
@@ -181,7 +185,7 @@ class Plugin_pages(Base):
 
     id = Column(Integer, Identity(start=1, increment=1), primary_key=True)
     plugin_id = Column(String(64), ForeignKey("bw_plugins.id", onupdate="cascade", ondelete="cascade"), unique=True, nullable=False)
-    data = Column(LargeBinary(length=(2**32) - 1), nullable=False)
+    data = Column(LargeBinary, nullable=False)
     checksum = Column(String(128), nullable=False)
 
     plugin = relationship("Plugins", back_populates="pages")
@@ -194,7 +198,7 @@ class Jobs_cache(Base):
     job_name = Column(String(128), ForeignKey("bw_jobs.name", onupdate="cascade", ondelete="cascade"), nullable=False)
     service_id = Column(String(256), ForeignKey("bw_services.id", onupdate="cascade", ondelete="cascade"), nullable=True)
     file_name = Column(String(256), nullable=False)
-    data = Column(LargeBinary(length=(2**32) - 1), nullable=True)
+    data = Column(LargeBinary, nullable=True)
     last_update = Column(DateTime(timezone=True), nullable=True)
     checksum = Column(String(128), nullable=True)
 
@@ -222,7 +226,7 @@ class Custom_configs(Base):
     service_id = Column(String(256), ForeignKey("bw_services.id", onupdate="cascade", ondelete="cascade"), nullable=True)
     type = Column(CUSTOM_CONFIGS_TYPES_ENUM, nullable=False)
     name = Column(String(256), nullable=False)
-    data = Column(LargeBinary(length=(2**32) - 1), nullable=False)
+    data = Column(LargeBinary, nullable=False)
     checksum = Column(String(128), nullable=False)
     method = Column(METHODS_ENUM, nullable=False)
     is_draft = Column(Boolean, nullable=False, default=False, server_default="0")
@@ -316,7 +320,7 @@ class Template_custom_configs(Base):
     step_id = Column(Integer, nullable=False)
     type = Column(CUSTOM_CONFIGS_TYPES_ENUM, nullable=False)
     name = Column(String(256), nullable=False)
-    data = Column(LargeBinary(length=(2**32) - 1), nullable=False)
+    data = Column(LargeBinary, nullable=False)
     checksum = Column(String(128), nullable=False)
     order = Column(Integer, default=0, nullable=False)
 

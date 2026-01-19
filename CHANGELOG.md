@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.6.8~rc2 - 2026/01/??
+
+- [DEPS] Updated lua-cjson version to v2.1.0.16
+
 ## v1.6.8~rc1 - 2026/01/??
 
 - [FEATURE] Refactor Templator engine to use Jinja2 for improved templating capabilities and maintainability

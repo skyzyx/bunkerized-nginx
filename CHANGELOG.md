@@ -3,6 +3,8 @@
 ## v1.6.8~rc2 - 2026/01/??
 
 - [FEATURE] Enhance `Let's Encrypt` plugin to support concurrent certificate generation for multiple services via the new `LETS_ENCRYPT_CONCURRENT_REQUESTS` setting (default: `no`), improving efficiency and reducing wait times during bulk operations
+- [FEATURE] Add `GoDaddy` as a DNS provider in the `letsencrypt` plugin
+- [FEATURE] Add `TransIP` as a DNS provider in the `letsencrypt` plugin
 - [BUGFIX] Fix robots.txt and list-based plugins (greylist/whitelist/blacklist/dnsbl) appending duplicate entries on subsequent requests by creating deep copies of internalstore data instead of using shared references
 - [DEPS] Updated lua-cjson version to v2.1.0.16
 

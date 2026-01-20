@@ -63,6 +63,7 @@ from letsencrypt_providers import (
     Route53Provider,
     SakuraCloudProvider,
     ScalewayProvider,
+    TransIPProvider,
 )
 
 LOG_LEVEL = getenv("CUSTOM_LOG_LEVEL", getenv("LOG_LEVEL", "INFO")).upper()
@@ -202,6 +203,7 @@ PROVIDERS: Dict[str, Type[Provider]] = {
     "route53": Route53Provider,
     "sakuracloud": SakuraCloudProvider,
     "scaleway": ScalewayProvider,
+    "transip": TransIPProvider,
 }
 
 status = 0

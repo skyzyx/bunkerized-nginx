@@ -3,9 +3,10 @@
 ## v1.6.8~rc2 - 2026/01/??
 
 - [FEATURE] Enhance `Let's Encrypt` plugin to support concurrent certificate generation for multiple services via the new `LETS_ENCRYPT_CONCURRENT_REQUESTS` setting (default: `no`), improving efficiency and reducing wait times during bulk operations
+- [BUGFIX] Fix robots.txt and list-based plugins (greylist/whitelist/blacklist/dnsbl) appending duplicate entries on subsequent requests by creating deep copies of internalstore data instead of using shared references
 - [DEPS] Updated lua-cjson version to v2.1.0.16
 
-## v1.6.8~rc1 - 2026/01/??
+## v1.6.8~rc1 - 2026/01/19
 
 - [FEATURE] Refactor Templator engine to use Jinja2 for improved templating capabilities and maintainability
 - [BUGFIX] Fix Redis database selection in web UI and bwcli by renaming `REDIS_DB` to `REDIS_DATABASE` when fetching the settings

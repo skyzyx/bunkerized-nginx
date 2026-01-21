@@ -154,12 +154,13 @@ Das Umschalten in den `detect`-Modus kann Ihnen helfen, potenzielle Falsch-Posit
 
 === "Integrationseinstellungen"
 
-    | Einstellung       | Standard | Kontext   | Mehrfach | Beschreibung                                                                                               |
-    | ----------------- | -------- | --------- | -------- | ---------------------------------------------------------------------------------------------------------- |
-    | `AUTOCONF_MODE`   | `no`     | global    | Nein     | **Autoconf-Modus:** Autoconf-Docker-Integration aktivieren.                                                |
-    | `SWARM_MODE`      | `no`     | global    | Nein     | **Swarm-Modus:** Docker-Swarm-Integration aktivieren.                                                      |
-    | `KUBERNETES_MODE` | `no`     | global    | Nein     | **Kubernetes-Modus:** Kubernetes-Integration aktivieren.                                                   |
-    | `USE_TEMPLATE`    |          | multisite | Nein     | **Vorlage verwenden:** Konfigurationsvorlage, die die Standardwerte bestimmter Einstellungen überschreibt. |
+    | Einstellung              | Standard | Kontext   | Mehrfach | Beschreibung                                                                                                                                                          |
+    | ------------------------ | -------- | --------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | `AUTOCONF_MODE`          | `no`     | global    | Nein     | **Autoconf-Modus:** Autoconf-Docker-Integration aktivieren.                                                                                                           |
+    | `SWARM_MODE`             | `no`     | global    | Nein     | **Swarm-Modus:** Docker-Swarm-Integration aktivieren.                                                                                                                 |
+    | `KUBERNETES_MODE`        | `no`     | global    | Nein     | **Kubernetes-Modus:** Kubernetes-Integration aktivieren.                                                                                                              |
+    | `KEEP_CONFIG_ON_RESTART` | `no`     | global    | Nein     | **Konfiguration bei Neustart behalten:** Konfiguration bei Neustart beibehalten. Auf 'yes' setzen, um das Zurücksetzen der Konfiguration beim Neustart zu verhindern. |
+    | `USE_TEMPLATE`           |          | multisite | Nein     | **Vorlage verwenden:** Konfigurationsvorlage, die die Standardwerte bestimmter Einstellungen überschreibt.                                                            |
 
 === "Nginx-Einstellungen"
 
@@ -2753,7 +2754,12 @@ Führen Sie die folgenden Schritte aus, um die Let's Encrypt-Funktion zu konfigu
 6.  **Lassen Sie BunkerWeb den Rest erledigen:** Nach der Konfiguration werden Zertifikate automatisch ausgestellt, installiert und bei Bedarf erneuert.
 
 !!! tip "Zertifikatsprofile"
-    Let's Encrypt bietet verschiedene Zertifikatsprofile für unterschiedliche Anwendungsfälle: - **classic**: Allzweck-Zertifikate mit 90-tägiger Gültigkeit (Standard) - **tlsserver**: Optimiert für die TLS-Server-Authentifizierung mit 90-tägiger Gültigkeit und kleinerem Payload - **shortlived**: Erhöhte Sicherheit mit 7-tägiger Gültigkeit für automatisierte Umgebungen - **custom**: Wenn Ihr ACME-Server ein anderes Profil unterstützt, legen Sie es mit `LETS_ENCRYPT_CUSTOM_PROFILE` fest.
+    Let's Encrypt bietet verschiedene Zertifikatsprofile für unterschiedliche Anwendungsfälle:
+
+    - **classic**: Allzweck-Zertifikate mit 90-tägiger Gültigkeit (Standard)
+    - **tlsserver**: Optimiert für die TLS-Server-Authentifizierung mit 90-tägiger Gültigkeit und kleinerem Payload
+    - **shortlived**: Erhöhte Sicherheit mit 7-tägiger Gültigkeit für automatisierte Umgebungen
+    - **custom**: Wenn Ihr ACME-Server ein anderes Profil unterstützt, legen Sie es mit `LETS_ENCRYPT_CUSTOM_PROFILE` fest.
 
 !!! info "Profilverfügbarkeit"
     Beachten Sie, dass die Profile `tlsserver` und `shortlived` derzeit möglicherweise nicht in allen Umgebungen oder mit allen ACME-Clients verfügbar sind. Das `classic`-Profil hat die breiteste Kompatibilität und wird für die meisten Benutzer empfohlen. Wenn ein ausgewähltes Profil nicht verfügbar ist, greift das System automatisch auf das `classic`-Profil zurück.
@@ -2835,6 +2841,7 @@ Das Let's Encrypt-Plugin unterstützt eine breite Palette von DNS-Anbietern für
 | `route53`         | Amazon Route 53  | `access_key_id`<br>`secret_access_key`                                                                       |                                                                                                                                                                                                                                                                              | [Dokumentation](https://certbot-dns-route53.readthedocs.io/en/stable/)                                |
 | `sakuracloud`     | Sakura Cloud     | `api_token`<br>`api_secret`                                                                                  |                                                                                                                                                                                                                                                                              | [Dokumentation](https://certbot-dns-sakuracloud.readthedocs.io/en/stable/)                            |
 | `scaleway`        | Scaleway         | `application_token`                                                                                          |                                                                                                                                                                                                                                                                              | [Dokumentation](https://github.com/vanonox/certbot-dns-scaleway/blob/main/README.rst)                 |
+| `transip`         | TransIP          | `key_file`<br>`username`                                                                                     |                                                                                                                                                                                                                                                                              | [Dokumentation](https://certbot-dns-transip.readthedocs.io/en/stable/)                                |
 
 ### Beispielkonfigurationen
 

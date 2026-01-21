@@ -155,12 +155,13 @@ BunkerWeb 中的某些设置支持同一功能的多个配置。要定义多组�
 
 === "集成设置"
 
-    | 设置              | 默认值 | 上下文    | 多个 | 描述                                                        |
-    | ----------------- | ------ | --------- | ---- | ----------------------------------------------------------- |
-    | `AUTOCONF_MODE`   | `no`   | global    | 否   | **自动配置模式：** 启用 Autoconf Docker 集成。              |
-    | `SWARM_MODE`      | `no`   | global    | 否   | **Swarm 模式：** 启用 Docker Swarm 集成。                   |
-    | `KUBERNETES_MODE` | `no`   | global    | 否   | **Kubernetes 模式：** 启用 Kubernetes 集成。                |
-    | `USE_TEMPLATE`    |        | multisite | 否   | **使用模板：** 要使用的配置模板，它将覆盖特定设置的默认值。 |
+    | 设置                     | 默认值 | 上下文    | 多个 | 描述                                                                     |
+    | ------------------------ | ------ | --------- | ---- | ------------------------------------------------------------------------ |
+    | `AUTOCONF_MODE`          | `no`   | global    | 否   | **自动配置模式：** 启用 Autoconf Docker 集成。                           |
+    | `SWARM_MODE`             | `no`   | global    | 否   | **Swarm 模式：** 启用 Docker Swarm 集成。                                |
+    | `KUBERNETES_MODE`        | `no`   | global    | 否   | **Kubernetes 模式：** 启用 Kubernetes 集成。                             |
+    | `KEEP_CONFIG_ON_RESTART` | `no`   | global    | 否   | **重启时保留配置：** 重启时保留配置。设置为 'yes' 以防止重启时重置配置。 |
+    | `USE_TEMPLATE`           |        | multisite | 否   | **使用模板：** 要使用的配置模板，它将覆盖特定设置的默认值。              |
 
 === "Nginx 设置"
 
@@ -2829,7 +2830,12 @@ Let's Encrypt 插件通过自动化创建、续订和配置来自 Let's Encrypt 
 6.  **让 BunkerWeb 处理其余部分：** 配置完成后，证书将根据需要自动颁发、安装和续订。
 
 !!! tip "证书配置文件"
-    Let's Encrypt 为不同的用例提供了不同的证书配置文件：- **classic**：通用证书，有效期为 90 天（默认）- **tlsserver**：针对 TLS 服务器身份验证进行了优化，有效期为 90 天，有效负载更小 - **shortlived**：增强安全性，有效期为 7 天，适用于自动化环境 - **custom**：如果您的 ACME 服务器支持不同的配置文件，请使用 `LETS_ENCRYPT_CUSTOM_PROFILE` 进行设置。
+    Let's Encrypt 为不同的用例提供了不同的证书配置文件：
+
+    - **classic**：通用证书，有效期为 90 天（默认）
+    - **tlsserver**：针对 TLS 服务器身份验证进行了优化，有效期为 90 天，有效负载更小
+    - **shortlived**：增强安全性，有效期为 7 天，适用于自动化环境
+    - **custom**：如果您的 ACME 服务器支持不同的配置文件，请使用 `LETS_ENCRYPT_CUSTOM_PROFILE` 进行设置。
 
 !!! info "配置文件可用性"
     请注意，`tlsserver` 和 `shortlived` 配置文件目前可能并非在所有环境或所有 ACME 客户端中都可用。`classic` 配置文件具有最广泛的兼容性，推荐给大多数用户。如果所选的配置文件不可用，系统将自动回退到 `classic` 配置文件。
@@ -2911,6 +2917,7 @@ Let's Encrypt 插件支持广泛的 DNS 提供商进行 DNS 验证。每个提�
 | `route53`         | Amazon Route 53  | `access_key_id`<br>`secret_access_key`                                                                       |                                                                                                                                                                                                                                                              | [文档](https://certbot-dns-route53.readthedocs.io/en/stable/)                                |
 | `sakuracloud`     | Sakura Cloud     | `api_token`<br>`api_secret`                                                                                  |                                                                                                                                                                                                                                                              | [文档](https://certbot-dns-sakuracloud.readthedocs.io/en/stable/)                            |
 | `scaleway`        | Scaleway         | `application_token`                                                                                          |                                                                                                                                                                                                                                                              | [文档](https://github.com/vanonox/certbot-dns-scaleway/blob/main/README.rst)                 |
+| `transip`         | TransIP          | `key_file`<br>`username`                                                                                     |                                                                                                                                                                                                                                                              | [文档](https://certbot-dns-transip.readthedocs.io/en/stable/)                                |
 
 ### 配置示例
 

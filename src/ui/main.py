@@ -541,7 +541,6 @@ with app.app_context():
     app.config["SESSION_COOKIE_PATH"] = "/"
     app.config["SESSION_COOKIE_HTTPONLY"] = True
     app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
-    app.config["SESSION_USE_SIGNER"] = True
 
     app.config["REMEMBER_COOKIE_PATH"] = "/"
     app.config["REMEMBER_COOKIE_HTTPONLY"] = True
@@ -558,7 +557,6 @@ with app.app_context():
         session_lifetime_hours = 12.0
         LOGGER.warning("Invalid SESSION_LIFETIME_HOURS, defaulting to 12h")
 
-    app.config["SESSION_PERMANENT"] = True
     app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(hours=session_lifetime_hours)
     app.config["SESSION_ID_LENGTH"] = 64
 
@@ -917,10 +915,10 @@ def before_request():
         # Requests from other sources
         app.config["SESSION_COOKIE_NAME"] = "bw_ui_session"
         app.config["SESSION_COOKIE_SECURE"] = False
-        app.config["SESSION_COOKIE_DOMAIN"] = False
+        app.config["SESSION_COOKIE_DOMAIN"] = None
         app.config["REMEMBER_COOKIE_NAME"] = "bw_ui_remember_token"
         app.config["REMEMBER_COOKIE_SECURE"] = False
-        app.config["REMEMBER_COOKIE_DOMAIN"] = False
+        app.config["REMEMBER_COOKIE_DOMAIN"] = None
 
     metadata = None
     app.config["SCRIPT_NONCE"] = token_urlsafe(32)

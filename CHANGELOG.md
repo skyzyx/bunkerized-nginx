@@ -9,6 +9,7 @@
 - [BUGFIX] Fix robots.txt and list-based plugins (greylist/whitelist/blacklist/dnsbl) appending duplicate entries on subsequent requests by creating deep copies of internalstore data instead of using shared references
 - [UI] Add security mode in services table
 - [UI] Implement services import functionality with drag-and-drop support
+- [UI] Ensure UI service URL is properly formatted in setup loading route
 - [UI] Update ace editor to version 1.43.5
 - [DEPS] Updated lua-cjson version to v2.1.0.16
 - [CONTRIBUTION] Thank you [rayshoo](https://github.com/rayshoo) for your contribution regarding the `Korean` translation of the web UI.

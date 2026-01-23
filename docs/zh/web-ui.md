@@ -35,7 +35,7 @@ UI 需要可访问的 scheduler /（BunkerWeb）API / redis / 数据库。
     使用已发布镜像与[快速入门](quickstart-guide.md#__tabbed_1_3)的布局启动栈，然后在浏览器完成向导。
 
     ```bash
-    docker compose -f https://raw.githubusercontent.com/bunkerity/bunkerweb/v1.6.8~rc1-rc1/misc/integrations/docker-compose.yml up -d
+    docker compose -f https://raw.githubusercontent.com/bunkerity/bunkerweb/v1.6.8~rc2-rc1/misc/integrations/docker-compose.yml up -d
     ```
 
     访问 scheduler 主机名（如 `https://www.example.com/changeme`），运行 `/setup` 向导以配置 UI、scheduler 与实例。
@@ -52,7 +52,7 @@ UI 需要可访问的 scheduler /（BunkerWeb）API / redis / 数据库。
 
     services:
       bunkerweb:
-        image: bunkerity/bunkerweb:1.6.8-rc1
+        image: bunkerity/bunkerweb:1.6.8-rc2
         ports:
           - "80:8080/tcp"
           - "443:8443/tcp"
@@ -63,7 +63,7 @@ UI 需要可访问的 scheduler /（BunkerWeb）API / redis / 数据库。
         networks: [bw-universe, bw-services]
 
       bw-scheduler:
-        image: bunkerity/bunkerweb-scheduler:1.6.8-rc1
+        image: bunkerity/bunkerweb-scheduler:1.6.8-rc2
         environment:
           <<: *service-env
           BUNKERWEB_INSTANCES: "bunkerweb"
@@ -83,7 +83,7 @@ UI 需要可访问的 scheduler /（BunkerWeb）API / redis / 数据库。
         networks: [bw-universe, bw-db]
 
       bw-ui:
-        image: bunkerity/bunkerweb-ui:1.6.8-rc1
+        image: bunkerity/bunkerweb-ui:1.6.8-rc2
         environment:
           <<: *service-env
           ADMIN_USERNAME: "admin"
@@ -310,7 +310,7 @@ Web 界面支持多种语言，这得益于社区的贡献。翻译内容以按�
    - **仅翻译值**，不要修改任何键名。
 
 2. **注册语言**
-   - 在 `src/ui/app/lang_config.py` 中添加或更新语言条目（语言代码、显示名称、国旗、英文名称）。  
+   - 在 `src/ui/app/lang_config.py` 中添加或更新语言条目（语言代码、显示名称、国旗、英文名称）。
      该文件是支持语言的唯一权威来源。
 
 3. **更新文档与来源说明**

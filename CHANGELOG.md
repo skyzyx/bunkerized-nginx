@@ -9,7 +9,7 @@
 - [UI] Fix bug where updating a ban to a custom duration accidentally created a permanent ban
 - [UI] Enhance map legend and color ramp for blocked requests visualization
 - [UI] Enhance dark mode styles for news card elements
-- [MISC] Deprecate Laurent Minne's blacklist given the upcoming changes
+- [MISC] Update Laurent Minne's blacklist's label and add the new one from [DuggyTuxy Data-Shield IPv4 Blocklist](https://duggytuxy.github.io/)
 
 ## v1.6.8~rc2 - 2026/01/23
 

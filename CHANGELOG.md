@@ -8,6 +8,7 @@
 - [UI] Change redirect status code from 302 to 303 in the web UI to follow best practices for redirection after form submissions
 - [UI] Fix bug where updating a ban to a custom duration accidentally created a permanent ban
 - [UI] Enhance map legend and color ramp for blocked requests visualization
+- [UI] Enhance dark mode styles for news card elements
 - [MISC] Deprecate Laurent Minne's blacklist given the upcoming changes
 
 ## v1.6.8~rc2 - 2026/01/23

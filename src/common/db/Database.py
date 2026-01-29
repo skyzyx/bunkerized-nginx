@@ -63,7 +63,7 @@ from sqlalchemy.exc import (
     SAWarning,
     SQLAlchemyError,
 )
-from sqlalchemy.orm import joinedload, scoped_session, sessionmaker
+from sqlalchemy.orm import joinedload, scoped_session, sessionmaker, aliased
 from sqlalchemy.pool import QueuePool
 from sqlite3 import Connection as SQLiteConnection
 
@@ -379,10 +379,9 @@ class Database:
         with LOCK:
             session = None
             try:
-                with self.sql_engine.connect() as conn:
-                    session_factory = sessionmaker(bind=conn, autoflush=True, expire_on_commit=False)
-                    session = scoped_session(session_factory)
-                    yield session
+                session_factory = sessionmaker(bind=self.sql_engine, autoflush=True, expire_on_commit=False)
+                session = scoped_session(session_factory)
+                yield session
             except BaseException as e:
                 if session:
                     session.rollback()
@@ -503,7 +502,7 @@ class Database:
                 metadata = session.query(Metadata).with_entities(Metadata.version).filter_by(id=1).first()
                 if metadata:
                     return metadata.version
-                return "1.6.7"
+                return "1.6.8~rc3"
             except BaseException as e:
                 return f"Error: {e}"
 
@@ -511,7 +510,7 @@ class Database:
         """Get the metadata from the database"""
         data = {
             "is_initialized": False,
-            "is_pro": "no",
+            "is_pro": False,
             "pro_license": "",
             "pro_expire": None,
             "pro_status": "invalid",
@@ -536,7 +535,7 @@ class Database:
             "last_instances_change": None,
             "reload_ui_plugins": False,
             "integration": "unknown",
-            "version": "1.6.7",
+            "version": "1.6.8~rc3",
             "database_version": "Unknown",  # ? Extracted from the database
             "default": True,  # ? Extra field to know if the returned data is the default one
         }
@@ -1038,7 +1037,7 @@ class Database:
             # Plugins to delete
             for pid in old_plugin_ids - new_plugin_ids:
                 old_p = old_plugins[pid]
-                if old_p.type == "core":
+                if old_p.method == "manual":
                     self.logger.warning(f'{old_p.type.title()} plugin "{pid}" has been removed, deleting it')
                     to_delete.append({"type": "plugin", "filter": {"id": pid}})
 
@@ -1330,7 +1329,77 @@ class Database:
                     elif t == "plugin":
                         session.query(Plugins).filter_by(**delete["filter"]).delete()
 
-                session.add_all(to_put)
+                # Insert parents before children to avoid FK errors on some DBs.
+                to_put_by_type = {
+                    "plugins": [],
+                    "settings": [],
+                    "selects": [],
+                    "multiselects": [],
+                    "templates": [],
+                    "template_steps": [],
+                    "template_settings": [],
+                    "template_configs": [],
+                    "jobs": [],
+                    "plugin_pages": [],
+                    "cli_commands": [],
+                    "other": [],
+                }
+
+                for item in to_put:
+                    if isinstance(item, Plugins):
+                        to_put_by_type["plugins"].append(item)
+                    elif isinstance(item, Settings):
+                        to_put_by_type["settings"].append(item)
+                    elif isinstance(item, Selects):
+                        to_put_by_type["selects"].append(item)
+                    elif isinstance(item, Multiselects):
+                        to_put_by_type["multiselects"].append(item)
+                    elif isinstance(item, Templates):
+                        to_put_by_type["templates"].append(item)
+                    elif isinstance(item, Template_steps):
+                        to_put_by_type["template_steps"].append(item)
+                    elif isinstance(item, Template_settings):
+                        to_put_by_type["template_settings"].append(item)
+                    elif isinstance(item, Template_custom_configs):
+                        to_put_by_type["template_configs"].append(item)
+                    elif isinstance(item, Jobs):
+                        to_put_by_type["jobs"].append(item)
+                    elif isinstance(item, Plugin_pages):
+                        to_put_by_type["plugin_pages"].append(item)
+                    elif isinstance(item, Bw_cli_commands):
+                        to_put_by_type["cli_commands"].append(item)
+                    else:
+                        to_put_by_type["other"].append(item)
+
+                if to_put_by_type["plugins"]:
+                    session.add_all(to_put_by_type["plugins"])
+                if to_put_by_type["settings"]:
+                    session.add_all(to_put_by_type["settings"])
+                if to_put_by_type["plugins"] or to_put_by_type["settings"]:
+                    session.flush()
+
+                if to_put_by_type["selects"]:
+                    session.add_all(to_put_by_type["selects"])
+                if to_put_by_type["multiselects"]:
+                    session.add_all(to_put_by_type["multiselects"])
+
+                if to_put_by_type["templates"]:
+                    session.add_all(to_put_by_type["templates"])
+                if to_put_by_type["template_steps"]:
+                    session.add_all(to_put_by_type["template_steps"])
+                if to_put_by_type["template_settings"]:
+                    session.add_all(to_put_by_type["template_settings"])
+                if to_put_by_type["template_configs"]:
+                    session.add_all(to_put_by_type["template_configs"])
+
+                if to_put_by_type["jobs"]:
+                    session.add_all(to_put_by_type["jobs"])
+                if to_put_by_type["plugin_pages"]:
+                    session.add_all(to_put_by_type["plugin_pages"])
+                if to_put_by_type["cli_commands"]:
+                    session.add_all(to_put_by_type["cli_commands"])
+                if to_put_by_type["other"]:
+                    session.add_all(to_put_by_type["other"])
 
                 # Apply updates
                 for update in to_update:
@@ -1578,15 +1647,22 @@ class Database:
                     service_configs = defaultdict(dict)
                     global_config = {}
 
+                    services_set = set(services)
+
                     for key, value in config.items():
                         matched = False
-                        for service in services:
-                            prefix = f"{service}_"
-                            if key.startswith(prefix):
-                                stripped_key = key[len(prefix) :]  # noqa: E203
-                                service_configs[service][stripped_key] = value
+                        underscore_pos = 0
+                        while True:
+                            underscore_pos = key.find("_", underscore_pos)
+                            if underscore_pos == -1:
+                                break
+                            potential_service = key[:underscore_pos]
+                            if potential_service in services_set:
+                                stripped_key = key[underscore_pos + 1 :]  # noqa: E203
+                                service_configs[potential_service][stripped_key] = value
                                 matched = True
                                 break
+                            underscore_pos += 1
                         if not matched:
                             global_config[key] = value
 
@@ -2066,21 +2142,32 @@ class Database:
                 services = services.filter_by(is_draft=False)
 
             if not global_only and is_multisite:
-                servers = ""
+                # Build list of service IDs and their draft status efficiently
+                service_list = []
+                is_draft_default = self._empty_if_none(config.get("IS_DRAFT", {"value": "no"})["value"])
                 for db_service in services:
                     if service and db_service.id != service:
                         continue
-                    for key in multisite:
-                        config[f"{db_service.id}_{key}"] = config[key]
+                    service_list.append((db_service.id, db_service.is_draft))
                     config[f"{db_service.id}_IS_DRAFT"] = {
                         "value": "yes" if db_service.is_draft else "no",
                         "global": False,
                         "method": "default",
-                        "default": self._empty_if_none(config.get("IS_DRAFT", {"value": "no"})["value"]),
+                        "default": is_draft_default,
                         "template": None,
                     }
-                    servers += f"{db_service.id} "
-                servers = servers.strip()
+
+                servers = " ".join(s[0] for s in service_list)
+
+                # Pre-build multisite defaults mapping for efficient lookup
+                # Share the same dictionary objects instead of creating copies
+                multisite_defaults = {key: config[key] for key in multisite if key in config}
+
+                # Populate service-specific entries using shared references
+                # This is still O(services * multisite_settings) but avoids deepcopy overhead
+                for service_id, _ in service_list:
+                    for key, value in multisite_defaults.items():
+                        config[f"{service_id}_{key}"] = value
 
                 # Define the join operation
                 j = join(Services, Services_settings, Services.id == Services_settings.service_id)
@@ -2139,7 +2226,8 @@ class Database:
             }
 
             if service:
-                for key in config.copy().keys():
+                # Use list() to avoid modifying dict during iteration, more efficient than copy()
+                for key in list(config.keys()):
                     if (original_config is None or key not in ("SERVER_NAME", "MULTISITE", "USE_TEMPLATE")) and not key.startswith(f"{service}_"):
                         del config[key]
                         continue
@@ -2147,8 +2235,9 @@ class Database:
                         config[key.replace(f"{service}_", "")] = config.pop(key)
 
             if not methods:
-                for key, value in config.copy().items():
-                    config[key] = value["value"]
+                # Avoid full dictionary copy - iterate over keys and update in place
+                for key in list(config.keys()):
+                    config[key] = config[key]["value"]
 
             return config
 
@@ -2236,37 +2325,58 @@ class Database:
                     }
 
             if not global_only and config["MULTISITE"]["value"] == "yes":
-                for service_id in config["SERVER_NAME"]["value"].split():
+                server_names = config["SERVER_NAME"]["value"].split()
+
+                # Collect all unique templates used by services
+                service_templates = {}
+                for service_id in server_names:
                     service_template_used = config.get(f"{service_id}_USE_TEMPLATE", {"value": self._empty_if_none(template_used)})["value"]
                     if service_template_used:
                         templates[service_id] = service_template_used
+                        service_templates.setdefault(service_template_used, []).append(service_id)
 
-                        query = (
-                            session.query(Template_settings)
-                            .with_entities(Template_settings.setting_id, Template_settings.default, Template_settings.suffix)
-                            .filter_by(template_id=service_template_used)
-                            .order_by(Template_settings.order)
-                        )
+                # Batch query: fetch all template settings for all used templates at once
+                if service_templates:
+                    template_ids = list(service_templates.keys())
+                    query = (
+                        session.query(Template_settings)
+                        .with_entities(Template_settings.template_id, Template_settings.setting_id, Template_settings.default, Template_settings.suffix)
+                        .filter(Template_settings.template_id.in_(template_ids))
+                        .order_by(Template_settings.order)
+                    )
 
-                        if filtered_settings:
-                            query = query.filter(Template_settings.setting_id.in_(filtered_settings))
+                    if filtered_settings:
+                        query = query.filter(Template_settings.setting_id.in_(filtered_settings))
 
-                        for setting in query:
-                            key = f"{service_id}_{setting.setting_id}" + (f"_{setting.suffix}" if setting.suffix > 0 else "")
-                            if key in config and config[key]["method"] != "default" and not config[key]["global"]:
-                                continue
+                    # Group template settings by template_id for efficient lookup
+                    template_settings_map = {}
+                    for setting in query:
+                        template_settings_map.setdefault(setting.template_id, []).append(setting)
 
-                            config[key] = {
-                                "value": self._empty_if_none(setting.default),
-                                "global": False,
-                                "method": "default",
-                                "default": self._empty_if_none(setting.default),
-                                "template": service_template_used,
-                            }
+                    # Apply template settings to each service that uses them
+                    for tmpl_id, service_ids in service_templates.items():
+                        tmpl_settings = template_settings_map.get(tmpl_id, [])
+                        for service_id in service_ids:
+                            for setting in tmpl_settings:
+                                key = f"{service_id}_{setting.setting_id}" + (f"_{setting.suffix}" if setting.suffix > 0 else "")
+                                if key in config and config[key]["method"] != "default" and not config[key]["global"]:
+                                    continue
+
+                                config[key] = {
+                                    "value": self._empty_if_none(setting.default),
+                                    "global": False,
+                                    "method": "default",
+                                    "default": self._empty_if_none(setting.default),
+                                    "template": tmpl_id,
+                                }
 
         multiple = {}
         services = config["SERVER_NAME"]["value"].split()
-        for key, data in config.copy().items():
+        services_set = set(services)  # O(1) lookup for service prefix matching
+
+        # Process config items - use list(items()) which is more memory efficient than copy().items()
+        # for large dicts since it creates a list of tuples, not a full dict copy
+        for key, data in list(config.items()):
             new_value = None
             if service:
                 data = config.pop(key)
@@ -2283,11 +2393,18 @@ class Database:
                 window = "global"
                 matched_group = multiple_groups.get(match.group("setting"), None)
                 if matched_group is None:
-                    for db_service in services:
-                        if key.startswith(f"{db_service}_"):
-                            window = db_service
-                            matched_group = multiple_groups.get(match.group("setting").replace(f"{db_service}_", ""), None)
+                    # Use set lookup and underscore scanning instead of O(n) service iteration
+                    underscore_pos = 0
+                    while True:
+                        underscore_pos = key.find("_", underscore_pos)
+                        if underscore_pos == -1:
                             break
+                        potential_service = key[:underscore_pos]
+                        if potential_service in services_set:
+                            window = potential_service
+                            matched_group = multiple_groups.get(match.group("setting").replace(f"{potential_service}_", ""), None)
+                            break
+                        underscore_pos += 1
 
                 if matched_group is not None:
                     multiple.setdefault(matched_group, {}).setdefault(window, set()).add(int(match.group("suffix")))
@@ -2574,27 +2691,43 @@ class Database:
         """Get the services from the database"""
         services = []
         with self._db_session() as session:
-            db_services = (
-                session.query(Services).with_entities(Services.id, Services.method, Services.is_draft, Services.creation_date, Services.last_update).all()
+            # Fetch all services with their USE_TEMPLATE and SECURITY_MODE settings in a single optimized query
+            # This avoids N+1 query problem when loading many services
+            template_alias = aliased(Services_settings)
+            security_mode_alias = aliased(Services_settings)
+
+            query = (
+                session.query(Services)
+                .outerjoin(template_alias, (Services.id == template_alias.service_id) & (template_alias.setting_id == "USE_TEMPLATE"))
+                .outerjoin(security_mode_alias, (Services.id == security_mode_alias.service_id) & (security_mode_alias.setting_id == "SECURITY_MODE"))
+                .with_entities(
+                    Services.id,
+                    Services.method,
+                    Services.is_draft,
+                    Services.creation_date,
+                    Services.last_update,
+                    template_alias.value.label("template"),
+                    security_mode_alias.value.label("security_mode"),
+                )
             )
 
+            if not with_drafts:
+                query = query.filter(Services.is_draft == False)  # noqa: E712
+
+            db_services = query.all()
+
         for service in db_services:
-            if with_drafts or not service.is_draft:
-                service_settings = self.get_non_default_settings(
-                    with_drafts=with_drafts,
-                    filtered_settings=("USE_TEMPLATE",),
-                    service=service.id,
-                )
-                services.append(
-                    {
-                        "id": service.id,
-                        "method": service.method,
-                        "is_draft": service.is_draft,
-                        "creation_date": service.creation_date,
-                        "last_update": service.last_update,
-                        "template": service_settings.get("USE_TEMPLATE", ""),
-                    }
-                )
+            services.append(
+                {
+                    "id": service.id,
+                    "method": service.method,
+                    "is_draft": service.is_draft,
+                    "creation_date": service.creation_date,
+                    "last_update": service.last_update,
+                    "template": service.template or "",
+                    "security_mode": service.security_mode or "block",
+                }
+            )
 
         return services
 
@@ -2721,6 +2854,81 @@ class Database:
         with self._db_session() as session:
             if self.readonly:
                 return "The database is read-only, the changes will not be saved"
+
+            def _add_ordered(items: List[Any]) -> None:
+                if not items:
+                    return
+
+                buckets = {
+                    "plugins": [],
+                    "settings": [],
+                    "selects": [],
+                    "multiselects": [],
+                    "templates": [],
+                    "template_steps": [],
+                    "template_settings": [],
+                    "template_configs": [],
+                    "jobs": [],
+                    "plugin_pages": [],
+                    "cli_commands": [],
+                    "other": [],
+                }
+
+                for item in items:
+                    if isinstance(item, Plugins):
+                        buckets["plugins"].append(item)
+                    elif isinstance(item, Settings):
+                        buckets["settings"].append(item)
+                    elif isinstance(item, Selects):
+                        buckets["selects"].append(item)
+                    elif isinstance(item, Multiselects):
+                        buckets["multiselects"].append(item)
+                    elif isinstance(item, Templates):
+                        buckets["templates"].append(item)
+                    elif isinstance(item, Template_steps):
+                        buckets["template_steps"].append(item)
+                    elif isinstance(item, Template_settings):
+                        buckets["template_settings"].append(item)
+                    elif isinstance(item, Template_custom_configs):
+                        buckets["template_configs"].append(item)
+                    elif isinstance(item, Jobs):
+                        buckets["jobs"].append(item)
+                    elif isinstance(item, Plugin_pages):
+                        buckets["plugin_pages"].append(item)
+                    elif isinstance(item, Bw_cli_commands):
+                        buckets["cli_commands"].append(item)
+                    else:
+                        buckets["other"].append(item)
+
+                if buckets["plugins"]:
+                    session.add_all(buckets["plugins"])
+                if buckets["settings"]:
+                    session.add_all(buckets["settings"])
+                if buckets["plugins"] or buckets["settings"]:
+                    session.flush()
+
+                if buckets["selects"]:
+                    session.add_all(buckets["selects"])
+                if buckets["multiselects"]:
+                    session.add_all(buckets["multiselects"])
+
+                if buckets["templates"]:
+                    session.add_all(buckets["templates"])
+                if buckets["template_steps"]:
+                    session.add_all(buckets["template_steps"])
+                if buckets["template_settings"]:
+                    session.add_all(buckets["template_settings"])
+                if buckets["template_configs"]:
+                    session.add_all(buckets["template_configs"])
+
+                if buckets["jobs"]:
+                    session.add_all(buckets["jobs"])
+                if buckets["plugin_pages"]:
+                    session.add_all(buckets["plugin_pages"])
+                if buckets["cli_commands"]:
+                    session.add_all(buckets["cli_commands"])
+                if buckets["other"]:
+                    session.add_all(buckets["other"])
 
             db_plugins = session.query(Plugins).with_entities(Plugins.id).filter_by(type=_type).all()
 
@@ -3369,7 +3577,7 @@ class Database:
                     try:
                         if per_plugin_commit:
                             if local_to_put:
-                                session.add_all(local_to_put)
+                                _add_ordered(local_to_put)
                             # Commit also captures any .update() / .delete() executed above.
                             session.commit()
                         else:
@@ -3613,7 +3821,7 @@ class Database:
                 try:
                     if per_plugin_commit:
                         if local_to_put:
-                            session.add_all(local_to_put)
+                            _add_ordered(local_to_put)
                         # Commit also captures any .update() / .delete() executed above.
                         session.commit()
                     else:
@@ -3637,7 +3845,7 @@ class Database:
 
             try:
                 if not per_plugin_commit and to_put:
-                    session.add_all(to_put)
+                    _add_ordered(to_put)
                 session.commit()
             except BaseException as e:
                 session.rollback()

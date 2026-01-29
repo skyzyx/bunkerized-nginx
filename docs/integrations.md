@@ -1268,7 +1268,7 @@ docker run -d \
   -p 80:8080/tcp \
   -p 443:8443/tcp \
   -p 443:8443/udp \
-  bunkerity/bunkerweb-all-in-one:1.6.7
+  bunkerity/bunkerweb-all-in-one:1.6.8-rc3
 ```
 
 By default, the container exposes:
@@ -1294,7 +1294,7 @@ A named volume (or bind mount) is required to persist the SQLite database, cache
 ```yaml
 services:
   bunkerweb-aio:
-    image: bunkerity/bunkerweb-all-in-one:1.6.7
+    image: bunkerity/bunkerweb-all-in-one:1.6.8-rc3
     container_name: bunkerweb-aio
     ports:
       - "80:8080/tcp"
@@ -1366,7 +1366,7 @@ docker run -d \
   -e API_PASSWORD=StrongP@ssw0rd \
   -p 80:8080/tcp -p 443:8443/tcp -p 443:8443/udp \
   -p 8888:8888/tcp \
-  bunkerity/bunkerweb-all-in-one:1.6.7
+  bunkerity/bunkerweb-all-in-one:1.6.8-rc3
 ```
 
 Recommended (behind BunkerWeb) — do not publish `8888`; reverse‑proxy it instead:
@@ -1374,7 +1374,7 @@ Recommended (behind BunkerWeb) — do not publish `8888`; reverse‑proxy it ins
 ```yaml
 services:
   bunkerweb-aio:
-    image: bunkerity/bunkerweb-all-in-one:1.6.7
+    image: bunkerity/bunkerweb-all-in-one:1.6.8-rc3
     container_name: bunkerweb-aio
     ports:
       - "80:8080/tcp"
@@ -1446,7 +1446,7 @@ docker run -d \
   -p 80:8080/tcp \
   -p 443:8443/tcp \
   -p 443:8443/udp \
-  bunkerity/bunkerweb-all-in-one:1.6.7
+  bunkerity/bunkerweb-all-in-one:1.6.8-rc3
 ```
 
 * When `USE_CROWDSEC=yes`, the entrypoint will:
@@ -1501,7 +1501,7 @@ docker run -d \
   -p 80:8080/tcp \
   -p 443:8443/tcp \
   -p 443:8443/udp \
-  bunkerity/bunkerweb-all-in-one:1.6.7
+  bunkerity/bunkerweb-all-in-one:1.6.8-rc3
 ```
 
 !!! info "How it works internally"
@@ -1523,7 +1523,7 @@ docker run -d \
   -p 80:8080/tcp \
   -p 443:8443/tcp \
   -p 443:8443/udp \
-  bunkerity/bunkerweb-all-in-one:1.6.7
+  bunkerity/bunkerweb-all-in-one:1.6.8-rc3
 ```
 
 Notes:
@@ -1559,7 +1559,7 @@ docker run -d \
   -p 80:8080/tcp \
   -p 443:8443/tcp \
   -p 443:8443/udp \
-  bunkerity/bunkerweb-all-in-one:1.6.7
+  bunkerity/bunkerweb-all-in-one:1.6.8-rc3
 ```
 
 * **Local registration** is skipped when `CROWDSEC_API` is not `127.0.0.1` or `localhost`.
@@ -1593,13 +1593,13 @@ By accessing these prebuilt images from Docker Hub, you can quickly pull and run
 Whether you're conducting tests, developing applications, or deploying BunkerWeb in production, the Docker containerization option provides flexibility and ease of use. Embracing this method empowers you to take full advantage of BunkerWeb's features while leveraging the benefits of Docker technology.
 
 ```shell
-docker pull bunkerity/bunkerweb:1.6.7
+docker pull bunkerity/bunkerweb:1.6.8-rc3
 ```
 
 Docker images are also available on [GitHub packages](https://github.com/orgs/bunkerity/packages?repo_name=bunkerweb) and can be downloaded using the `ghcr.io` repository address:
 
 ```shell
-docker pull ghcr.io/bunkerity/bunkerweb:1.6.7
+docker pull ghcr.io/bunkerity/bunkerweb:1.6.8-rc3
 ```
 
 Key concepts for Docker integration include:
@@ -1609,7 +1609,7 @@ Key concepts for Docker integration include:
 - **Networks**: Docker networks play a vital role in the integration of BunkerWeb. These networks serve two main purposes: exposing ports to clients and connecting to upstream web services. By exposing ports, BunkerWeb can accept incoming requests from clients, allowing them to access the protected web services. Additionally, by connecting to upstream web services, BunkerWeb can efficiently route and manage traffic, providing enhanced security and performance.
 
 !!! info "Database backend"
-    Please note that our instructions assume you are using SQLite as the default database backend, as configured by the `DATABASE_URI` setting. However, other database backends are also supported. See the docker-compose files in the [misc/integrations folder](https://github.com/bunkerity/bunkerweb/tree/v1.6.7/misc/integrations) of the repository for more information.
+    Please note that our instructions assume you are using SQLite as the default database backend, as configured by the `DATABASE_URI` setting. However, other database backends are also supported. See the docker-compose files in the [misc/integrations folder](https://github.com/bunkerity/bunkerweb/tree/v1.6.8-rc3/misc/integrations) of the repository for more information.
 
 ### Environment variables
 
@@ -1619,7 +1619,7 @@ Settings are passed to the Scheduler using Docker environment variables:
 ...
 services:
   bw-scheduler:
-    image: bunkerity/bunkerweb-scheduler:1.6.7
+    image: bunkerity/bunkerweb-scheduler:1.6.8-rc3
     environment:
       - MY_SETTING=value
       - ANOTHER_SETTING=another value
@@ -1663,7 +1663,7 @@ This ensures sensitive settings are kept out of the environment and logs.
 The [scheduler](concepts.md#scheduler) runs in its own container, which is also available on Docker Hub:
 
 ```shell
-docker pull bunkerity/bunkerweb-scheduler:1.6.7
+docker pull bunkerity/bunkerweb-scheduler:1.6.8-rc3
 ```
 
 !!! info "BunkerWeb settings"
@@ -1684,7 +1684,7 @@ docker pull bunkerity/bunkerweb-scheduler:1.6.7
 
     services:
       bunkerweb:
-        image: bunkerity/bunkerweb:1.6.7
+        image: bunkerity/bunkerweb:1.6.8-rc3
         environment:
           # This will set the API settings for the BunkerWeb container
           <<: *bw-api-env
@@ -1693,7 +1693,7 @@ docker pull bunkerity/bunkerweb-scheduler:1.6.7
           - bw-universe
 
       bw-scheduler:
-        image: bunkerity/bunkerweb-scheduler:1.6.7
+        image: bunkerity/bunkerweb-scheduler:1.6.8-rc3
         environment:
           # This will set the API settings for the Scheduler container
           <<: *bw-api-env
@@ -1711,7 +1711,7 @@ A volume is needed to store the SQLite database and backups used by the schedule
 ...
 services:
   bw-scheduler:
-    image: bunkerity/bunkerweb-scheduler:1.6.7
+    image: bunkerity/bunkerweb-scheduler:1.6.8-rc3
     volumes:
       - bw-storage:/data
 ...
@@ -1857,7 +1857,7 @@ x-bw-api-env: &bw-api-env
 
 services:
   bunkerweb:
-    image: bunkerity/bunkerweb:1.6.7
+    image: bunkerity/bunkerweb:1.6.8-rc3
     ports:
       - "80:8080/tcp"
       - "443:8443/tcp"
@@ -1870,7 +1870,7 @@ services:
       - bw-universe
 ...
   bw-scheduler:
-    image: bunkerity/bunkerweb-scheduler:1.6.7
+    image: bunkerity/bunkerweb-scheduler:1.6.8-rc3
     environment:
       <<: *bw-api-env
       BUNKERWEB_INSTANCES: "bunkerweb" # This setting is mandatory to specify the BunkerWeb instance
@@ -1903,7 +1903,7 @@ x-bw-api-env: &bw-api-env
 
 services:
   bunkerweb:
-    image: bunkerity/bunkerweb:1.6.7
+    image: bunkerity/bunkerweb:1.6.8-rc3
     ports:
       - "80:8080/tcp"
       - "443:8443/tcp"
@@ -1916,7 +1916,7 @@ services:
       - bw-services
 
   bw-scheduler:
-    image: bunkerity/bunkerweb-scheduler:1.6.7
+    image: bunkerity/bunkerweb-scheduler:1.6.8-rc3
     depends_on:
       - bunkerweb
     environment:
@@ -1982,8 +1982,8 @@ To get started, download the installation script and its checksum, then verify t
 
 ```bash
 # Download the script and its checksum
-curl -fsSL -O https://github.com/bunkerity/bunkerweb/releases/download/v1.6.7/install-bunkerweb.sh
-curl -fsSL -O https://github.com/bunkerity/bunkerweb/releases/download/v1.6.7/install-bunkerweb.sh.sha256
+curl -fsSL -O https://github.com/bunkerity/bunkerweb/releases/download/v1.6.8-rc3/install-bunkerweb.sh
+curl -fsSL -O https://github.com/bunkerity/bunkerweb/releases/download/v1.6.8-rc3/install-bunkerweb.sh.sha256
 
 # Verify the checksum
 sha256sum -c install-bunkerweb.sh.sha256
@@ -2006,7 +2006,7 @@ The easy install script is a powerful tool designed to streamline the setup of B
 
 1.  **System Analysis**: Detects your operating system and verifies it against the list of supported distributions.
 2.  **Installation Customization**: In interactive mode, it prompts you to choose an installation type (All-In-One, Manager, Worker, etc.) and decide whether to enable the web-based setup wizard.
-3.  **Optional Integrations**: Offers to automatically install and configure the [CrowdSec Security Engine](#crowdsec-integration-with-the-script).
+3.  **Optional Integrations**: Offers to automatically install and configure the [CrowdSec Security Engine](#crowdsec-integration-with-the-script) and Redis/Valkey for shared cache/session data.
 4.  **Dependency Management**: Installs the correct version of NGINX required by BunkerWeb from official sources and locks the version to prevent unintended upgrades.
 5.  **BunkerWeb Installation**: Adds the BunkerWeb package repository, installs the necessary packages, and locks the version.
 6.  **Service Configuration**: Sets up and enables the `systemd` services corresponding to your chosen installation type.
@@ -2026,6 +2026,7 @@ When run without any options, the script enters an interactive mode that guides 
 2.  **Setup Wizard**: Choose whether to enable the web-based configuration wizard. This is highly recommended for first-time users.
 3.  **CrowdSec Integration**: Opt-in to install the CrowdSec security engine for advanced, real-time threat protection. Available for Full Stack installations only.
 4.  **CrowdSec AppSec**: If you choose to install CrowdSec, you can also enable the Application Security (AppSec) component, which adds WAF capabilities.
+5.  **Redis/Valkey Integration**: Enable Redis/Valkey to share session data, metrics, and security data across nodes for seamless clustering and load balancing. You can install locally or point to an existing server. Available for Full Stack and Manager installations only.
 5.  **DNS Resolvers**: For Full Stack, Manager, and Worker installations, you can optionally specify custom DNS resolver IPs.
 6.  **Internal API HTTPS**: For Full Stack, Manager, and Worker installations, choose whether to enable HTTPS for internal API communication between the scheduler/manager and BunkerWeb/worker instances (default: HTTP only).
 7.  **API Service**: For Full Stack and Manager installations, choose whether to enable the optional external API service. It is disabled by default on Linux installations.
@@ -2041,7 +2042,7 @@ For non-interactive or automated setups, the script can be controlled with comma
 
 | Option                  | Description                                                           |
 | ----------------------- | --------------------------------------------------------------------- |
-| `-v, --version VERSION` | Specifies the BunkerWeb version to install (e.g., `1.6.7`).       |
+| `-v, --version VERSION` | Specifies the BunkerWeb version to install (e.g., `1.6.8~rc3`).       |
 | `-w, --enable-wizard`   | Enables the setup wizard.                                             |
 | `-n, --no-wizard`       | Disables the setup wizard.                                            |
 | `-y, --yes`             | Runs in non-interactive mode using default answers for all prompts.   |
@@ -2070,6 +2071,8 @@ For non-interactive or automated setups, the script can be controlled with comma
 | `--crowdsec`        | Install and configure CrowdSec security engine.                     |
 | `--no-crowdsec`     | Skip CrowdSec installation.                                         |
 | `--crowdsec-appsec` | Install CrowdSec with AppSec component (includes WAF capabilities). |
+| `--redis`           | Install and configure Redis locally.                                |
+| `--no-redis`        | Skip Redis integration.                                             |
 
 **Advanced Options:**
 
@@ -2081,6 +2084,15 @@ For non-interactive or automated setups, the script can be controlled with comma
 | `--api-https`               | Enable HTTPS for internal API communication (default: HTTP only).                   |
 | `--backup-dir PATH`         | Directory to store automatic backup before upgrade.                                 |
 | `--no-auto-backup`          | Skip automatic backup (you MUST have done it manually).                             |
+| `--redis-host HOST`         | Redis host for an existing Redis/Valkey server.                                     |
+| `--redis-port PORT`         | Redis port for an existing Redis/Valkey server.                                     |
+| `--redis-database DB`       | Redis database number.                                                              |
+| `--redis-username USER`     | Redis username (Redis 6+).                                                          |
+| `--redis-password PASS`     | Redis password.                                                                     |
+| `--redis-ssl`               | Enable SSL/TLS for Redis connection.                                                |
+| `--redis-no-ssl`            | Disable SSL/TLS for Redis connection.                                               |
+| `--redis-ssl-verify`        | Verify Redis SSL certificate.                                                       |
+| `--redis-no-ssl-verify`     | Do not verify Redis SSL certificate.                                                |
 
 **Example Usage:**
 
@@ -2095,7 +2107,7 @@ sudo ./install-bunkerweb.sh --yes
 sudo ./install-bunkerweb.sh --worker --no-wizard
 
 # Install a specific version
-sudo ./install-bunkerweb.sh --version 1.6.7
+sudo ./install-bunkerweb.sh --version 1.6.8~rc3
 
 # Manager setup with remote worker instances (instances required)
 sudo ./install-bunkerweb.sh --manager --instances "192.168.1.10 192.168.1.11"
@@ -2108,6 +2120,9 @@ sudo ./install-bunkerweb.sh --worker --dns-resolvers "1.1.1.1 1.0.0.1" --api-htt
 
 # Full installation with CrowdSec and AppSec
 sudo ./install-bunkerweb.sh --crowdsec-appsec
+
+# Full installation using an existing Redis server
+sudo ./install-bunkerweb.sh --redis-host redis.example.com --redis-password "your-strong-password"
 
 # Silent non-interactive installation
 sudo ./install-bunkerweb.sh --quiet --yes
@@ -2140,6 +2155,11 @@ sudo ./install-bunkerweb.sh --manager --instances "192.168.1.10 192.168.1.11" --
 
     - CrowdSec options (`--crowdsec`, `--crowdsec-appsec`) are only compatible with `--full` (default) installation type
     - They cannot be used with `--manager`, `--worker`, `--scheduler-only`, `--ui-only`, or `--api-only` installations
+
+    **Redis Limitations:**
+
+    - Redis options (`--redis`, `--redis-*`) are only compatible with `--full` (default) and `--manager` installation types
+    - They cannot be used with `--worker`, `--scheduler-only`, `--ui-only`, or `--api-only` installations
 
     **API Service Availability:**
 
@@ -2261,12 +2281,12 @@ Please ensure that you have **NGINX 1.28.1 installed before installing BunkerWeb
         export UI_WIZARD=no
         ```
 
-    And finally install BunkerWeb 1.6.7:
+    And finally install BunkerWeb 1.6.8~rc3:
 
     ```shell
     curl -s https://repo.bunkerweb.io/install/script.deb.sh | sudo bash && \
     sudo apt update && \
-    sudo -E apt install -y --allow-downgrades bunkerweb=1.6.7
+    sudo -E apt install -y --allow-downgrades bunkerweb=1.6.8~rc3
     ```
 
     To prevent upgrading NGINX and/or BunkerWeb packages when executing `apt upgrade`, you can use the following command:
@@ -2309,12 +2329,12 @@ Please ensure that you have **NGINX 1.28.1 installed before installing BunkerWeb
         export UI_WIZARD=no
         ```
 
-    And finally install BunkerWeb 1.6.7:
+    And finally install BunkerWeb 1.6.8~rc3:
 
     ```shell
     curl -s https://repo.bunkerweb.io/install/script.deb.sh | sudo bash && \
     sudo apt update && \
-    sudo -E apt install -y --allow-downgrades bunkerweb=1.6.7
+    sudo -E apt install -y --allow-downgrades bunkerweb=1.6.8~rc3
     ```
 
     To prevent upgrading NGINX and/or BunkerWeb packages when executing `apt upgrade`, you can use the following command:
@@ -2345,12 +2365,12 @@ Please ensure that you have **NGINX 1.28.1 installed before installing BunkerWeb
         export UI_WIZARD=no
         ```
 
-    And finally install BunkerWeb 1.6.7:
+    And finally install BunkerWeb 1.6.8~rc3:
 
     ```shell
     curl -s https://repo.bunkerweb.io/install/script.rpm.sh | sudo bash && \
   	sudo dnf makecache && \
-  	sudo -E dnf install -y --allowerasing bunkerweb-1.6.7
+  	sudo -E dnf install -y --allowerasing bunkerweb-1.6.8~rc3
     ```
 
     To prevent upgrading NGINX and/or BunkerWeb packages when executing `dnf upgrade`, you can use the following command:
@@ -2395,12 +2415,12 @@ Please ensure that you have **NGINX 1.28.1 installed before installing BunkerWeb
         export UI_WIZARD=no
         ```
 
-    And finally install BunkerWeb 1.6.7:
+    And finally install BunkerWeb 1.6.8~rc3:
 
     ```shell
     curl -s https://repo.bunkerweb.io/install/script.rpm.sh | sudo bash && \
     sudo dnf check-update && \
-    sudo -E dnf install -y --allowerasing bunkerweb-1.6.7
+    sudo -E dnf install -y --allowerasing bunkerweb-1.6.8~rc3
     ```
 
     To prevent upgrading NGINX and/or BunkerWeb packages when executing `dnf upgrade`, you can use the following command:
@@ -2493,7 +2513,7 @@ By adopting this approach, you can enjoy real-time reconfiguration of BunkerWeb 
     The Docker autoconf integration implies the use of **multisite mode**. Please refer to the [multisite section](concepts.md#multisite-mode) of the documentation for more information.
 
 !!! info "Database backend"
-    Please be aware that our instructions assume you are using MariaDB as the default database backend, as configured by the `DATABASE_URI` setting. However, we understand that you may prefer to utilize alternative backends for your Docker integration. If that is the case, rest assured that other database backends are still possible. See docker-compose files in the [misc/integrations folder](https://github.com/bunkerity/bunkerweb/tree/v1.6.7/misc/integrations) of the repository for more information.
+    Please be aware that our instructions assume you are using MariaDB as the default database backend, as configured by the `DATABASE_URI` setting. However, we understand that you may prefer to utilize alternative backends for your Docker integration. If that is the case, rest assured that other database backends are still possible. See docker-compose files in the [misc/integrations folder](https://github.com/bunkerity/bunkerweb/tree/v1.6.8-rc3/misc/integrations) of the repository for more information.
 
 To enable automated configuration updates, include an additional container called `bw-autoconf` in the stack. This container hosts the autoconf service, which manages dynamic configuration changes for BunkerWeb.
 
@@ -2507,7 +2527,7 @@ x-bw-env: &bw-env
 
 services:
   bunkerweb:
-    image: bunkerity/bunkerweb:1.6.7
+    image: bunkerity/bunkerweb:1.6.8-rc3
     ports:
       - "80:8080/tcp"
       - "443:8443/tcp"
@@ -2522,7 +2542,7 @@ services:
       - bw-services
 
   bw-scheduler:
-    image: bunkerity/bunkerweb-scheduler:1.6.7
+    image: bunkerity/bunkerweb-scheduler:1.6.8-rc3
     environment:
       <<: *bw-env
       BUNKERWEB_INSTANCES: "" # We don't need to specify the BunkerWeb instance here as they are automatically detected by the autoconf service
@@ -2537,7 +2557,7 @@ services:
       - bw-db
 
   bw-autoconf:
-    image: bunkerity/bunkerweb-autoconf:1.6.7
+    image: bunkerity/bunkerweb-autoconf:1.6.8-rc3
     depends_on:
       - bunkerweb
       - bw-docker
@@ -2616,15 +2636,16 @@ The `bw-autoconf` controller watches your orchestrator and writes changes to the
 
 ##### Mode & runtime
 
-| Setting               | Description                                       | Accepted values                         | Default                                |
-| --------------------- | ------------------------------------------------- | --------------------------------------- | -------------------------------------- |
-| `AUTOCONF_MODE`       | Enable the autoconf controller                    | `yes` or `no`                           | `no`                                   |
-| `SWARM_MODE`          | Watch Swarm services instead of Docker containers | `yes` or `no`                           | `no`                                   |
-| `KUBERNETES_MODE`     | Watch Kubernetes ingresses/pods instead of Docker | `yes` or `no`                           | `no`                                   |
-| `DOCKER_HOST`         | Docker socket / remote API URL                    | e.g., `unix:///var/run/docker.sock`     | `unix:///var/run/docker.sock`          |
-| `WAIT_RETRY_INTERVAL` | Seconds between readiness checks for instances    | Integer seconds                         | `5`                                    |
-| `LOG_SYSLOG_TAG`      | Syslog tag for autoconf logs                      | String                                  | `bw-autoconf`                          |
-| `TZ`                  | Time zone used for autoconf logs and timestamps   | TZ database name (e.g., `Europe/Paris`) | unset (container default, usually UTC) |
+| Setting                   | Description                                       | Accepted values                         | Default                                |
+| ------------------------- | ------------------------------------------------- | --------------------------------------- | -------------------------------------- |
+| `AUTOCONF_MODE`           | Enable the autoconf controller                    | `yes` or `no`                           | `no`                                   |
+| `SWARM_MODE`              | Watch Swarm services instead of Docker containers | `yes` or `no`                           | `no`                                   |
+| `KUBERNETES_MODE`         | Watch Kubernetes ingresses/pods instead of Docker | `yes` or `no`                           | `no`                                   |
+| `KUBERNETES_GATEWAY_MODE` | Use the Gateway API controller for Kubernetes     | `yes` or `no`                           | `no`                                   |
+| `DOCKER_HOST`             | Docker socket / remote API URL                    | e.g., `unix:///var/run/docker.sock`     | `unix:///var/run/docker.sock`          |
+| `WAIT_RETRY_INTERVAL`     | Seconds between readiness checks for instances    | Integer seconds                         | `5`                                    |
+| `LOG_SYSLOG_TAG`          | Syslog tag for autoconf logs                      | String                                  | `bw-autoconf`                          |
+| `TZ`                      | Time zone used for autoconf logs and timestamps   | TZ database name (e.g., `Europe/Paris`) | unset (container default, usually UTC) |
 
 ##### Database & validation
 
@@ -2661,9 +2682,11 @@ The `bw-autoconf` controller watches your orchestrator and writes changes to the
 | `KUBERNETES_SSL_CA_CERT`                | Path to a custom CA bundle for the Kubernetes API                                                 | File path         | unset               |
 | `USE_KUBERNETES_FQDN`                   | Use `<pod>.<ns>.pod.<domain>` instead of Pod IP as instance hostname                              | `yes` or `no`     | `yes`               |
 | `KUBERNETES_INGRESS_CLASS`              | Only process ingresses with this class                                                            | String            | unset (all classes) |
+| `KUBERNETES_GATEWAY_CLASS`              | Only process Gateways with this class                                                             | String            | unset (all classes) |
+| `KUBERNETES_GATEWAY_API_VERSION`        | Gateway API version to use (auto-falls back if missing)                                           | `v1` or `v1beta1` | `v1`                |
 | `KUBERNETES_DOMAIN_NAME`                | Cluster domain suffix used when building upstream hosts                                           | String            | `cluster.local`     |
 | `KUBERNETES_SERVICE_PROTOCOL`           | Scheme used for generated reverse proxy hosts                                                     | `http` or `https` | `http`              |
-| `BUNKERWEB_SERVICE_NAME`                | Service name to read when patching Ingress status with the load balancer address                  | String            | `bunkerweb`         |
+| `BUNKERWEB_SERVICE_NAME`                | Service name to read when patching Ingress/Gateway status with the load balancer address          | String            | `bunkerweb`         |
 | `BUNKERWEB_NAMESPACE`                   | Namespace of that Service                                                                         | String            | `bunkerweb`         |
 | `KUBERNETES_REVERSE_PROXY_SUFFIX_START` | Starting index for generated `REVERSE_PROXY_HOST_n`/`REVERSE_PROXY_URL_n` on multi-path ingresses | Integer (>=0)     | `1`                 |
 
@@ -2716,13 +2739,13 @@ networks:
     ...
     services:
       bunkerweb:
-        image: bunkerity/bunkerweb:1.6.7
+        image: bunkerity/bunkerweb:1.6.8-rc3
         labels:
           - "bunkerweb.INSTANCE=yes"
           - "bunkerweb.NAMESPACE=my-namespace" # Set the namespace for the BunkerWeb instance so the autoconf service can detect it
       ...
       bw-autoconf:
-        image: bunkerity/bunkerweb-autoconf:1.6.7
+        image: bunkerity/bunkerweb-autoconf:1.6.8-rc3
         environment:
           ...
           NAMESPACES: "my-namespace my-other-namespace" # Only listen to these namespaces
@@ -2745,9 +2768,20 @@ networks:
 </figure>
 
 To automate the configuration of BunkerWeb instances in a Kubernetes environment,
-the autoconf service serves as an [Ingress controller](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/).
+the autoconf service serves as an [Ingress controller](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/) or a [Gateway API controller](https://kubernetes.io/docs/concepts/services-networking/gateway/).
 It configures the BunkerWeb instances based on [Ingress resources](https://kubernetes.io/docs/concepts/services-networking/ingress/)
 and also monitors other Kubernetes objects, such as [ConfigMap](https://kubernetes.io/docs/concepts/configuration/configmap/), for custom configurations.
+
+!!! example "Gateway API mode"
+    Gateway API mode is currently **beta**.
+
+    Make sure the Gateway API CRDs are installed in your cluster (see the [Gateway API installation guide](https://gateway-api.sigs.k8s.io/guides/getting-started/#installing-gateway-api)).
+
+    If you use the Kubernetes Gateway API, set `KUBERNETES_MODE=yes` and `KUBERNETES_GATEWAY_MODE=yes`.
+
+    The controller will watch `Gateway` and `HTTPRoute` resources instead of `Ingress` objects. You can optionally limit what it processes with `KUBERNETES_GATEWAY_CLASS` and choose `KUBERNETES_GATEWAY_API_VERSION` (`v1` or `v1beta1`).
+
+    If your Service name is not `bunkerweb`, set `BUNKERWEB_SERVICE_NAME` so status patching reads the correct Service.
 
 !!! info "ConfigMap reconciliation"
     - The ingress controller only manages ConfigMaps that carry the `bunkerweb.io/CONFIG_TYPE` annotation.
@@ -2769,7 +2803,7 @@ Further information about the Redis/Valkey settings can be found [here](features
     as configured by the `DATABASE_URI` setting.
     However, we understand that you may prefer to utilize alternative backends for your Docker integration.
     If that is the case, rest assured that other database backends are still possible.
-    See docker-compose files in the [misc/integrations folder](https://github.com/bunkerity/bunkerweb/tree/v1.6.7/misc/integrations)
+    See docker-compose files in the [misc/integrations folder](https://github.com/bunkerity/bunkerweb/tree/v1.6.8-rc3/misc/integrations)
     of the repository for more information.
 
     Clustered database backends setup are out-of-the-scope of this documentation.
@@ -2780,9 +2814,9 @@ It is recommended to utilize [RBAC authorization](https://kubernetes.io/docs/ref
 !!! warning "Custom CA for Kubernetes API"
     If you use a custom CA for your Kubernetes API, you can mount a bundle file containing your intermediate(s) and root certificates on the ingress controller and set the `KUBERNETES_SSL_CA_CERT` environment value to the path of the bundle inside the container. Alternatively, even if it's not recommended, you can disable certificate verification by setting the `KUBERNETES_SSL_VERIFY` environment variable of the ingress controller to `no` (default is `yes`).
 
-Additionally, **it is crucial to set the `KUBERNETES_MODE` environment variable to `yes` when utilizing the Kubernetes integration**. This variable is mandatory for proper functionality.
+Additionally, **it is crucial to set the `KUBERNETES_MODE` environment variable to `yes` when utilizing the Kubernetes integration**. This variable is mandatory for proper functionality. If you are using the Gateway API, also set `KUBERNETES_GATEWAY_MODE=yes`.
 
-### Installation methods
+### Installation methods {#kubernetes-installation}
 
 #### Using helm chart (recommended)
 
@@ -2886,7 +2920,7 @@ The **BunkerWeb controller** automatically discovers pods with BunkerWeb sidecar
 ```yaml
 controller:
   enabled: true
-  tag: "1.6.7"
+  tag: "1.6.8~rc3"
 ```
 
 2. For each sidecar, add:
@@ -2979,7 +3013,7 @@ In your BunkerWeb chart `values.yaml`, configure the `BUNKERWEB_INSTANCES` envir
 
 ```yaml
 scheduler:
-  tag: "1.6.7"
+  tag: "1.6.8~rc3"
   extraEnvs:
     - name: BUNKERWEB_INSTANCES
       value: "http://app1-bunkerweb-workers.namespace.svc.cluster.local:5000 http://app2-bunkerweb-workers.namespace.svc.cluster.local:5000"
@@ -3023,7 +3057,7 @@ spec:
 
         # BunkerWeb Sidecar
         - name: bunkerweb
-          image: bunkerity/bunkerweb:1.6.7
+          image: bunkerity/bunkerweb:1.6.8-rc3
           ports:
             - containerPort: 8080  # Exposed HTTP port
             - containerPort: 5000  # Internal API (mandatory)
@@ -3086,11 +3120,11 @@ spec:
 
 ###### Important Environment Variables
 
-| Variable           | Value                                                 | Description                                              |
-| ------------------ | ----------------------------------------------------- | -------------------------------------------------------- |
-| `KUBERNETES_MODE`  | `yes`                                                 | **Mandatory** for automatic discovery via the controller |
-| `API_WHITELIST_IP` | `127.0.0.0/8 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16` | IPs allowed to access the API                            |
-
+| Variable                  | Value                                                 | Description                                              |
+| ------------------------- | ----------------------------------------------------- | -------------------------------------------------------- |
+| `KUBERNETES_MODE`         | `yes`                                                 | **Mandatory** for automatic discovery via the controller |
+| `KUBERNETES_GATEWAY_MODE` | `yes` or `no` (if using Gateway API)                  | Use Gateway API mode                                     |
+| `API_WHITELIST_IP`        | `127.0.0.0/8 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16` | IPs allowed to access the API                            |
 
 ##### Step 3: Creating Services
 
@@ -3294,7 +3328,7 @@ To add a new application protected by BunkerWeb:
 
 #### Full YAML files
 
-Instead of using the helm chart, you can also use the YAML boilerplates inside the [misc/integrations folder](https://github.com/bunkerity/bunkerweb/tree/v1.6.7/misc/integrations) of the GitHub repository. Please note that we highly recommend to use the helm chart instead.
+Instead of using the helm chart, you can also use the YAML boilerplates inside the [misc/integrations folder](https://github.com/bunkerity/bunkerweb/tree/v1.6.8-rc3/misc/integrations) of the GitHub repository. Please note that we highly recommend to use the helm chart instead.
 
 ### Ingress resources
 
@@ -3338,6 +3372,52 @@ spec:
 ...
 ```
 
+### Gateway resources
+
+When Gateway API mode is enabled, you can declare `Gateway` and `HTTPRoute` resources.
+BunkerWeb settings are provided as `bunkerweb.io/<SETTING>` annotations on the `HTTPRoute`; to scope a setting to a host,
+use `bunkerweb.io/<hostname>_<SETTING>`. The `hostnames` field drives the server names. See [Gateway class](#gateway-class).
+
+!!! info "TLS support"
+    TLS termination is handled via the `Gateway` listeners and their `certificateRefs` (TLS secrets).
+
+```yaml
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: my-gateway
+spec:
+  gatewayClassName: bunkerweb
+  listeners:
+    - name: http
+      protocol: HTTP
+      port: 80
+      hostname: www.example.com
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: my-route
+  annotations:
+    # Will be applied to all hostnames in this route
+    bunkerweb.io/MY_SETTING: "value"
+    # Will only be applied to the www.example.com host
+    bunkerweb.io/www.example.com_MY_SETTING: "value"
+spec:
+  parentRefs:
+    - name: my-gateway
+  hostnames:
+    - www.example.com
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: svc-my-app
+          port: 8000
+```
+
 ### Namespaces {#namespaces_1}
 
 Starting from version `1.6.0`, BunkerWeb's autoconf stacks now support namespaces. This feature enables you to manage multiple clusters of BunkerWeb instances and services on the same Kubernetes cluster. To take advantage of namespaces, simply set the `namespace` metadata field on your BunkerWeb instances and services. Here's an example:
@@ -3377,7 +3457,7 @@ metadata:
           serviceAccountName: sa-bunkerweb
           containers:
             - name: bunkerweb-controller
-              image: bunkerity/bunkerweb-autoconf:1.6.7
+              image: bunkerity/bunkerweb-autoconf:1.6.8-rc3
               imagePullPolicy: Always
               env:
                 - name: NAMESPACES
@@ -3430,6 +3510,36 @@ spec:
                 name: svc-my-app
                 port:
                   number: 8000
+```
+
+### Gateway class {#gateway-class}
+
+When using the Gateway API, BunkerWeb expects a `GatewayClass` that points to its controller:
+
+```yaml
+apiVersion: gateway.networking.k8s.io/v1
+kind: GatewayClass
+metadata:
+  name: bunkerweb
+spec:
+  controllerName: bunkerweb.io/gateway-controller
+```
+
+To restrict which `Gateway` resources are monitored, set `KUBERNETES_GATEWAY_CLASS` (for example, `bunkerweb`) and use the matching
+`gatewayClassName` in your `Gateway` resources:
+
+```yaml
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: my-gateway
+spec:
+  gatewayClassName: bunkerweb
+  listeners:
+    - name: http
+      protocol: HTTP
+      port: 80
+      hostname: www.example.com
 ```
 
 ### Custom domain name
@@ -3521,11 +3631,11 @@ service:
 
 # BunkerWeb settings
 bunkerweb:
-  tag: 1.6.7
+  tag: 1.6.8~rc3
 
 # Scheduler settings
 scheduler:
-  tag: 1.6.7
+  tag: 1.6.8~rc3
   extraEnvs:
     # Enable real IP module to get real IP of clients
     - name: USE_REAL_IP
@@ -3533,11 +3643,11 @@ scheduler:
 
 # Controller settings
 controller:
-  tag: 1.6.7
+  tag: 1.6.8~rc3
 
 # UI settings
 ui:
-  tag: 1.6.7
+  tag: 1.6.8~rc3
 ```
 
 Install BunkerWeb with custom values:
@@ -3638,6 +3748,510 @@ spec:
 
 You can visit `http(s)://myapp.example.com`, which is now protected with BunkerWeb 🛡️
 
+### Migrate from nginx ingress controller {#migrate-from-nginx-ingress-controller}
+
+#### Introduction
+
+This practical guide walks you through migrating your **NGINX Ingress** resources to **BunkerWeb**. It focuses on converting your existing Kubernetes manifests with usage examples.
+
+**Prerequisites**: BunkerWeb must be installed in your cluster (see [installation methods](#kubernetes-installation)).
+
+#### Migration Strategy
+
+Recommended Approach: _Coexistence_
+
+1. **Install BunkerWeb in parallel** with NGINX Ingress
+2. **Duplicate your Ingress** with the `bunkerweb` class
+3. **Test** with the BunkerWeb LoadBalancer IP
+4. **Switch DNS** once validated
+5. **Delete** old NGINX Ingress resources
+
+#### Migration Workflow
+
+```bash
+# 1. Backup your current Ingress
+kubectl get ingress --all-namespaces -o yaml > nginx-ingress-backup.yaml
+
+# 2. Convert and create new BunkerWeb Ingress
+kubectl apply -f bunkerweb-ingress.yaml
+
+# 3. Test with BunkerWeb IP
+BUNKERWEB_IP=$(kubectl get svc -n bunkerweb bunkerweb-external -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+curl -H "Host: your-domain.com" http://$BUNKERWEB_IP
+
+# 4. Once validated, switch DNS then delete the old one
+kubectl delete ingress <old-ingress> -n <namespace>
+```
+
+---
+
+#### Example 1: Standard Ingress
+
+##### Scenarios
+
+A simple web application with automatic HTTPS via cert-manager.
+
+=== "NGINX Ingress"
+
+    ```yaml title="nginx-ingress.yaml"
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      name: webapp-ingress
+      namespace: production
+      annotations:
+        kubernetes.io/ingress.class: "nginx"
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    spec:
+      tls:
+      - hosts:
+        - webapp.example.com
+        secretName: webapp-tls
+      rules:
+      - host: webapp.example.com
+        http:
+          paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: webapp-service
+                port:
+                  number: 80
+    ```
+
+=== "BunkerWeb Ingress"
+
+    ```yaml title="bunkerweb-ingress.yaml"
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      name: webapp-ingress
+      namespace: production
+      annotations:
+        # BunkerWeb automatic Let's Encrypt (alternative to cert-manager)
+        bunkerweb.io/AUTO_LETS_ENCRYPT: "yes"
+        bunkerweb.io/EMAIL_LETS_ENCRYPT: "admin@example.com"
+
+        # OR keep cert-manager (comment out AUTO_LETS_ENCRYPT above)
+        # cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    spec:
+      ingressClassName: bunkerweb  # Main change: Ingress class
+      tls:
+      - hosts:
+        - webapp.example.com
+        secretName: webapp-tls
+      rules:
+      - host: webapp.example.com
+        http:
+          paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: webapp-service
+                port:
+                  number: 80
+    ```
+
+##### Key Differences
+
+| Aspect           | NGINX                                    | BunkerWeb                              |
+| ---------------- | ---------------------------------------- | -------------------------------------- |
+| Ingress Class    | `kubernetes.io/ingress.class` annotation | `ingressClassName` field               |
+| SSL Certificates | cert-manager required                    | cert-manager OR built-in Let's Encrypt |
+| Security         | None by default                          | WAF enabled by default                 |
+
+---
+
+#### Example 2: Ingress with Annotations
+
+##### Scenarios
+
+REST API with rate limiting, CORS, HTTPS redirection, and timeout configuration.
+
+=== "NGINX Ingress"
+
+    ```yaml title="nginx-ingress.yaml"
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      name: api-ingress
+      namespace: production
+      annotations:
+        kubernetes.io/ingress.class: "nginx"
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
+
+        # HTTPS redirection
+        nginx.ingress.kubernetes.io/ssl-redirect: "true"
+        nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+
+        # CORS
+        nginx.ingress.kubernetes.io/enable-cors: "true"
+        nginx.ingress.kubernetes.io/cors-allow-origin: "https://app.example.com,https://admin.example.com"
+        nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, PUT, DELETE, OPTIONS"
+        nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
+
+        # Rate limiting
+        nginx.ingress.kubernetes.io/limit-rps: "20"
+        nginx.ingress.kubernetes.io/limit-burst-multiplier: "5"
+
+        # Timeouts and size
+        nginx.ingress.kubernetes.io/proxy-connect-timeout: "10"
+        nginx.ingress.kubernetes.io/proxy-send-timeout: "60"
+        nginx.ingress.kubernetes.io/proxy-read-timeout: "60"
+        nginx.ingress.kubernetes.io/proxy-body-size: "20m"
+
+        # Headers
+        nginx.ingress.kubernetes.io/proxy-set-headers: "custom-headers"
+    spec:
+      tls:
+      - hosts:
+        - api.example.com
+        secretName: api-tls
+      rules:
+      - host: api.example.com
+        http:
+          paths:
+          - path: /v1
+            pathType: Prefix
+            backend:
+              service:
+                name: api-service
+                port:
+                  number: 8080
+    ```
+
+=== "BunkerWeb Ingress"
+
+    ```yaml title="bunkerweb-ingress.yaml"
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      name: api-ingress
+      namespace: production
+      annotations:
+        # Automatic SSL
+        bunkerweb.io/AUTO_LETS_ENCRYPT: "yes"
+        bunkerweb.io/EMAIL_LETS_ENCRYPT: "admin@example.com"
+
+        # HTTPS redirection
+        bunkerweb.io/REDIRECT_HTTP_TO_HTTPS: "yes"
+
+        # CORS
+        bunkerweb.io/USE_CORS: "yes"
+        bunkerweb.io/CORS_ALLOW_ORIGIN: "^https://(app|admin).example.com$"
+        bunkerweb.io/CORS_ALLOW_METHODS: "GET, POST, PUT, DELETE, OPTIONS"
+        bunkerweb.io/CORS_ALLOW_CREDENTIALS: "yes"
+
+        # Rate limiting
+        bunkerweb.io/USE_LIMIT_REQ: "yes"
+        bunkerweb.io/LIMIT_REQ_URL: "/"
+        bunkerweb.io/LIMIT_REQ_RATE: "20r/s"
+
+        # Timeouts
+        bunkerweb.io/REVERSE_PROXY_CONNECT_TIMEOUT: "10s"
+        bunkerweb.io/REVERSE_PROXY_SEND_TIMEOUT: "60s"
+        bunkerweb.io/REVERSE_PROXY_READ_TIMEOUT: "60s"
+
+        # Max body size
+        bunkerweb.io/MAX_CLIENT_SIZE: "20m"
+
+        # Custom headers
+        bunkerweb.io/CUSTOM_HEADER: "X-API-Version: v1"
+
+        # Additional security (BunkerWeb bonus)
+        bunkerweb.io/USE_MODSECURITY: "yes"
+        bunkerweb.io/USE_BAD_BEHAVIOR: "yes"
+    spec:
+      ingressClassName: bunkerweb
+      tls:
+      - hosts:
+        - api.example.com
+        secretName: api-tls
+      rules:
+      - host: api.example.com
+        http:
+          paths:
+          - path: /v1
+            pathType: Prefix
+            backend:
+              service:
+                name: api-service
+                port:
+                  number: 8080
+    ```
+
+##### Annotation Conversion
+
+| Feature        | NGINX Ingress                         | BunkerWeb Ingress                                                                 |
+| -------------- | ------------------------------------- | --------------------------------------------------------------------------------- |
+| HTTPS Redirect | `ssl-redirect: "true"`                | `REDIRECT_HTTP_TO_HTTPS: "yes"`                                                   |
+| CORS Enable    | `enable-cors: "true"`                 | `USE_CORS: "yes"`                                                                 |
+| CORS Origins   | `cors-allow-origin: "https://..."`    | `CORS_ALLOW_ORIGIN: "^https://..."` (PCRE regular expression or `*` or `self`)    |
+| CORS Methods   | `cors-allow-methods: "GET, POST"`     | `CORS_ALLOW_METHODS: "GET, POST"`                                                 |
+| Rate Limiting  | `limit-rps: "20"`                     | `USE_LIMIT_REQ: "yes"` + `LIMIT_REQ_URL: "/"` + `LIMIT_REQ_RATE: "20r/s"`         |
+| Timeouts       | `proxy-*-timeout: "60"`               | `REVERSE_PROXY_*_TIMEOUT: "60s"`                                                  |
+| Body Size      | `proxy-body-size: "20m"`              | `MAX_CLIENT_SIZE: "20m"`                                                          |
+| Custom Headers | `proxy-set-headers: "custom-headers"` | `CUSTOM_HEADER: "Header-Name: value"` (multiple annotations for multiple headers) |
+| Security       | N/A                                   | `USE_MODSECURITY: "yes"` + `USE_BAD_BEHAVIOR: "yes"`                              |
+
+---
+
+#### Example 3: Ingress with Custom NGINX Configuration
+
+##### Scenarios
+
+Application with custom NGINX rules via `configuration-snippet`: complex rewrite rules, authentication, special headers.
+
+=== "NGINX Ingress"
+
+    ```yaml title="nginx-ingress.yaml"
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      name: custom-app-ingress
+      namespace: production
+      annotations:
+        kubernetes.io/ingress.class: "nginx"
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
+
+        # Basic authentication
+        nginx.ingress.kubernetes.io/auth-type: basic
+        nginx.ingress.kubernetes.io/auth-secret: basic-auth
+        nginx.ingress.kubernetes.io/auth-realm: "Authentication Required"
+
+        # IP whitelist
+        nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12"
+
+        # Custom configuration via snippet
+        nginx.ingress.kubernetes.io/configuration-snippet: |
+          # Custom rewrite
+          rewrite ^/old-path/(.*)$ /new-path/$1 permanent;
+
+          # Conditional headers
+          if ($request_uri ~* ^/api/) {
+            add_header X-API-Gateway "true";
+          }
+
+          # Block certain user agents
+          if ($http_user_agent ~* (bot|crawler|spider)) {
+            return 403;
+          }
+
+          # Cache for assets
+          location ~* \.(jpg|jpeg|png|gif|ico|css|js)$ {
+            expires 7d;
+            add_header Cache-Control "public, immutable";
+          }
+
+          # Concurrent connection limit
+          limit_conn addr 10;
+
+          # Proxy to external service for a path
+          location /external-api {
+            proxy_pass https://external-service.com;
+            proxy_set_header Host external-service.com;
+          }
+    spec:
+      tls:
+      - hosts:
+        - custom-app.example.com
+        secretName: custom-app-tls
+      rules:
+      - host: custom-app.example.com
+        http:
+          paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: custom-app-service
+                port:
+                  number: 80
+
+    ---
+    # ConfigMap for authentication
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: basic-auth
+      namespace: production
+    type: Opaque
+    data:
+      auth: dXNlcjokYXByMSRIRzJLbkZNTyR5ZnBmRUxYVXFTSGg0ME5pRC8uNGcuCg==  # user:password
+    ```
+
+=== "BunkerWeb Ingress"
+
+    <!-- ###### Option A: Using BunkerWeb Native Features -->
+
+    ```yaml title="bunkerweb-ingress.yaml"
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      name: custom-app-ingress
+      namespace: production
+      annotations:
+        # SSL
+        bunkerweb.io/AUTO_LETS_ENCRYPT: "yes"
+        bunkerweb.io/EMAIL_LETS_ENCRYPT: "admin@example.com"
+
+        # Basic authentication (native BunkerWeb)
+        bunkerweb.io/USE_AUTH_BASIC: "yes"
+        bunkerweb.io/AUTH_BASIC_LOCATION: "sitewide" # Or "/secure" or "^~ /admin/"
+        bunkerweb.io/AUTH_BASIC_USER: "user"
+        bunkerweb.io/AUTH_BASIC_PASSWORD: "password"  # Or use a Secret
+        bunkerweb.io/AUTH_BASIC_USER_1: "user1"
+        bunkerweb.io/AUTH_BASIC_PASSWORD_1: "otherpassword"  # Or use a Secret
+        bunkerweb.io/AUTH_BASIC_TEXT: "Authentication Required"
+
+        # IP whitelist (native BunkerWeb)
+        bunkerweb.io/WHITELIST_IP: "10.0.0.0/8 172.16.0.0/12"
+
+        # User-Agent blocking (native BunkerWeb)
+        bunkerweb.io/USE_BAD_BEHAVIOR: "yes"
+        bunkerweb.io/BLACKLIST_USER_AGENT: "bot crawler spider" # Or PCRE regex
+
+        # Cache (native BunkerWeb)
+        bunkerweb.io/USE_CLIENT_CACHE: "yes"
+        bunkerweb.io/CLIENT_CACHE_EXTENSIONS: "jpg|jpeg|png|bmp|ico|svg|tif|css|js|otf|ttf|eot|woff|woff2"
+        bunkerweb.io/CLIENT_CACHE_CONTROL: "public, max-age=15552000" # Value for the Cache-Control HTTP header
+        bunkerweb.io/CLIENT_CACHE_ETAG: "yes" # Enable ETag header
+
+        # Connection limit
+        bunkerweb.io/USE_LIMIT_CONN: "yes"
+        bunkerweb.io/LIMIT_CONN_MAX_HTTP1: "10"
+        bunkerweb.io/LIMIT_CONN_MAX_HTTP2: "100"
+        bunkerweb.io/LIMIT_CONN_MAX_HTTP3: "100"
+    spec:
+      ingressClassName: bunkerweb
+      tls:
+      - hosts:
+        - custom-app.example.com
+        secretName: custom-app-tls
+      rules:
+      - host: custom-app.example.com
+        http:
+          paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: custom-app-service
+                port:
+                  number: 80
+    ```
+
+=== "BunkerWeb Ingress with ConfigMap"
+
+    <!-- ###### Option B: Using ConfigMaps for Custom Configuration -->
+
+    For rules without direct equivalents (complex rewrites, external proxy), use a ConfigMap:
+
+    ```yaml title="bunkerweb-ingress-configmap.yaml"
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      name: custom-app-ingress
+      namespace: production
+      annotations:
+        bunkerweb.io/AUTO_LETS_ENCRYPT: "yes"
+        bunkerweb.io/EMAIL_LETS_ENCRYPT: "admin@example.com"
+
+        # Native features
+        bunkerweb.io/USE_AUTH_BASIC: "yes"
+        bunkerweb.io/AUTH_BASIC_LOCATION: "sitewide" # Or "/secure" or "^~ /admin/"
+        bunkerweb.io/AUTH_BASIC_USER: "user"
+        bunkerweb.io/AUTH_BASIC_PASSWORD: "password"  # Or use a Secret
+        bunkerweb.io/AUTH_BASIC_USER_1: "user1"
+        bunkerweb.io/AUTH_BASIC_PASSWORD_1: "otherpassword"  # Or use a Secret
+        bunkerweb.io/AUTH_BASIC_TEXT: "Authentication Required"
+
+        bunkerweb.io/WHITELIST_IP: "10.0.0.0/8 172.16.0.0/12"
+
+        bunkerweb.io/USE_BAD_BEHAVIOR: "yes"
+
+        bunkerweb.io/BLACKLIST_USER_AGENT: "bot crawler spider" # Or PCRE regex
+    spec:
+      ingressClassName: bunkerweb
+      tls:
+      - hosts:
+        - custom-app.example.com
+        secretName: custom-app-tls
+      rules:
+      - host: custom-app.example.com
+        http:
+          paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: custom-app-service
+                port:
+                  number: 80
+
+    ---
+    # ConfigMap for custom NGINX configuration
+    apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: custom-app-nginx-config
+      namespace: production
+      annotations:
+        # Indicate this is an HTTP config for this site
+        bunkerweb.io/CONFIG_TYPE: "http"
+        bunkerweb.io/CONFIG_SITE: "custom-app.example.com"
+    data:
+      custom-rules.conf: |
+        # Custom rewrite
+        rewrite ^/old-path/(.*)$ /new-path/$1 permanent;
+
+        # Conditional headers for APIs
+        location ^~ /api/ {
+          add_header X-API-Gateway "true";
+          proxy_pass http://custom-app-service.production.svc.cluster.local;
+        }
+
+        # Cache for static assets
+        location ~* \.(jpg|jpeg|png|gif|ico|css|js)$ {
+          expires 7d;
+          add_header Cache-Control "public, immutable";
+          proxy_pass http://custom-app-service.production.svc.cluster.local;
+        }
+
+        # Proxy to external service
+        location /external-api {
+          proxy_pass https://external-service.com;
+          proxy_set_header Host external-service.com;
+          proxy_ssl_server_name on;
+        }
+    ```
+
+##### Comparison: Native Features vs ConfigMap
+
+| NGINX Rule                 | BunkerWeb Approach                          |
+| -------------------------- | ------------------------------------------- |
+| `auth-type: basic`         | ✅ Native annotation: `USE_AUTH_BASIC`       |
+| `whitelist-source-range`   | ✅ Native annotation: `WHITELIST_IP`         |
+| `if ($http_user_agent ~*)` | ✅ Native annotation: `BLACKLIST_USER_AGENT` |
+| `expires 7d` for cache     | ✅ Native annotation: `USE_CLIENT_CACHE`     |
+| `limit_conn addr 10`       | ✅ Native annotation: `USE_LIMIT_CONN`       |
+| Complex `rewrite`          | ⚠️ ConfigMap: `CONFIG_TYPE: http`            |
+| Custom `location`          | ⚠️ ConfigMap: `CONFIG_TYPE: http`            |
+| External `proxy_pass`      | ⚠️ ConfigMap: `CONFIG_TYPE: http`            |
+
+---
+
+#### Before/After Migration Comparison
+
+| Metric                      | NGINX Ingress | BunkerWeb | Comment                             |
+| --------------------------- | ------------- | --------- | ----------------------------------- |
+| Avg response time           | 45ms          | 52ms      | +7ms (acceptable security overhead) |
+| Blocked requests (XSS/SQLi) | 0             | **127**   | WAF active ✅                        |
+| SSL certificate             | Valid         | Valid     | Migration OK ✅                      |
+| Availability                | 99.9%         | 99.9%     | Stable ✅                            |
+
 ## Swarm
 
 <figure markdown>
@@ -3665,7 +4279,7 @@ Since multiple instances of BunkerWeb are running, a shared data store implement
 As for the database volume, the documentation does not specify a specific approach. Choosing either a shared folder or a specific driver for the database volume is dependent on your unique use-case and is left as an exercise for the reader.
 
 !!! info "Database backend"
-    Please be aware that our instructions assume you are using MariaDB as the default database backend, as configured by the `DATABASE_URI` setting. However, we understand that you may prefer to utilize alternative backends for your Docker integration. If that is the case, rest assured that other database backends are still possible. See docker-compose files in the [misc/integrations folder](https://github.com/bunkerity/bunkerweb/tree/v1.6.7/misc/integrations) of the repository for more information.
+    Please be aware that our instructions assume you are using MariaDB as the default database backend, as configured by the `DATABASE_URI` setting. However, we understand that you may prefer to utilize alternative backends for your Docker integration. If that is the case, rest assured that other database backends are still possible. See docker-compose files in the [misc/integrations folder](https://github.com/bunkerity/bunkerweb/tree/v1.6.8-rc3/misc/integrations) of the repository for more information.
 
     Clustered database backends setup are out-of-the-scope of this documentation.
 
@@ -3679,7 +4293,7 @@ x-bw-env: &bw-env
 
 services:
   bunkerweb:
-    image: bunkerity/bunkerweb:1.6.7
+    image: bunkerity/bunkerweb:1.6.8-rc3
     ports:
       - published: 80
         target: 8080
@@ -3708,7 +4322,7 @@ services:
         - "bunkerweb.INSTANCE=yes" # Mandatory label for the autoconf service to identify the BunkerWeb instance
 
   bw-scheduler:
-    image: bunkerity/bunkerweb-scheduler:1.6.7
+    image: bunkerity/bunkerweb-scheduler:1.6.8-rc3
     environment:
       <<: *bw-env
       BUNKERWEB_INSTANCES: "" # We don't need to specify the BunkerWeb instance here as they are automatically detected by the autoconf service
@@ -3729,7 +4343,7 @@ services:
           - "node.role == worker"
 
   bw-autoconf:
-    image: bunkerity/bunkerweb-autoconf:1.6.7
+    image: bunkerity/bunkerweb-autoconf:1.6.8-rc3
     environment:
       SWARM_MODE: "yes"
       DATABASE_URI: "mariadb+pymysql://bunkerweb:changeme@bw-db:3306/db" # Remember to set a stronger password for the database
@@ -3881,7 +4495,7 @@ networks:
     ...
     services:
       bunkerweb:
-        image: bunkerity/bunkerweb:1.6.7
+        image: bunkerity/bunkerweb:1.6.8-rc3
         ...
         deploy:
           mode: global
@@ -3893,7 +4507,7 @@ networks:
             - "bunkerweb.NAMESPACE=my-namespace" # Set the namespace for the BunkerWeb instance
       ...
       bw-autoconf:
-        image: bunkerity/bunkerweb-autoconf:1.6.7
+        image: bunkerity/bunkerweb-autoconf:1.6.8-rc3
         environment:
           NAMESPACES: "my-namespace my-other-namespace" # Only listen to these namespaces
           ...

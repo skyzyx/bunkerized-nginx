@@ -153,12 +153,13 @@ Passer en mode `detect` aide à identifier et corriger les faux positifs sans im
 
 === "Paramètres d’intégration"
 
-    | Paramètre         | Valeur par défaut | Contexte  | Multiple | Description                                                                                                     |
-    | ----------------- | ----------------- | --------- | -------- | --------------------------------------------------------------------------------------------------------------- |
-    | `AUTOCONF_MODE`   | `no`              | global    | Non      | **Mode Autoconf :** Active l’intégration Docker Autoconf.                                                       |
-    | `SWARM_MODE`      | `no`              | global    | Non      | **Mode Swarm :** Active l’intégration Docker Swarm.                                                             |
-    | `KUBERNETES_MODE` | `no`              | global    | Non      | **Mode Kubernetes :** Active l’intégration Kubernetes.                                                          |
-    | `USE_TEMPLATE`    |                   | multisite | Non      | **Utiliser un template :** Modèle de configuration qui surcharge les valeurs par défaut de certains paramètres. |
+    | Paramètre                | Valeur par défaut | Contexte  | Multiple | Description                                                                                                                                                         |
+    | ------------------------ | ----------------- | --------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | `AUTOCONF_MODE`          | `no`              | global    | Non      | **Mode Autoconf :** Active l’intégration Docker Autoconf.                                                                                                           |
+    | `SWARM_MODE`             | `no`              | global    | Non      | **Mode Swarm :** Active l’intégration Docker Swarm.                                                                                                                 |
+    | `KUBERNETES_MODE`        | `no`              | global    | Non      | **Mode Kubernetes :** Active l’intégration Kubernetes.                                                                                                              |
+    | `KEEP_CONFIG_ON_RESTART` | `no`              | global    | Non      | **Garder la configuration au redémarrage :** Conserver la configuration au redémarrage. Mettre à 'yes' pour éviter la réinitialisation de la config au redémarrage. |
+    | `USE_TEMPLATE`           |                   | multisite | Non      | **Utiliser un template :** Modèle de configuration qui surcharge les valeurs par défaut de certains paramètres.                                                     |
 
 === "Paramètres Nginx"
 
@@ -860,11 +861,12 @@ Suivez ces étapes pour configurer et utiliser la fonctionnalité Blacklist :
 
     Le paramètre `BLACKLIST_COMMUNITY_LISTS` vous permet de choisir parmi des sources de listes noires sélectionnées. Les options disponibles incluent :
 
-    | ID                                        | Description                                                                                                                                                                                                             | Source                                                                                                                         |
-    | ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-    | `ip:laurent-minne-data-shield-aggressive` | Data-Shield IPv4 Blocklist. DST = Europa                                                                                                                                                                                | `https://raw.githubusercontent.com/duggytuxy/Data-Shield_IPv4_Blocklist/refs/heads/main/prod_data-shield_ipv4_blocklist.txt`   |
-    | `ip:danmeuk-tor-exit`                     | Adresses IP des nœuds de sortie Tor (dan.me.uk)                                                                                                                                                                         | `https://www.dan.me.uk/torlist/?exit`                                                                                          |
-    | `ua:mitchellkrogza-bad-user-agents`       | Nginx Block Bad Bots, Spam Referrer Blocker, Vulnerability Scanners, User-Agents, Malware, Adware, Ransomware, Malicious Sites, avec anti-DDOS, Wordpress Theme Detector Blocking et Fail2Ban Jail for Repeat Offenders | `https://raw.githubusercontent.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/master/_generator_lists/bad-user-agents.list` |
+    | ID                                        | Description                                                                                                                                                                                                             | Source                                                                                                                                |
+    | ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+    | `ip:danmeuk-tor-exit`                     | Adresses IP des nœuds de sortie Tor (dan.me.uk)                                                                                                                                                                         | `https://www.dan.me.uk/torlist/?exit`                                                                                                 |
+    | `ua:mitchellkrogza-bad-user-agents`       | Nginx Block Bad Bots, Spam Referrer Blocker, Vulnerability Scanners, User-Agents, Malware, Adware, Ransomware, Malicious Sites, avec anti-DDOS, Wordpress Theme Detector Blocking et Fail2Ban Jail for Repeat Offenders | `https://raw.githubusercontent.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/master/_generator_lists/bad-user-agents.list`        |
+    | `ip:laurent-minne-data-shield-aggressive` | Data-Shield IPv4 Blocklist - Laurent M. - Pour Web Apps, WordPress, VPS (Apache/Nginx)                                                                                                                                  | `https://raw.githubusercontent.com/duggytuxy/Data-Shield_IPv4_Blocklist/refs/heads/main/prod_data-shield_ipv4_blocklist.txt`          |
+    | `ip:laurent-minne-data-shield-critical`   | Data-Shield IPv4 Blocklist - Laurent M. - Pour DMZs, SaaS, API & Actifs Critiques                                                                                                                                       | `https://raw.githubusercontent.com/duggytuxy/Data-Shield_IPv4_Blocklist/refs/heads/main/prod_critical_data-shield_ipv4_blocklist.txt` |
 
     **Configuration :** Spécifiez plusieurs listes séparées par des espaces. Par exemple :
     ```yaml
@@ -873,6 +875,9 @@ Suivez ces étapes pour configurer et utiliser la fonctionnalité Blacklist :
 
     !!! tip "Listes communautaires vs configuration manuelle"
         Les listes noires communautaires offrent un moyen pratique de démarrer avec des sources de listes noires éprouvées. Vous pouvez les utiliser en parallèle de configurations manuelles d’URL pour une flexibilité maximale.
+
+    !!! note "Remerciements"
+        Merci à Laurent Minne d'avoir contribué aux [listes de blocage Data-Shield](https://duggytuxy.github.io/#) !
 
 === "Adresse IP"
     **Ce que ça fait :** Bloque les visiteurs en fonction de leur adresse IP ou de leur réseau.
@@ -1511,7 +1516,7 @@ Les sections suivantes détaillent chacune de ces étapes.
     services:
       bunkerweb:
         # C'est le nom qui sera utilisé pour identifier l'instance dans le planificateur
-        image: bunkerity/bunkerweb:1.6.7
+        image: bunkerity/bunkerweb:1.6.8-rc3
         ports:
           - "80:8080/tcp"
           - "443:8443/tcp"
@@ -1528,7 +1533,7 @@ Les sections suivantes détaillent chacune de ces étapes.
             syslog-address: "udp://10.20.30.254:514" # L'adresse IP du service syslog
 
       bw-scheduler:
-        image: bunkerity/bunkerweb-scheduler:1.6.7
+        image: bunkerity/bunkerweb-scheduler:1.6.8-rc3
         environment:
           <<: *bw-env
           BUNKERWEB_INSTANCES: "bunkerweb" # Assurez-vous de définir le nom correct de l'instance
@@ -2507,7 +2512,12 @@ Suivez ces étapes pour configurer et utiliser la fonctionnalité Let's Encrypt 
 6.  **Laissez BunkerWeb s'occuper du reste :** Une fois configuré, les certificats sont automatiquement émis, installés et renouvelés selon les besoins.
 
 !!! tip "Profils de certificat"
-    Let's Encrypt propose différents profils de certificat pour différents cas d'usage : - **classic** : Certificats à usage général avec une validité de 90 jours (par défaut) - **tlsserver** : Optimisé pour l'authentification de serveur TLS avec une validité de 90 jours et une charge utile plus petite - **shortlived** : Sécurité renforcée avec une validité de 7 jours pour les environnements automatisés - **custom** : Si votre serveur ACME prend en charge un profil différent, définissez-le avec `LETS_ENCRYPT_CUSTOM_PROFILE`.
+    Let's Encrypt propose différents profils de certificat pour différents cas d'usage :
+
+    - **classic** : Certificats à usage général avec une validité de 90 jours (par défaut)
+    - **tlsserver** : Optimisé pour l'authentification de serveur TLS avec une validité de 90 jours et une charge utile plus petite
+    - **shortlived** : Sécurité renforcée avec une validité de 7 jours pour les environnements automatisés
+    - **custom** : Si votre serveur ACME prend en charge un profil différent, définissez-le avec `LETS_ENCRYPT_CUSTOM_PROFILE`.
 
 !!! info "Disponibilité des profils"
     Notez que les profils `tlsserver` et `shortlived` peuvent ne pas être disponibles dans tous les environnements ou avec tous les clients ACME pour le moment. Le profil `classic` a la compatibilité la plus large et est recommandé pour la plupart des utilisateurs. Si un profil sélectionné n'est pas disponible, le système basculera automatiquement sur le profil `classic`.
@@ -2527,6 +2537,7 @@ Suivez ces étapes pour configurer et utiliser la fonctionnalité Let's Encrypt 
 | `USE_LETS_ENCRYPT_WILDCARD`                 | `no`      | multisite | no       | **Certificats Wildcard :** Si mis à `yes`, crée des certificats wildcard pour tous les domaines. Uniquement disponible avec les défis DNS.                                                                                                                                                                                   |
 | `USE_LETS_ENCRYPT_STAGING`                  | `no`      | multisite | no       | **Utiliser Staging :** Si mis à `yes`, utilise l'environnement de staging de Let's Encrypt pour les tests. Les limites de débit y sont plus élevées mais les certificats ne sont pas fiables.                                                                                                                                |
 | `LETS_ENCRYPT_CLEAR_OLD_CERTS`              | `no`      | global    | no       | **Effacer les anciens certificats :** Si mis à `yes`, supprime les anciens certificats inutiles lors du renouvellement.                                                                                                                                                                                                      |
+| `LETS_ENCRYPT_CONCURRENT_REQUESTS`          | `no`      | global    | no       | **Requêtes concurrentes :** Si mis à `yes`, certbot-new effectue les demandes de certificats en parallèle. À utiliser avec prudence pour éviter les limites de débit.                                                                                                                                                        |
 | `LETS_ENCRYPT_PROFILE`                      | `classic` | multisite | no       | **Profil de certificat :** Sélectionnez le profil à utiliser. Options : `classic` (général), `tlsserver` (optimisé TLS), ou `shortlived` (7 jours).                                                                                                                                                                          |
 | `LETS_ENCRYPT_CUSTOM_PROFILE`               |           | multisite | no       | **Profil de certificat personnalisé :** Saisissez un profil personnalisé si votre serveur ACME le supporte. Remplace `LETS_ENCRYPT_PROFILE` s'il est défini.                                                                                                                                                                 |
 | `LETS_ENCRYPT_MAX_RETRIES`                  | `3`       | multisite | no       | **Tentatives maximales :** Nombre de tentatives de génération de certificat en cas d'échec. `0` pour désactiver. Utile pour les problèmes réseau temporaires.                                                                                                                                                                |
@@ -2568,11 +2579,13 @@ Le plugin Let's Encrypt prend en charge un large éventail de fournisseurs DNS p
 | `desec`           | deSEC            | `token`                                                                                                      |                                                                                                                                                                                                                                                                          | [Documentation](https://github.com/desec-io/certbot-dns-desec/blob/main/README.md)                    |
 | `digitalocean`    | DigitalOcean     | `token`                                                                                                      |                                                                                                                                                                                                                                                                          | [Documentation](https://certbot-dns-digitalocean.readthedocs.io/en/stable/)                           |
 | `domainoffensive` | Domain-Offensive | `api_token`                                                                                                  |                                                                                                                                                                                                                                                                          | [Documentation](https://github.com/domainoffensive/certbot-dns-domainoffensive/blob/master/README.md) |
+| `domeneshop`      | Domeneshop       | `token`<br>`secret`                                                                                          |                                                                                                                                                                                                                                                                          | [Documentation](https://github.com/domeneshop/certbot-dns-domeneshop/blob/master/README.rst)          |
 | `dnsimple`        | DNSimple         | `token`                                                                                                      |                                                                                                                                                                                                                                                                          | [Documentation](https://certbot-dns-dnsimple.readthedocs.io/en/stable/)                               |
 | `dnsmadeeasy`     | DNS Made Easy    | `api_key`<br>`secret_key`                                                                                    |                                                                                                                                                                                                                                                                          | [Documentation](https://certbot-dns-dnsmadeeasy.readthedocs.io/en/stable/)                            |
 | `duckdns`         | DuckDNS          | `duckdns_token`                                                                                              |                                                                                                                                                                                                                                                                          | [Documentation](https://github.com/infinityofspace/certbot_dns_duckdns/blob/main/Readme.md)           |
 | `dynu`            | Dynu             | `auth_token`                                                                                                 |                                                                                                                                                                                                                                                                          | [Documentation](https://github.com/bikram990/certbot-dns-dynu/blob/main/README.md)                    |
 | `gehirn`          | Gehirn DNS       | `api_token`<br>`api_secret`                                                                                  |                                                                                                                                                                                                                                                                          | [Documentation](https://certbot-dns-gehirn.readthedocs.io/en/stable/)                                 |
+| `godaddy`         | GoDaddy          | `key`<br>`secret`                                                                                            | `ttl` (défaut : `600`)                                                                                                                                                                                                                                                   | [Documentation](https://github.com/miigotu/certbot-dns-godaddy/blob/main/README.md)                   |
 | `google`          | Google Cloud     | `project_id`<br>`private_key_id`<br>`private_key`<br>`client_email`<br>`client_id`<br>`client_x509_cert_url` | `type` (défaut : `service_account`)<br>`auth_uri` (défaut : `https://accounts.google.com/o/oauth2/auth`)<br>`token_uri` (défaut : `https://accounts.google.com/o/oauth2/token`)<br>`auth_provider_x509_cert_url` (défaut : `https://www.googleapis.com/oauth2/v1/certs`) | [Documentation](https://certbot-dns-google.readthedocs.io/en/stable/)                                 |
 | `infomaniak`      | Infomaniak       | `token`                                                                                                      |                                                                                                                                                                                                                                                                          | [Documentation](https://github.com/infomaniak/certbot-dns-infomaniak/blob/main/README.rst)            |
 | `ionos`           | IONOS            | `prefix`<br>`secret`                                                                                         | `endpoint` (défaut : `https://api.hosting.ionos.com`)                                                                                                                                                                                                                    | [Documentation](https://github.com/helgeerbe/certbot-dns-ionos/blob/master/README.md)                 |
@@ -2586,6 +2599,7 @@ Le plugin Let's Encrypt prend en charge un large éventail de fournisseurs DNS p
 | `route53`         | Amazon Route 53  | `access_key_id`<br>`secret_access_key`                                                                       |                                                                                                                                                                                                                                                                          | [Documentation](https://certbot-dns-route53.readthedocs.io/en/stable/)                                |
 | `sakuracloud`     | Sakura Cloud     | `api_token`<br>`api_secret`                                                                                  |                                                                                                                                                                                                                                                                          | [Documentation](https://certbot-dns-sakuracloud.readthedocs.io/en/stable/)                            |
 | `scaleway`        | Scaleway         | `application_token`                                                                                          |                                                                                                                                                                                                                                                                          | [Documentation](https://github.com/vanonox/certbot-dns-scaleway/blob/main/README.rst)                 |
+| `transip`         | TransIP          | `key_file`<br>`username`                                                                                     |                                                                                                                                                                                                                                                                          | [Documentation](https://certbot-dns-transip.readthedocs.io/en/stable/)                                |
 
 ### Exemples de configuration
 
@@ -3281,8 +3295,8 @@ Suivez ces étapes pour configurer et utiliser ModSecurity :
 
 Sélectionnez une version du CRS pour répondre au mieux à vos besoins de sécurité :
 
-- **`3`** : Stable [v3.3.7](https://github.com/coreruleset/coreruleset/releases/tag/v3.3.7).
-- **`4`** : Stable [v4.21.0](https://github.com/coreruleset/coreruleset/releases/tag/v4.21.0) (**par défaut**).
+- **`3`** : Stable [v3.3.8](https://github.com/coreruleset/coreruleset/releases/tag/v3.3.8).
+- **`4`** : Stable [v4.22.0](https://github.com/coreruleset/coreruleset/releases/tag/v4.22.0) (**par défaut**).
 - **`nightly`** : [Version de nuit](https://github.com/coreruleset/coreruleset/releases/tag/nightly) offrant les dernières mises à jour de règles.
 
 !!! example "Version de nuit (Nightly Build)"
@@ -3556,6 +3570,69 @@ Suivez ces étapes pour déployer le mutual TLS sereinement :
     MTLS_VERIFY_CLIENT: "optional_no_ca"
     MTLS_FORWARD_CLIENT_HEADERS: "no"
     ```
+
+## OpenAPI Validator <img src='../../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style='transform : translateY(3px);'> (PRO)
+
+
+Prise en charge STREAM :x:
+
+Validates incoming HTTP requests against an OpenAPI / Swagger specification.
+
+| Paramètre                    | Valeur par défaut                   | Contexte  | Multiple | Description                                                                                     |
+| ---------------------------- | ----------------------------------- | --------- | -------- | ----------------------------------------------------------------------------------------------- |
+| `USE_OPENAPI_VALIDATOR`      | `no`                                | multisite | non      | Enable OpenAPI route validation for this site.                                                  |
+| `OPENAPI_SPEC`               |                                     | multisite | non      | Absolute path or HTTP(S) URL to the OpenAPI (swagger) document in JSON/YAML format.             |
+| `OPENAPI_BASE_PATH`          |                                     | multisite | non      | Optional base path prefix to prepend to every path in the spec (overrides servers[*].url path). |
+| `OPENAPI_ALLOW_UNSPECIFIED`  | `no`                                | multisite | non      | Allow requests to paths not listed in the specification (otherwise they are denied).            |
+| `OPENAPI_ALLOW_INSECURE_URL` | `no`                                | multisite | non      | Allow fetching the OpenAPI spec over plain HTTP (not recommended).                              |
+| `OPENAPI_IGNORE_URLS`        | `^/docs$ ^/redoc$ ^/openapi\.json$` | multisite | non      | List of URL regexes to bypass OpenAPI validation (space separated).                             |
+| `OPENAPI_MAX_SPEC_SIZE`      | `2M`                                | global    | non      | Maximum allowed size of the OpenAPI document (accepts suffix k/M/G).                            |
+| `OPENAPI_VALIDATE_PARAMS`    | `yes`                               | multisite | non      | Validate query, header, cookie, and path parameters against the OpenAPI specification.          |
+
+## OpenID Connect <img src='../../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style='transform : translateY(3px);'> (PRO)
+
+
+Prise en charge STREAM :x:
+
+OpenID Connect authentication plugin providing SSO capabilities with identity providers.
+
+| Paramètre                                 | Valeur par défaut      | Contexte  | Multiple | Description                                                                                                                                             |
+| ----------------------------------------- | ---------------------- | --------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `USE_OPENIDC`                             | `no`                   | multisite | non      | Enable or disable OpenID Connect authentication.                                                                                                        |
+| `OPENIDC_DISCOVERY`                       |                        | multisite | non      | OpenID Connect discovery URL (e.g. https://idp.example.com/.well-known/openid-configuration).                                                           |
+| `OPENIDC_CLIENT_ID`                       |                        | multisite | non      | OAuth 2.0 client identifier registered with the IdP.                                                                                                    |
+| `OPENIDC_CLIENT_SECRET`                   |                        | multisite | non      | OAuth 2.0 client secret registered with the IdP.                                                                                                        |
+| `OPENIDC_TOKEN_ENDPOINT_AUTH_METHOD`      | `basic`                | multisite | non      | Token endpoint auth method: basic (recommended, HTTP Basic), post (POST body), secret_jwt (JWT with client secret), private_key_jwt (JWT with RSA key). |
+| `OPENIDC_CLIENT_RSA_PRIVATE_KEY`          |                        | multisite | non      | PEM-encoded RSA private key for private_key_jwt authentication.                                                                                         |
+| `OPENIDC_CLIENT_RSA_PRIVATE_KEY_ID`       |                        | multisite | non      | Optional key ID (kid) for private_key_jwt authentication.                                                                                               |
+| `OPENIDC_CLIENT_JWT_ASSERTION_EXPIRES_IN` |                        | multisite | non      | JWT assertion lifetime in seconds (empty to use library default).                                                                                       |
+| `OPENIDC_REDIRECT_URI`                    | `/callback`            | multisite | non      | URI path where the IdP redirects after authentication.                                                                                                  |
+| `OPENIDC_SCOPE`                           | `openid email profile` | multisite | non      | Space-separated list of OAuth 2.0 scopes to request.                                                                                                    |
+| `OPENIDC_AUTHORIZATION_PARAMS`            |                        | multisite | non      | Additional authorization params as comma-separated key=value pairs (e.g. audience=api,resource=xyz). URL-encode values if needed.                       |
+| `OPENIDC_USE_NONCE`                       | `yes`                  | multisite | non      | Use nonce in authentication requests to prevent replay attacks.                                                                                         |
+| `OPENIDC_USE_PKCE`                        | `no`                   | multisite | non      | Use PKCE (Proof Key for Code Exchange) for authorization code flow.                                                                                     |
+| `OPENIDC_FORCE_REAUTHORIZE`               | `no`                   | multisite | non      | Force re-authorization on every request (not recommended for production).                                                                               |
+| `OPENIDC_REFRESH_SESSION_INTERVAL`        |                        | multisite | non      | Interval in seconds to silently re-authenticate (empty to disable).                                                                                     |
+| `OPENIDC_IAT_SLACK`                       | `120`                  | multisite | non      | Allowed clock skew in seconds for token validation.                                                                                                     |
+| `OPENIDC_ACCESS_TOKEN_EXPIRES_IN`         | `3600`                 | multisite | non      | Default access token lifetime (seconds) if not provided by IdP.                                                                                         |
+| `OPENIDC_RENEW_ACCESS_TOKEN_ON_EXPIRY`    | `yes`                  | multisite | non      | Automatically renew access token using refresh token when expired.                                                                                      |
+| `OPENIDC_ACCEPT_UNSUPPORTED_ALG`          | `no`                   | multisite | non      | Accept tokens signed with unsupported algorithms (not recommended).                                                                                     |
+| `OPENIDC_LOGOUT_PATH`                     | `/logout`              | multisite | non      | URI path for logout requests.                                                                                                                           |
+| `OPENIDC_REVOKE_TOKENS_ON_LOGOUT`         | `no`                   | multisite | non      | Revoke tokens at the IdP when logging out.                                                                                                              |
+| `OPENIDC_REDIRECT_AFTER_LOGOUT_URI`       |                        | multisite | non      | URI to redirect after logout (leave empty for IdP default).                                                                                             |
+| `OPENIDC_POST_LOGOUT_REDIRECT_URI`        |                        | multisite | non      | URI to redirect after IdP logout is complete.                                                                                                           |
+| `OPENIDC_TIMEOUT_CONNECT`                 | `10000`                | multisite | non      | Connection timeout in milliseconds for IdP requests.                                                                                                    |
+| `OPENIDC_TIMEOUT_SEND`                    | `10000`                | multisite | non      | Send timeout in milliseconds for IdP requests.                                                                                                          |
+| `OPENIDC_TIMEOUT_READ`                    | `10000`                | multisite | non      | Read timeout in milliseconds for IdP requests.                                                                                                          |
+| `OPENIDC_SSL_VERIFY`                      | `yes`                  | multisite | non      | Verify SSL certificates when communicating with the IdP.                                                                                                |
+| `OPENIDC_KEEPALIVE`                       | `yes`                  | multisite | non      | Enable HTTP keepalive for connections to the IdP.                                                                                                       |
+| `OPENIDC_HTTP_PROXY`                      |                        | multisite | non      | HTTP proxy URL for IdP connections (e.g. http://proxy:8080).                                                                                            |
+| `OPENIDC_HTTPS_PROXY`                     |                        | multisite | non      | HTTPS proxy URL for IdP connections (e.g. http://proxy:8080).                                                                                           |
+| `OPENIDC_USER_HEADER`                     | `X-User`               | multisite | non      | Header to pass user info to upstream (empty to disable).                                                                                                |
+| `OPENIDC_USER_HEADER_CLAIM`               | `sub`                  | multisite | non      | ID token claim to use for the user header (e.g. sub, email, preferred_username).                                                                        |
+| `OPENIDC_DISPLAY_CLAIM`                   | `preferred_username`   | multisite | non      | Claim to use for display in logs and metrics (e.g. preferred_username, name, email). Falls back to User Header Claim if not found.                      |
+| `OPENIDC_DISCOVERY_DICT_SIZE`             | `1m`                   | global    | non      | Size of the shared dictionary to cache discovery data.                                                                                                  |
+| `OPENIDC_JWKS_DICT_SIZE`                  | `1m`                   | global    | non      | Size of the shared dictionary to cache JWKS data.                                                                                                       |
 
 ## PHP
 
@@ -4070,20 +4147,24 @@ Suivez ces étapes pour configurer et utiliser la fonctionnalité Reverse Proxy 
         - **Gestion des protocoles :** Prise en charge de HTTP, HTTPS, WebSockets, et d'autres protocoles
         - **Interception des erreurs :** Personnalisez les pages d'erreur pour une expérience utilisateur cohérente
 
-    | Paramètre                        | Défaut | Contexte  | Multiple | Description                                                                                                      |
-    | -------------------------------- | ------ | --------- | -------- | ---------------------------------------------------------------------------------------------------------------- |
-    | `USE_REVERSE_PROXY`              | `no`   | multisite | no       | **Activer le Reverse Proxy :** Mettre à `yes` pour activer la fonctionnalité de reverse proxy.                   |
-    | `REVERSE_PROXY_HOST`             |        | multisite | yes      | **Hôte Backend :** URL complète de la ressource proxifiée (proxy_pass).                                          |
-    | `REVERSE_PROXY_URL`              | `/`    | multisite | yes      | **URL d'emplacement :** Chemin qui sera proxifié vers le serveur backend.                                        |
-    | `REVERSE_PROXY_BUFFERING`        | `yes`  | multisite | yes      | **Mise en tampon de la réponse :** Active ou désactive la mise en tampon des réponses de la ressource proxifiée. |
-    | `REVERSE_PROXY_KEEPALIVE`        | `no`   | multisite | yes      | **Keep-Alive :** Active ou désactive les connexions keepalive avec la ressource proxifiée.                       |
-    | `REVERSE_PROXY_CUSTOM_HOST`      |        | multisite | no       | **Hôte personnalisé :** Remplace l'en-tête Host envoyé au serveur en amont.                                      |
-    | `REVERSE_PROXY_INTERCEPT_ERRORS` | `yes`  | multisite | no       | **Intercepter les erreurs :** Intercepte et réécrit les réponses d'erreur du backend.                            |
+    | Paramètre                         | Défaut | Contexte  | Multiple | Description                                                                                                       |
+    | --------------------------------- | ------ | --------- | -------- | ----------------------------------------------------------------------------------------------------------------- |
+    | `USE_REVERSE_PROXY`               | `no`   | multisite | no       | **Activer le Reverse Proxy :** Mettre à `yes` pour activer la fonctionnalité de reverse proxy.                    |
+    | `REVERSE_PROXY_HOST`              |        | multisite | yes      | **Hôte Backend :** URL complète de la ressource proxifiée (proxy_pass).                                           |
+    | `REVERSE_PROXY_URL`               | `/`    | multisite | yes      | **URL d'emplacement :** Chemin qui sera proxifié vers le serveur backend.                                         |
+    | `REVERSE_PROXY_BUFFERING`         | `yes`  | multisite | yes      | **Mise en tampon de la réponse :** Active ou désactive la mise en tampon des réponses de la ressource proxifiée.  |
+    | `REVERSE_PROXY_REQUEST_BUFFERING` | `yes`  | multisite | yes      | **Mise en tampon des requêtes :** Active ou désactive la mise en tampon des requêtes vers la ressource proxifiée. |
+    | `REVERSE_PROXY_KEEPALIVE`         | `no`   | multisite | yes      | **Keep-Alive :** Active ou désactive les connexions keepalive avec la ressource proxifiée.                        |
+    | `REVERSE_PROXY_CUSTOM_HOST`       |        | multisite | no       | **Hôte personnalisé :** Remplace l'en-tête Host envoyé au serveur en amont.                                       |
+    | `REVERSE_PROXY_INTERCEPT_ERRORS`  | `yes`  | multisite | no       | **Intercepter les erreurs :** Intercepte et réécrit les réponses d'erreur du backend.                             |
 
     !!! tip "Bonnes pratiques"
         - Spécifiez toujours l'URL complète dans `REVERSE_PROXY_HOST`, y compris le protocole (http:// ou https://)
         - Utilisez `REVERSE_PROXY_INTERCEPT_ERRORS` pour fournir des pages d'erreur cohérentes sur tous vos services
         - Lors de la configuration de plusieurs backends, utilisez le format de suffixe numéroté (par exemple, `REVERSE_PROXY_HOST_2`, `REVERSE_PROXY_URL_2`)
+
+    !!! warning "Comportement de la mise en tampon des requêtes"
+        La désactivation de `REVERSE_PROXY_REQUEST_BUFFERING` n'a d'effet que lorsque ModSecurity est désactivé, car la mise en tampon des requêtes est autrement imposée.
 
 === "Paramètres de connexion"
 

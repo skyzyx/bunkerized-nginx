@@ -5,6 +5,7 @@
 - [FEATURE] Add new `REVERSE_PROXY_REQUEST_BUFFERING` setting to the `Reverse Proxy` plugin to control request body buffering behavior when proxying requests (default: `on`)
 - [BUGFIX] Initialize is_whitelisted variable to 'no' in configuration files to avoid spam uninitialized messages in logs
 - [BUGFIX] Reorganize insertion logic to prevent foreign key errors and improve order of operations in database when creating/updating plugins
+- [AUTOCONF] Add experimental Gateway API controller support (Gateway/HTTPRoute) and documentation
 - [UI] Change redirect status code from 302 to 303 in the web UI to follow best practices for redirection after form submissions
 - [UI] Fix bug where updating a ban to a custom duration accidentally created a permanent ban
 - [UI] Enhance map legend and color ramp for blocked requests visualization

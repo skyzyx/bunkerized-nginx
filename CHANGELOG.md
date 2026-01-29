@@ -7,6 +7,7 @@
 - [BUGFIX] Reorganize insertion logic to prevent foreign key errors and improve order of operations in database when creating/updating plugins
 - [UI] Change redirect status code from 302 to 303 in the web UI to follow best practices for redirection after form submissions
 - [UI] Fix bug where updating a ban to a custom duration accidentally created a permanent ban
+- [UI] Enhance map legend and color ramp for blocked requests visualization
 - [MISC] Deprecate Laurent Minne's blacklist given the upcoming changes
 
 ## v1.6.8~rc2 - 2026/01/23

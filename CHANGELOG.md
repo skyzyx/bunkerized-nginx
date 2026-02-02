@@ -1,6 +1,10 @@
 # Changelog
 
-## v1.6.8~rc3 - 2026/01/30
+## v1.6.8 - 2026/02/??
+
+- [DOCS] Add forward proxy configuration for outgoing traffic
+
+## v1.6.8~rc3 - 2026/02/02
 
 - [FEATURE] Add new `REVERSE_PROXY_REQUEST_BUFFERING` setting to the `Reverse Proxy` plugin to control request body buffering behavior when proxying requests (default: `on`)
 - [BUGFIX] Initialize is_whitelisted variable to 'no' in configuration files to avoid spam uninitialized messages in logs

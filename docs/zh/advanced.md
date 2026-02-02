@@ -2881,6 +2881,143 @@ BunkerWeb 提供了许多安全功能，您可以通过[功能](features.md)进�
   <figcaption>在上下文列中显示的 BunkerWeb 数据</figcaption>
 </figure>
 
+## 出站流量的前向代理 {#forward-proxy-outgoing-traffic}
+
+如果你的环境需要将出站 HTTP(S) 流量通过前向代理（例如企业代理或 Squid），可以使用标准的代理环境变量。BunkerWeb 没有专用配置。
+
+**NGINX 本身不会使用这些变量来处理上游流量**，因此前向代理配置只影响发起出站请求的组件。实际使用中，请将其设置在 **Scheduler** 上，因为它负责 Let's Encrypt 证书续期、外部 API 调用以及 Webhook 等周期性任务。
+
+常用变量如下：
+
+- `HTTP_PROXY` / `HTTPS_PROXY`：代理 URL，可选带凭据。
+- `NO_PROXY`：以逗号分隔的主机、域名或 CIDR 列表，用于绕过代理（根据集成调整：Docker/Swarm 的服务名、Kubernetes 的集群域名，或 Linux 上仅 localhost）。
+- `REQUESTS_CA_BUNDLE` / `SSL_CERT_FILE`：可选，当代理使用自定义 CA 时需要。将 CA bundle 挂载到容器并指向该路径，以便 Python 请求验证 TLS（路径按基础镜像调整）。
+
+!!! warning "NO_PROXY 对内部流量是必需的"
+    如果省略内部网段或服务名，内部流量可能会走代理并失败。请根据集成调整列表（例如 Docker 服务名、Kubernetes 集群域名或 Linux 上仅 localhost）。
+
+=== "Linux"
+
+    将变量添加到 `/etc/bunkerweb/variables.env`。该文件会被两个服务加载，但只有 Scheduler 会使用它们：
+
+    ```conf
+    HTTP_PROXY=http://proxy.example.local:3128
+    HTTPS_PROXY=http://proxy.example.local:3128
+    NO_PROXY=localhost,127.0.0.1
+    REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
+    SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+    ```
+
+    重启服务以重新加载环境：
+
+    ```shell
+    sudo systemctl restart bunkerweb && \
+    sudo systemctl restart bunkerweb-scheduler
+    ```
+
+=== "All-in-one"
+
+    在创建容器时提供这些变量（如有需要请挂载 CA bundle）。All-in-one 镜像包含 Scheduler，因此可覆盖出站任务：
+
+    ```bash
+    docker run -d \
+        --name bunkerweb-aio \
+        -v bw-storage:/data \
+        -v /etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt:ro \
+        -e HTTP_PROXY="http://proxy.example.local:3128" \
+        -e HTTPS_PROXY="http://proxy.example.local:3128" \
+        -e NO_PROXY="localhost,127.0.0.1" \
+        -e REQUESTS_CA_BUNDLE="/etc/ssl/certs/ca-certificates.crt" \
+        -e SSL_CERT_FILE="/etc/ssl/certs/ca-certificates.crt" \
+        -p 80:8080/tcp \
+        -p 443:8443/tcp \
+        -p 443:8443/udp \
+        bunkerity/bunkerweb-all-in-one:1.6.8-rc3
+    ```
+
+    如果容器已存在，请重新创建以应用新的环境变量。
+
+=== "Docker"
+
+    将变量添加到 scheduler 容器：
+
+    ```yaml
+    bw-scheduler:
+      image: bunkerity/bunkerweb-scheduler:1.6.8-rc3
+      ...
+      environment:
+        HTTP_PROXY: "http://proxy.example.local:3128"
+        HTTPS_PROXY: "http://proxy.example.local:3128"
+        NO_PROXY: "localhost,127.0.0.1,bunkerweb,bw-scheduler,redis,db"
+        REQUESTS_CA_BUNDLE: "/etc/ssl/certs/ca-certificates.crt"
+        SSL_CERT_FILE: "/etc/ssl/certs/ca-certificates.crt"
+      volumes:
+        - /etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt:ro
+      ...
+    ```
+
+=== "Docker autoconf"
+
+    将变量应用到 scheduler 容器：
+
+    ```yaml
+    bw-scheduler:
+      image: bunkerity/bunkerweb-scheduler:1.6.8-rc3
+      ...
+      environment:
+        HTTP_PROXY: "http://proxy.example.local:3128"
+        HTTPS_PROXY: "http://proxy.example.local:3128"
+        NO_PROXY: "localhost,127.0.0.1,bunkerweb,bw-scheduler,redis,db"
+        REQUESTS_CA_BUNDLE: "/etc/ssl/certs/ca-certificates.crt"
+        SSL_CERT_FILE: "/etc/ssl/certs/ca-certificates.crt"
+      volumes:
+        - /etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt:ro
+      ...
+    ```
+
+=== "Kubernetes"
+
+    使用 `extraEnvs` 将变量添加到 Scheduler Pod。如需自定义 CA，可通过 `extraVolumes`/`extraVolumeMounts` 挂载并指向挂载路径：
+
+    ```yaml
+    scheduler:
+      extraEnvs:
+        - name: HTTP_PROXY
+          value: "http://proxy.example.local:3128"
+        - name: HTTPS_PROXY
+          value: "http://proxy.example.local:3128"
+        - name: NO_PROXY
+          value: "localhost,127.0.0.1,.svc,.cluster.local"
+        - name: REQUESTS_CA_BUNDLE
+          value: "/etc/ssl/certs/ca-certificates.crt"
+        - name: SSL_CERT_FILE
+          value: "/etc/ssl/certs/ca-certificates.crt"
+    ```
+
+=== "Swarm"
+
+    !!! warning "已弃用"
+        Swarm 集成已弃用，并将在未来版本中删除。请考虑改用 [Kubernetes 集成](integrations.md#kubernetes)。
+
+        **更多信息请参阅 [Swarm 集成文档](integrations.md#swarm)。**
+
+    将变量添加到 scheduler 服务：
+
+    ```yaml
+    bw-scheduler:
+      image: bunkerity/bunkerweb-scheduler:1.6.8-rc3
+      ...
+      environment:
+        HTTP_PROXY: "http://proxy.example.local:3128"
+        HTTPS_PROXY: "http://proxy.example.local:3128"
+        NO_PROXY: "localhost,127.0.0.1,bunkerweb,bw-scheduler,redis,db"
+        REQUESTS_CA_BUNDLE: "/etc/ssl/certs/ca-certificates.crt"
+        SSL_CERT_FILE: "/etc/ssl/certs/ca-certificates.crt"
+      volumes:
+        - /etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt:ro
+      ...
+    ```
+
 ## 监控和报告
 
 ### 监控 <img src='../../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)

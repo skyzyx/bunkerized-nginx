@@ -3,6 +3,7 @@
 ## v1.6.8 - 2026/02/??
 
 - [DOCS] Add forward proxy configuration for outgoing traffic
+- [DEPS] Update coreruleset-v4 version to v4.23.0
 
 ## v1.6.8~rc3 - 2026/02/02
 

@@ -3022,7 +3022,7 @@ The commonly used variables are:
 
 ## Monitoring and reporting
 
-### Monitoring <img src='../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+### Monitoring <img src='../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
 
 STREAM support :x:
 
@@ -3042,7 +3042,7 @@ The monitoring plugin lets you collect and retrieve metrics about BunkerWeb. By 
 | `USE_MONITORING`               | `yes`   | global  | no       | Enable monitoring of BunkerWeb.               |
 | `MONITORING_METRICS_DICT_SIZE` | `10M`   | global  | no       | Size of the dict to store monitoring metrics. |
 
-### Prometheus exporter <img src='../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+### Prometheus exporter <img src='../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
 
 STREAM support :x:
 
@@ -3068,7 +3068,7 @@ We also provide a [Grafana dashboard](https://grafana.com/grafana/dashboards/207
 | `PROMETHEUS_EXPORTER_URL`      | `/metrics`                                            | global  | no       | HTTP URL of the Prometheus exporter.                                     |
 | `PROMETHEUS_EXPORTER_ALLOW_IP` | `127.0.0.0/8 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16` | global  | no       | List of IP/networks allowed to contact the Prometheus exporter endpoint. |
 
-### Reporting <img src='../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+### Reporting <img src='../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
 
 STREAM support :x:
 
@@ -3109,7 +3109,7 @@ The Reporting plugin provides a comprehensive solution for regular reporting of 
 
 ## Backup and restore
 
-### Backup S3 <img src='../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+### Backup S3 <img src='../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
 
 STREAM support :white_check_mark:
 
@@ -3290,7 +3290,7 @@ You can also specify a custom backup file for the restore by providing the path 
         docker exec -it <scheduler_container> bwcli plugin backup_s3 restore
         ```
 
-## Migration <img src='../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+## Migration <img src='../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
 
 STREAM support :white_check_mark:
 
@@ -3404,7 +3404,7 @@ To manually initialize a migration, execute the following command:
 
 This command seamlessly migrates your BunkerWeb data to precisely match the configuration outlined in the migration file.
 
-## Anti DDoS <img src='../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+## Anti DDoS <img src='../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
 
 STREAM support :x:
 
@@ -3441,7 +3441,7 @@ Customize the plugin behavior using the following settings:
 - **Status Code Review:** Regularly update `ANTIDDOS_STATUS_CODES` to capture new or evolving suspicious behaviors.
 - **Monitoring:** Analyze logs and metrics periodically to fine-tune settings and improve overall protection.
 
-## User Manager <img src='../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+## User Manager <img src='../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
 
 <p align="center">
     <iframe style="display: block;" width="560" height="315" data-src="https://www.youtube-nocookie.com/embed/EIohiUf9Fg4" title="User Manager" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -3474,7 +3474,7 @@ With this plugin, administrators can effortlessly create, update, and disable us
   <figcaption>User Manager - Activities page</figcaption>
 </figure>
 
-## Easy Resolve <img src='../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+## Easy Resolve <img src='../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
 
 <p align="center">
     <iframe style="display: block;" width="560" height="315" data-src="https://www.youtube-nocookie.com/embed/45vX0WJqjxo" title="Easy Resolve" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -3495,7 +3495,7 @@ The Easy Resolve Plugin lets you quickly remediate false positives and recurring
   <figcaption>Reports page - with Easy Resolve</figcaption>
 </figure>
 
-## Load Balancer <img src='../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+## Load Balancer <img src='../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
 
 <p align="center">
     <iframe style="display: block;" width="560" height="315" data-src="https://www.youtube-nocookie.com/embed/cOVp0rAt5nw?si=iVhDio8o8S4F_uag" title="Load Balancer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -3557,7 +3557,7 @@ The Load Balancer Plugin turns BunkerWeb into a traffic director with guardrails
 - Enable `LOADBALANCER_UPSTREAM_RESOLVE` when pointing to hostnames that may change via DNS.
 - Tune keepalive values to mirror backend capacity and connection reuse goals.
 
-## Custom Pages <img src='../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+## Custom Pages <img src='../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
 
 The Custom Pages plugin lets you replace BunkerWeb's built-in pages (error pages, default server page, and antibot challenge pages) with your own custom HTML or Lua templates. This allows you to maintain consistent branding across all user-facing pages served by BunkerWeb.
 
@@ -4076,7 +4076,7 @@ Templates use Lua template syntax with the following delimiters:
 - **CSP compliance**: Always use the `nonce_script` and `nonce_style` variables for inline scripts and styles to ensure proper Content Security Policy handling.
 - **Testing templates**: You can test your templates locally by rendering them with a Lua template engine before deploying to BunkerWeb.
 
-## OpenID Connect <img src='../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+## OpenID Connect <img src='../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
 
 <p align="center">
     <iframe style="display: block;" width="560" height="315" data-src="https://www.youtube-nocookie.com/embed/0e4lcXTIIfs" title="OpenID Connect" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -4261,3 +4261,56 @@ Common hardening/tuning options:
 - **Clock skew / "token not yet valid"**: ensure NTP is enabled; tune `OPENIDC_IAT_SLACK` if needed.
 - **No user header injected**: verify the claim name in `OPENIDC_USER_HEADER_CLAIM` exists in the ID token/userinfo.
 - **Multi-instance deployments**: enable `USE_REDIS=yes` and configure `REDIS_HOST` (or Sentinel) so sessions are shared.
+
+## OpenAPI Validator <img src='../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+
+STREAM support :x:
+
+The **OpenAPI Validator** plugin enforces your API contract by validating incoming requests against an OpenAPI / Swagger specification. It ensures the requested path exists, the HTTP method is allowed, and optionally validates query, header, cookie, and path parameters against their schema definitions.
+
+### How It Works
+
+1. A scheduled job (`openapi-download.py`) fetches the OpenAPI document from a URL or file and caches it to disk (hourly by default).
+2. At NGINX init time, the plugin compiles routes from the cached spec and stores them in shared internal storage.
+3. During request processing, the plugin matches the request against compiled routes and applies validation.
+
+### Features
+
+- Path and method validation with a `405` response when the method is not allowed.
+- Optional parameter validation for query, header, cookie, and path parameters.
+- Base path override via `OPENAPI_BASE_PATH` or auto-derivation from the spec.
+- Allow or deny requests to paths not listed in the spec.
+- Configurable ignore list for endpoints like docs or spec files.
+- Cached spec refreshes hourly without blocking requests.
+
+### Configuration
+
+| Setting                      | Default                              | Context   | Multiple | Description                                                               |
+| ---------------------------- | ------------------------------------ | --------- | -------- | ------------------------------------------------------------------------- |
+| `USE_OPENAPI_VALIDATOR`      | `no`                                 | multisite | no       | Enable OpenAPI route validation for this site.                            |
+| `OPENAPI_SPEC`               |                                      | multisite | no       | Absolute path or HTTP(S) URL to the OpenAPI document in JSON/YAML format. |
+| `OPENAPI_BASE_PATH`          |                                      | multisite | no       | Optional base path prefix to prepend to every path in the spec.           |
+| `OPENAPI_ALLOW_UNSPECIFIED`  | `no`                                 | multisite | no       | Allow requests to paths not listed in the specification.                  |
+| `OPENAPI_ALLOW_INSECURE_URL` | `no`                                 | multisite | no       | Allow fetching the OpenAPI spec over plain HTTP (not recommended).        |
+| `OPENAPI_IGNORE_URLS`        | `^/docs$ ^/redoc$ ^/openapi\\.json$` | multisite | no       | Space-separated list of URL regexes to bypass OpenAPI validation.         |
+| `OPENAPI_MAX_SPEC_SIZE`      | `2M`                                 | global    | no       | Maximum allowed size of the OpenAPI document (accepts suffix k/M/G).      |
+| `OPENAPI_VALIDATE_PARAMS`    | `yes`                                | multisite | no       | Validate query, header, cookie, and path parameters against the spec.     |
+
+### Behavior Notes
+
+- `OPENAPI_SPEC` can be a local file or HTTPS URL. HTTP URLs are blocked unless `OPENAPI_ALLOW_INSECURE_URL=yes`.
+- If `OPENAPI_BASE_PATH` is empty, the plugin derives the base path from `servers[*].url` (OpenAPI 3) or `basePath` (Swagger 2) when present.
+- `HEAD` requests are accepted when `GET` is defined for the same path, and path matching tolerates a trailing slash.
+- When a path is missing from the spec and `OPENAPI_ALLOW_UNSPECIFIED=no`, the request is denied using the configured deny status.
+- Parameter validation failures are denied and only the first error is recorded to keep logs concise.
+
+### Quick Start
+
+Set the minimum values per protected service:
+
+- `USE_OPENAPI_VALIDATOR=yes`
+- `OPENAPI_SPEC=/path/to/openapi.yaml` (or `https://...`)
+
+Optionally allow unknown paths during rollout:
+
+- `OPENAPI_ALLOW_UNSPECIFIED=yes`

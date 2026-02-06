@@ -3023,7 +3023,7 @@ Las variables habituales son:
 
 ## Monitoreo y reportes
 
-### Monitoreo <img src='../../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+### Monitoreo <img src='../../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
 
 Soporte STREAM :x:
 
@@ -3043,7 +3043,7 @@ El plugin de monitoreo te permite recolectar y recuperar métricas sobre BunkerW
 | `USE_MONITORING`               | `yes`          | global   | no       | Habilitar el monitoreo de BunkerWeb.                         |
 | `MONITORING_METRICS_DICT_SIZE` | `10M`          | global   | no       | Tamaño del diccionario para almacenar métricas de monitoreo. |
 
-### Exportador de Prometheus <img src='../../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+### Exportador de Prometheus <img src='../../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
 
 Soporte STREAM :x:
 
@@ -3069,7 +3069,7 @@ También proporcionamos un [panel de control de Grafana](https://grafana.com/gra
 | `PROMETHEUS_EXPORTER_URL`      | `/metrics`                                            | global   | no       | URL HTTP del exportador de Prometheus.                                                   |
 | `PROMETHEUS_EXPORTER_ALLOW_IP` | `127.0.0.0/8 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16` | global   | no       | Lista de IP/redes permitidas para contactar el punto final del exportador de Prometheus. |
 
-### Reportes <img src='../../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+### Reportes <img src='../../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
 
 Soporte STREAM :x:
 
@@ -3110,7 +3110,7 @@ El plugin de Reportes proporciona una solución integral para reportes regulares
 
 ## Copia de seguridad y restauración
 
-### Copia de seguridad S3 <img src='../../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+### Copia de seguridad S3 <img src='../../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
 
 Soporte STREAM :white_check_mark:
 
@@ -3291,7 +3291,7 @@ También puedes especificar un archivo de copia de seguridad personalizado para 
         docker exec -it <scheduler_container> bwcli plugin backup_s3 restore
         ```
 
-## Migración <img src='../../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+## Migración <img src='../../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
 
 Soporte STREAM :white_check_mark:
 
@@ -3405,7 +3405,7 @@ Para iniciar manualmente una migración, ejecuta el siguiente comando:
 
 Este comando migra sin problemas tus datos de BunkerWeb para que coincidan precisamente con la configuración descrita en el archivo de migración.
 
-## Anti DDoS <img src='../../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+## Anti DDoS <img src='../../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
 
 Soporte STREAM :x:
 
@@ -3442,7 +3442,7 @@ Personaliza el comportamiento del plugin usando las siguientes configuraciones:
 - **Revisión de códigos de estado:** Actualiza regularmente `ANTIDDOS_STATUS_CODES` para capturar comportamientos sospechosos nuevos o en evolución.
 - **Monitoreo:** Analiza los registros y las métricas periódicamente para ajustar la configuración y mejorar la protección general.
 
-## Administrador de usuarios <img src='../../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+## Administrador de usuarios <img src='../../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
 
 <p align="center">
     <iframe style="display: block;" width="560" height="315" data-src="https://www.youtube-nocookie.com/embed/EIohiUf9Fg4" title="Página del Administrador de usuarios" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -3475,7 +3475,7 @@ Con este plugin, los administradores pueden crear, actualizar y deshabilitar cue
   <figcaption>Administrador de usuarios - Página de actividades</figcaption>
 </figure>
 
-## Easy Resolve <img src='../../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+## Easy Resolve <img src='../../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
 
 <p align="center">
     <iframe style="display: block;" width="560" height="315" data-src="https://www.youtube-nocookie.com/embed/45vX0WJqjxo" title="Easy Resolve" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -3496,7 +3496,7 @@ El plugin Easy Resolve te permite remediar rápidamente falsos positivos y probl
   <figcaption>Página de informes - con Easy Resolve</figcaption>
 </figure>
 
-## Load Balancer <img src='../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+## Load Balancer <img src='../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
 
 <p align="center">
     <iframe style="display: block;" width="560" height="315" data-src="https://www.youtube-nocookie.com/embed/cOVp0rAt5nw?si=iVhDio8o8S4F_uag" title="Load Balancer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -3558,7 +3558,7 @@ El Plugin de Load Balancer convierte BunkerWeb en un director de tráfico con gu
 - Habilite `LOADBALANCER_UPSTREAM_RESOLVE` cuando apunte a hostnames que puedan cambiar vía DNS.
 - Ajuste valores keepalive para reflejar capacidad backend y objetivos de reutilización de conexiones.
 
-## Custom Pages <img src='../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+## Custom Pages <img src='../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
 
 El plugin Custom Pages le permite reemplazar las páginas integradas de BunkerWeb (páginas de error, página del servidor por defecto y páginas de desafío antibot) con sus propias plantillas HTML o Lua personalizadas. Esto le permite mantener una marca consistente en todas las páginas orientadas al usuario servidas por BunkerWeb.
 
@@ -4077,7 +4077,7 @@ Las plantillas usan sintaxis de plantilla Lua con los siguientes delimitadores:
 - **Cumplimiento CSP**: Siempre use las variables `nonce_script` y `nonce_style` para scripts y estilos inline para asegurar el manejo adecuado de la Content Security Policy.
 - **Probando plantillas**: Puede probar sus plantillas localmente renderizándolas con un motor de plantillas Lua antes de desplegarlas en BunkerWeb.
 
-## OpenID Connect <img src='../../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+## OpenID Connect <img src='../../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
 
 <p align="center">
   <iframe style="display: block;" width="560" height="315" data-src="https://www.youtube-nocookie.com/embed/0e4lcXTIIfs" title="OpenID Connect" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -4262,3 +4262,56 @@ Opciones comunes de hardening/tuning:
 - **Desfase de reloj / "token not yet valid"**: habilite NTP; ajuste `OPENIDC_IAT_SLACK` si es necesario.
 - **No se inyecta el header de usuario**: verifique que el claim de `OPENIDC_USER_HEADER_CLAIM` exista en el ID token/userinfo.
 - **Despliegues multi-instancia**: habilite `USE_REDIS=yes` y configure `REDIS_HOST` (o Sentinel) para compartir sesiones.
+
+## OpenAPI Validator <img src='../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+
+SOPORTE STREAM: :x:
+
+El plugin **OpenAPI Validator** aplica su contrato de API validando las solicitudes entrantes contra una especificación OpenAPI / Swagger. Asegura que la ruta solicitada exista, que el método HTTP esté permitido y, opcionalmente, valida los parámetros de consulta, cabecera, cookie y ruta contra sus definiciones de esquema.
+
+### Cómo funciona
+
+1. Un trabajo programado (`openapi-download.py`) obtiene el documento OpenAPI de una URL o archivo y lo guarda en caché en el disco (cada hora por defecto).
+2. En el momento de la inicialización de NGINX, el plugin compila las rutas de la especificación almacenada en caché y las guarda en un almacenamiento interno compartido.
+3. Durante el procesamiento de la solicitud, el plugin hace coincidir la solicitud con las rutas compiladas y aplica la validación.
+
+### Características
+
+- Validación de ruta y método con una respuesta `405` cuando el método no está permitido.
+- Validación opcional de parámetros para consulta, cabecera, cookie y ruta.
+- Sobrescritura de la ruta base mediante `OPENAPI_BASE_PATH` o derivación automática desde la especificación.
+- Permitir o denegar solicitudes a rutas no listadas en la especificación.
+- Lista de ignorados configurable para endpoints como documentación o archivos de especificación.
+- La especificación almacenada en caché se actualiza cada hora sin bloquear las solicitudes.
+
+### Configuración
+
+| Ajuste                       | Por defecto                          | Contexto  | Múltiple | Descripción                                                               |
+| ---------------------------- | ------------------------------------ | --------- | -------- | ------------------------------------------------------------------------- |
+| `USE_OPENAPI_VALIDATOR`      | `no`                                 | multisite | no       | Habilita la validación de rutas OpenAPI para este sitio.                  |
+| `OPENAPI_SPEC`               |                                      | multisite | no       | Ruta absoluta o URL HTTP(S) al documento OpenAPI en formato JSON/YAML.    |
+| `OPENAPI_BASE_PATH`          |                                      | multisite | no       | Prefijo de ruta base opcional para anteponer a cada ruta en la especificación. |
+| `OPENAPI_ALLOW_UNSPECIFIED`  | `no`                                 | multisite | no       | Permite solicitudes a rutas no listadas en la especificación.             |
+| `OPENAPI_ALLOW_INSECURE_URL` | `no`                                 | multisite | no       | Permite obtener la especificación OpenAPI a través de HTTP simple (no recomendado). |
+| `OPENAPI_IGNORE_URLS`        | `^/docs$ ^/redoc$ ^/openapi\\.json$` | multisite | no       | Lista de regex de URL separadas por espacios para omitir la validación OpenAPI. |
+| `OPENAPI_MAX_SPEC_SIZE`      | `2M`                                 | global    | no       | Tamaño máximo permitido del documento OpenAPI (acepta sufijos k/M/G).     |
+| `OPENAPI_VALIDATE_PARAMS`    | `yes`                                | multisite | no       | Valida parámetros de consulta, cabecera, cookie y ruta contra la especificación. |
+
+### Notas de comportamiento
+
+- `OPENAPI_SPEC` puede ser un archivo local o una URL HTTPS. Las URL HTTP se bloquean a menos que `OPENAPI_ALLOW_INSECURE_URL=yes`.
+- Si `OPENAPI_BASE_PATH` está vacío, el plugin deriva la ruta base de `servers[*].url` (OpenAPI 3) o `basePath` (Swagger 2) cuando está presente.
+- Se aceptan solicitudes `HEAD` cuando se define `GET` para la misma ruta, y la coincidencia de ruta tolera una barra diagonal final.
+- Cuando una ruta falta en la especificación y `OPENAPI_ALLOW_UNSPECIFIED=no`, la solicitud se deniega utilizando el estado de denegación configurado.
+- Los fallos de validación de parámetros se deniegan y solo se registra el primer error para mantener los registros concisos.
+
+### Inicio rápido
+
+Establezca los valores mínimos por servicio protegido:
+
+- `USE_OPENAPI_VALIDATOR=yes`
+- `OPENAPI_SPEC=/ruta/a/openapi.yaml` (o `https://...`)
+
+Opcionalmente, permita rutas desconocidas durante el despliegue:
+
+- `OPENAPI_ALLOW_UNSPECIFIED=yes`

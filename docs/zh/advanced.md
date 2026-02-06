@@ -3020,7 +3020,7 @@ BunkerWeb 提供了许多安全功能，您可以通过[功能](features.md)进�
 
 ## 监控和报告
 
-### 监控 <img src='../../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+### 监控 <img src='../../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
 
 STREAM 支持 :x:
 
@@ -3040,7 +3040,7 @@ STREAM 支持 :x:
 | `USE_MONITORING`               | `yes` | 全局   | 否   | 启用 BunkerWeb 的监控。      |
 | `MONITORING_METRICS_DICT_SIZE` | `10M` | 全局   | 否   | 用于存储监控指标的字典大小。 |
 
-### Prometheus 导出器 <img src='../../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+### Prometheus 导出器 <img src='../../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
 
 STREAM 支持 :x:
 
@@ -3066,7 +3066,7 @@ Prometheus 导出器插件在您的 BunkerWeb 实例上添加了一个 [Promethe
 | `PROMETHEUS_EXPORTER_URL`      | `/metrics`                                            | 全局   | 否   | Prometheus 导出器的 HTTP URL。                 |
 | `PROMETHEUS_EXPORTER_ALLOW_IP` | `127.0.0.0/8 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16` | 全局   | 否   | 允许联系 Prometheus 导出器端点的 IP/网络列表。 |
 
-### 报告 <img src='../../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+### 报告 <img src='../../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
 
 STREAM 支持 :x:
 
@@ -3107,7 +3107,7 @@ STREAM 支持 :x:
 
 ## 备份和恢复
 
-### S3 备份 <img src='../../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+### S3 备份 <img src='../../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
 
 STREAM 支持 :white_check_mark:
 
@@ -3288,7 +3288,7 @@ S3 备份工具可以无缝地自动化数据保护，类似于社区备份插�
         docker exec -it <scheduler_container> bwcli plugin backup_s3 restore
         ```
 
-## 迁移 <img src='../../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+## 迁移 <img src='../../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
 
 STREAM 支持 :white_check_mark:
 
@@ -3402,7 +3402,7 @@ STREAM 支持 :white_check_mark:
 
 此命令将您的 BunkerWeb 数据无缝迁移，以精确匹配迁移文件中概述的配置。
 
-## Anti DDoS <img src='../../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+## Anti DDoS <img src='../../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
 
 STREAM 支持 :x:
 
@@ -3439,7 +3439,7 @@ STREAM 支持 :x:
 - **状态码审查：** 定期更新 `ANTIDDOS_STATUS_CODES` 以捕获新的或不断演变的可疑行为。
 - **监控：** 定期分析日志和指标以微调设置并提高整体保护。
 
-## 用户管理器 <img src='../../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+## 用户管理器 <img src='../../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
 
 <p align="center">
     <iframe style="display: block;" width="560" height="315" data-src="https://www.youtube-nocookie.com/embed/EIohiUf9Fg4" title="用户管理器页面" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -3472,7 +3472,7 @@ STREAM 支持 :x:
   <figcaption>用户管理器 - 活动页面</figcaption>
 </figure>
 
-## Easy Resolve <img src='../../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+## Easy Resolve <img src='../../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
 
 <p align="center">
     <iframe style="display: block;" width="560" height="315" data-src="https://www.youtube-nocookie.com/embed/45vX0WJqjxo" title="Easy Resolve" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -3493,7 +3493,7 @@ STREAM 支持 :x:
   <figcaption>报告页面 - 带有轻松解决功能</figcaption>
 </figure>
 
-## Load Balancer <img src='../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+## Load Balancer <img src='../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
 
 <p align="center">
     <iframe style="display: block;" width="560" height="315" data-src="https://www.youtube-nocookie.com/embed/cOVp0rAt5nw?si=iVhDio8o8S4F_uag" title="Load Balancer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -3555,7 +3555,7 @@ Load Balancer 插件将 BunkerWeb 转变为带有护栏的流量导向器。一�
 - 当指向可能通过 DNS 更改的主机名时启用 `LOADBALANCER_UPSTREAM_RESOLVE`。
 - 调整 keepalive 值以反映后端容量和连接重用目标。
 
-## Custom Pages <img src='../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+## Custom Pages <img src='../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
 
 Custom Pages 插件允许您将 BunkerWeb 的内置页面（错误页面、默认服务器页面和反机器人挑战页面）替换为您自己的自定义 HTML 或 Lua 模板。这使您能够在 BunkerWeb 提供的所有面向用户的页面上保持一致的品牌形象。
 
@@ -4074,7 +4074,7 @@ BunkerWeb 模板使用 [lua-resty-template](https://github.com/bungle/lua-resty-
 - **CSP 合规**：始终对内联脚本和样式使用 `nonce_script` 和 `nonce_style` 变量，以确保正确的内容安全策略处理。
 - **测试模板**：您可以在部署到 BunkerWeb 之前使用 Lua 模板引擎在本地渲染测试您的模板。
 
-## OpenID Connect <img src='../../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+## OpenID Connect <img src='../../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
 
 <p align="center">
   <iframe style="display: block;" width="560" height="315" data-src="https://www.youtube-nocookie.com/embed/0e4lcXTIIfs" title="OpenID Connect" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -4259,3 +4259,56 @@ Discovery/JWKS 数据会缓存在 NGINX shared dict 中。如果您有很多租�
 - **时钟偏差 / "token not yet valid"**：确保启用 NTP；必要时调整 `OPENIDC_IAT_SLACK`。
 - **未注入用户 header**：确认 `OPENIDC_USER_HEADER_CLAIM` 指定的 claim 在 ID token/userinfo 中存在。
 - **多实例部署**：启用 `USE_REDIS=yes` 并配置 `REDIS_HOST`（或 Sentinel）以共享会话。
+
+## OpenAPI Validator <img src='../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style="transform : translateY(3px);"> (PRO)
+
+STREAM 支持：:x:
+
+**OpenAPI Validator** 插件通过根据 OpenAPI / Swagger 规范验证传入请求来执行您的 API 合约。它确保请求的路径存在，HTTP 方法是被允许的，并可选地根据架构定义验证查询、请求头、cookie 和路径参数。
+
+### 工作原理
+
+1. 计划任务 (`openapi-download.py`) 从 URL 或文件获取 OpenAPI 文档并将其缓存到磁盘（默认每小时一次）。
+2. 在 NGINX 初始化时，插件从缓存的规范中编译路由并将其存储在共享的内部存储中。
+3. 在请求处理期间，插件将请求与编译的路由进行匹配并执行验证。
+
+### 功能
+
+- 路径和方法验证，当方法不被允许时返回 `405` 响应。
+- 可选的查询、请求头、cookie 和路径参数验证。
+- 通过 `OPENAPI_BASE_PATH` 覆盖基础路径或从规范中自动推导。
+- 允许或拒绝指向规范中未列出路径的请求。
+- 可配置的忽略列表，用于文档或规范文件等端点。
+- 缓存的规范每小时刷新一次，不会阻塞请求。
+
+### 配置
+
+| 设置                         | 默认值                               | 上下文    | 多选 | 描述                                                                      |
+| ---------------------------- | ------------------------------------ | --------- | ---- | ------------------------------------------------------------------------- |
+| `USE_OPENAPI_VALIDATOR`      | `no`                                 | multisite | 否   | 为该站点启用 OpenAPI 路由验证。                                           |
+| `OPENAPI_SPEC`               |                                      | multisite | 否   | JSON/YAML 格式的 OpenAPI 文档的绝对路径或 HTTP(S) URL。                   |
+| `OPENAPI_BASE_PATH`          |                                      | multisite | 否   | 可选的基础路径前缀，将添加到规范中的每个路径前。                          |
+| `OPENAPI_ALLOW_UNSPECIFIED`  | `no`                                 | multisite | 否   | 允许指向规范中未列出路径的请求。                                          |
+| `OPENAPI_ALLOW_INSECURE_URL` | `no`                                 | multisite | 否   | 允许通过普通 HTTP 获取 OpenAPI 规范（不推荐）。                           |
+| `OPENAPI_IGNORE_URLS`        | `^/docs$ ^/redoc$ ^/openapi\\.json$` | multisite | 否   | 以空格分隔的 URL 正则表达式列表，用于绕过 OpenAPI 验证。                  |
+| `OPENAPI_MAX_SPEC_SIZE`      | `2M`                                 | global    | 否   | 允许的 OpenAPI 文档最大大小（接受后缀 k/M/G）。                           |
+| `OPENAPI_VALIDATE_PARAMS`    | `yes`                                | multisite | 否   | 根据规范验证查询、请求头、cookie 和路径参数。                             |
+
+### 行为说明
+
+- `OPENAPI_SPEC` 可以是本地文件或 HTTPS URL。除非 `OPENAPI_ALLOW_INSECURE_URL=yes`，否则 HTTP URL 将被屏蔽。
+- 如果 `OPENAPI_BASE_PATH` 为空，插件将从 `servers[*].url` (OpenAPI 3) 或 `basePath` (Swagger 2) 中推导基础路径（如果存在）。
+- 当为同一路径定义了 `GET` 时，接受 `HEAD` 请求，且路径匹配容忍末尾斜杠。
+- 当规范中缺少某个路径且 `OPENAPI_ALLOW_UNSPECIFIED=no` 时，请求将被拒绝并返回配置的拒绝状态。
+- 参数验证失败将被拒绝，且仅记录第一个错误以保持日志简洁。
+
+### 快速开始
+
+为每个受保护的服务设置最小值：
+
+- `USE_OPENAPI_VALIDATOR=yes`
+- `OPENAPI_SPEC=/path/to/openapi.yaml` (或 `https://...`)
+
+（可选）在部署期间允许未知路径：
+
+- `OPENAPI_ALLOW_UNSPECIFIED=yes`

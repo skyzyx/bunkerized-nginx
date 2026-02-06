@@ -221,7 +221,7 @@ BunkerWeb 中的某些设置支持同一功能的多个配置。要定义多组�
     USE_UDP: "no"
     ```
 
-## Anti DDoS <img src='../../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style='transform : translateY(3px);'> (PRO)
+## Anti DDoS <img src='../../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style='transform : translateY(3px);'> (PRO)
 
 
 STREAM 支持 :x:
@@ -753,7 +753,7 @@ bwcli plugin backup restore /path/to/backup/backup-sqlite-2023-08-15_12-34-56.zi
     BACKUP_DIRECTORY: "/mnt/backup-drive/bunkerweb-backups"
     ```
 
-## Backup S3 <img src='../../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style='transform : translateY(3px);'> (PRO)
+## Backup S3 <img src='../../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style='transform : translateY(3px);'> (PRO)
 
 
 STREAM 支持 :white_check_mark:
@@ -1420,7 +1420,7 @@ CORS 插件为您的网站启用跨源资源共享，允许从不同域受控地
     CORS_DENY_REQUEST: "yes"
     ```
 
-## Cache <img src='../../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style='transform : translateY(3px);'> (PRO)
+## Cache <img src='../../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style='transform : translateY(3px);'> (PRO)
 
 
 STREAM 支持 :x:
@@ -1959,7 +1959,7 @@ CrowdSec 是一种现代的开源安全引擎，它基于行为分析和社区�
 - 在 CrowdSec 端监控 `cscli metrics show` 或 CrowdSec Console，确保 BunkerWeb 的决策按预期显示。
 - 在 BunkerWeb UI 中打开 CrowdSec 插件页面查看集成状态。
 
-## Custom Pages <img src='../../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style='transform : translateY(3px);'> (PRO)
+## Custom Pages <img src='../../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style='transform : translateY(3px);'> (PRO)
 
 
 STREAM 支持 :x:
@@ -2246,7 +2246,7 @@ STREAM 支持 :white_check_mark:
 
 这些作业可以防止数据库无限增长，同时保留有价值的运行历史。
 
-## Easy Resolve <img src='../../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style='transform : translateY(3px);'> (PRO)
+## Easy Resolve <img src='../../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style='transform : translateY(3px);'> (PRO)
 
 
 STREAM 支持 :x:
@@ -3153,7 +3153,7 @@ BunkerWeb 中的限制插件提供了强大的功能来对您的网站强制执�
     LIMIT_CONN_MAX_STREAM: "20"
     ```
 
-## Load Balancer <img src='../../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style='transform : translateY(3px);'> (PRO)
+## Load Balancer <img src='../../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style='transform : translateY(3px);'> (PRO)
 
 
 <p align='center'><iframe style='display: block;' width='560' height='315' data-src='https://www.youtube-nocookie.com/embed/cOVp0rAt5nw' title='负载均衡器' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></p>
@@ -3343,7 +3343,7 @@ STREAM 支持 :warning:
     USE_METRICS: "no"
     ```
 
-## Migration <img src='../../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style='transform : translateY(3px);'> (PRO)
+## Migration <img src='../../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style='transform : translateY(3px);'> (PRO)
 
 
 STREAM 支持 :white_check_mark:
@@ -3881,7 +3881,7 @@ OWASP 核心规则集还支持一系列**插件**，旨在扩展其功能并提�
 !!! note "人类可读的大小值"
     对于像 `MODSECURITY_REQ_BODY_NO_FILES_LIMIT` 这样的 大小设置，支持 `k`、`m` 和 `g`（不区分大小写）后缀，分别代表 kibibytes、mebibytes 和 gibibytes（1024 的倍数）。例如：`256k` = 262144，`1m` = 1048576，`2g` = 2147483648。
 
-## Monitoring <img src='../../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style='transform : translateY(3px);'> (PRO)
+## Monitoring <img src='../../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style='transform : translateY(3px);'> (PRO)
 
 
 STREAM 支持 :x:
@@ -3982,7 +3982,7 @@ BunkerWeb 会基于您配置的 CA 证书包和策略评估每一次 TLS 握手�
     MTLS_FORWARD_CLIENT_HEADERS: "no"
     ```
 
-## OpenAPI Validator <img src='../../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style='transform : translateY(3px);'> (PRO)
+## OpenAPI Validator <img src='../../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style='transform : translateY(3px);'> (PRO)
 
 
 STREAM 支持 :x:
@@ -4000,7 +4000,7 @@ Validates incoming HTTP requests against an OpenAPI / Swagger specification.
 | `OPENAPI_MAX_SPEC_SIZE`      | `2M`                                | global    | 否     | Maximum allowed size of the OpenAPI document (accepts suffix k/M/G).                            |
 | `OPENAPI_VALIDATE_PARAMS`    | `yes`                               | multisite | 否     | Validate query, header, cookie, and path parameters against the OpenAPI specification.          |
 
-## OpenID Connect <img src='../../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style='transform : translateY(3px);'> (PRO)
+## OpenID Connect <img src='../../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style='transform : translateY(3px);'> (PRO)
 
 
 STREAM 支持 :x:
@@ -4195,7 +4195,7 @@ Pro 插件为 BunkerWeb 的企业部署捆绑了高级功能和增强功能。�
 
 您可以使用促销码 `freetrial` 免费试用 Pro 功能 1 个月。请访问 [BunkerWeb 面板](https://panel.bunkerweb.io/?utm_campaign=self&utm_source=doc) 激活您的试用，并了解更多关于基于 BunkerWeb PRO 保护的服务数量的灵活定价选项。
 
-## Prometheus exporter <img src='../../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style='transform : translateY(3px);'> (PRO)
+## Prometheus exporter <img src='../../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style='transform : translateY(3px);'> (PRO)
 
 
 STREAM 支持 :x:
@@ -4604,7 +4604,7 @@ Redis 插件将 [Redis](https://redis.io/) 或 [Valkey](https://valkey.io/) 集�
 - [Redis 高可用性](https://redis.io/topics/sentinel)
 - [Redis 持久性](https://redis.io/topics/persistence)
 
-## Reporting <img src='../../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style='transform : translateY(3px);'> (PRO)
+## Reporting <img src='../../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style='transform : translateY(3px);'> (PRO)
 
 
 STREAM 支持 :x:
@@ -5520,7 +5520,7 @@ Integrate easily the BunkerWeb UI.
 | `USE_UI`  | `no`   | multisite | 否     | Use UI                                       |
 | `UI_HOST` |        | global    | 否     | Address of the web UI used for initial setup |
 
-## User Manager <img src='../../assets/img/pro-icon.svg' alt='crow pro icon' height='24px' width='24px' style='transform : translateY(3px);'> (PRO)
+## User Manager <img src='../../assets/img/pro-icon.svg' alt='crown pro icon' height='24px' width='24px' style='transform : translateY(3px);'> (PRO)
 
 
 <p align='center'><iframe style='display: block;' width='560' height='315' data-src='https://www.youtube-nocookie.com/embed/EIohiUf9Fg4' title='用户管理器页面' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></p>
